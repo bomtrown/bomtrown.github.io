@@ -29,3 +29,15 @@ Projects section
 - Showoff marblerun
 
 Contacts
+
+## Design themes
+To convey myself effectively through the design language I want it to encorperate traits that relate to who I am and what I like.
+### Who I am:
+- In progress: I'm still finding my way around what I enjoy in life so I want the site to have a purposefully 'in progress' look. This should still look purposefull and well excecuted though.
+- Creative, youthful, but increasingly tasteful, colours should pop where they benefit but not overpower, eyes should be guided, not dragged.
+- A bit of a showoff, effects used should not be immediately obvious how they were achieved.
+
+### What I like:
+- Cars/strong brands
+- Science/mathematics - displays of mathematical 'beauty' should be plentiful
+- My favourite aesthetics, 'lights', 'train', 'bright'

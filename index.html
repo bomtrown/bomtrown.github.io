@@ -17,6 +17,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          overflow: hidden;
         }
       
         div {
@@ -25,7 +26,9 @@
           color: white;
           backdrop-filter: blur(0px);
           background-color: rgba(0, 0, 0, 0.5);
-          padding: 40px;
+          padding: 0px;
+          padding-left: 5vw;
+          padding-right: 5vw;
           display: flex;
           flex-direction: column;
           align-content: center;
@@ -34,15 +37,15 @@
         }
       
         h1 {
-          font-size: 10em;
+          font-size: 10vw;
           margin-bottom: 10px;
-          letter-spacing: 1px;
+          letter-spacing: -5px;
           display:inline-block;
-          -webkit-transform:scale(1,0.3); /* Safari and Chrome */
-          -moz-transform:scale(1,0.3); /* Firefox */
-          -ms-transform:scale(1,0.3); /* IE 9 */
-          -o-transform:scale(1,0.3); /* Opera */
-          transform:scale(1,0.3); /* W3C */
+          -webkit-transform:scale(1,0.2); /* Safari and Chrome */
+          -moz-transform:scale(1,0.2); /* Firefox */
+          -ms-transform:scale(1,0.2); /* IE 9 */
+          -o-transform:scale(1,0.2); /* Opera */
+          transform:scale(1,0.2); /* W3C */
           transform-origin: top; /* Keep the scale effect aligned to the top */
 
         }
@@ -50,13 +53,14 @@
         h2 {
           font-size: 1.3em;
           font-style: italic;
-          margin-top: -60px;
-          margin-bottom: 20px;
+          margin-top: -40vw;
+          margin-bottom: 0px;
         }
       
         p {
           font-size: 1em;
           line-height: 1.6;
+          font-family: Avenir Next Condensed;
         }
       
         p a {
@@ -71,8 +75,9 @@
       
         @media (max-width: 600px) {
           h1 {
-            font-size: 5em;
+            font-size: 15vw;
             margin-bottom: 20px;
+            text-align: center;
           }
 
           div {
@@ -91,7 +96,13 @@
 </head>
 <body>
     <div>
-        <h1>TOM BROWN</h1>
+        <h1>
+          TOM BROWN<br>
+          TOM BROWN<br>
+          TOM BROWN<br>
+          TOM BROWN<br>
+          TOM BROWN<br>
+        </h1>
         <h2>Caught me with my website bare :o, how embarrasing!</h2>
         <p>
             Oct 2024: Hello! I really appreciate you following a link to my site, unfortunately I'm still putting it together at the moment!

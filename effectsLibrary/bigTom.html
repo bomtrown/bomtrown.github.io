@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--
+<style>
+    h1 {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 14vw;
+        margin-left: -5vw;
+        margin-top: -20vw;
+        letter-spacing: -5px;
+        -webkit-transform:scale(1,6); /* Safari and Chrome */
+        -moz-transform:scale(1,6); /* Firefox */
+        -ms-transform:scale(1,6); /* IE 9 */
+        -o-transform:scale(1,6); /* Opera */
+        transform:scale(1,6) ; /* W3C */
+        /*transform: translate(-50%, -50%) perspective(350px) rotateX(2deg);*/
+        transform-origin: top; /* Keep the scale effect aligned to the top */
+    }
+</style>
+<body>
+    <h1>WORDS</h1>
+</body>
+-->
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+    }
+    h1 {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 14vw;
+        margin-left: -5vw;
+        margin-top: 20vw;
+        letter-spacing: -5px;
+        -webkit-transform:scale(1,6); /* Safari and Chrome */
+        -moz-transform:scale(1,6); /* Firefox */
+        -ms-transform:scale(1,6); /* IE 9 */
+        -o-transform:scale(1,6); /* Opera */
+        transform:scale(1,6) ; /* W3C */
+    }
+    h1 span {
+        display: inline-block;
+        transition: transform 0.0s ease-out;
+        transform-origin: center center;
+    }
+</style>
+
+<body>
+    <h1 id="word">
+        <span>T</span><span>O</span><span>M</span><span>B</span><span>R</span><span>O</span><span>W</span><span>N</span>
+    </h1>
+
+    <script>
+        const word = document.getElementById('word');
+        const letters = word.querySelectorAll('span');
+
+        document.addEventListener('mousemove', (e) => {
+            letters.forEach(letter => {
+                const rect = letter.getBoundingClientRect();
+                const letterX = rect.left + rect.width / 2;
+                const letterY = rect.top + rect.height / 2;
+
+                // Calculate distance from mouse to letter
+                const distX = e.clientX - letterX;
+                const distY = e.clientY - letterY;
+                const distance = Math.sqrt(distX * distX + distY * distY);
+
+                // Set the max distance at which effect occurs
+                const maxDistance = 200; // Adjust based on how reactive you want it
+
+                if (distance < maxDistance) {
+                    // Adjust the scale and rotation based on proximity
+                    const scaleAmount = 1 + (maxDistance - distance) / maxDistance * 0.5;
+                    //const rotateAmount = (maxDistance - distance) / maxDistance * 15; // Rotation in degrees
+
+                    //letter.style.transform = `scale(1, ${scaleAmount}) rotate(${rotateAmount}deg)`;
+
+                    const skewAmount = (distance - maxDistance) / maxDistance * 50; // Adjust this number for stronger/weaker skew
+                    //letter.style.transform = `skew(${skewAmount}deg) rotate(${rotateAmount}deg)`;
+                    letter.style.transform = `skew(${skewAmount}deg)`;
+
+                } else {
+                    // Reset to normal when far away
+                    letter.style.transform = 'scale(1) rotate(0deg)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #fff;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15vw;
+    letter-spacing: -5px;
+    transform: scaleY(0.3);
+}
+
+#back {
+    position: absolute; /* No need for absolute positioning */
+    z-index: 1; /* Keep .back behind .front */
+    display: flex;
+    justify-content: center;
+    color: rgb(20, 20, 71);
+    background-image: url('../media/images/Off\ the\ beaten\ Track\ bg.png'); /* Replace with your image URL */
+    background-size: cover; /* Cover the whole text area */
+    background-position: center; /* Center the image */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+}
+
+#back span {
+    transition: filter 0.2s ease-out, transform 0.2s ease-out;
+}
+
+#front {
+    position: relative;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
+    -1px 1px 0 #fff, 1px 1px 0 #fff;
+    z-index: 2; /* .front stays on top */
+    display: flex;
+    justify-content: center;
+    color: white; /*placeholder*/
+}
+</style>
+
+<body>
+    <div id="TBName">
+        <h1 id="back">
+            <span id="letterT" style="filter: url(#wavyFilterT);">T</span>
+            <span id="letterO1" style="filter: url(#wavyFilterO1);">O</span>
+            <span id="letterM" style="filter: url(#wavyFilterM);">M</span>
+            <span id="letterB" style="filter: url(#wavyFilterB);">B</span>
+            <span id="letterR" style="filter: url(#wavyFilterR);">R</span>
+            <span id="letterO2" style="filter: url(#wavyFilterO2);">O</span>
+            <span id="letterW" style="filter: url(#wavyFilterW);">W</span>
+            <span id="letterN" style="filter: url(#wavyFilterN);">N</span>
+        </h1>
+        <h1 id="front">
+            <span>T</span>
+            <span>O</span>
+            <span>M</span>
+            <span>B</span>
+            <span>R</span>
+            <span>O</span>
+            <span>W</span>
+            <span>N</span>
+        </h1>
+    </div>
+
+    <!-- SVG Filters for individual letters -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <!-- Individual filters for each letter -->
+            <filter id="wavyFilterT">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="2" result="noiseT" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseT" scale="0" id="displacementMapT" />
+            </filter>
+
+            <filter id="wavyFilterO1">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" result="noiseO1" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseO1" scale="0" id="displacementMapO1" />
+            </filter>
+
+            <filter id="wavyFilterM">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" result="noiseM" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseM" scale="0" id="displacementMapM" />
+            </filter>
+
+            <filter id="wavyFilterB">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="2" result="noiseB" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseB" scale="0" id="displacementMapB" />
+            </filter>
+
+            <filter id="wavyFilterR">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" result="noiseR" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseR" scale="0" id="displacementMapR" />
+            </filter>
+
+            <filter id="wavyFilterO2">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="2" result="noiseO2" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseO2" scale="0" id="displacementMapO2" />
+            </filter>
+
+            <filter id="wavyFilterW">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" result="noiseW" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseW" scale="0" id="displacementMapW" />
+            </filter>
+
+            <filter id="wavyFilterN">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="2" result="noiseN" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseN" scale="0" id="displacementMapN" />
+            </filter>
+        </defs>
+    </svg>
+
+    <script>
+        const letters = [
+            { element: document.getElementById('letterT'), filter: 'displacementMapT' },
+            { element: document.getElementById('letterO1'), filter: 'displacementMapO1' },
+            { element: document.getElementById('letterM'), filter: 'displacementMapM' },
+            { element: document.getElementById('letterB'), filter: 'displacementMapB' },
+            { element: document.getElementById('letterR'), filter: 'displacementMapR' },
+            { element: document.getElementById('letterO2'), filter: 'displacementMapO2' },
+            { element: document.getElementById('letterW'), filter: 'displacementMapW' },
+            { element: document.getElementById('letterN'), filter: 'displacementMapN' }
+        ];
+
+        document.addEventListener('mousemove', (e) => {
+            letters.forEach(({ element, filter }) => {
+                const rect = element.getBoundingClientRect();
+                const letterX = rect.left + rect.width / 2;
+                const letterY = rect.top + rect.height / 2;
+
+                // Calculate distance from mouse to letter
+                const distX = e.clientX - letterX;
+                const distY = e.clientY - letterY;
+                const distance = Math.sqrt(distX * distX + distY * distY);
+
+                const maxDistance = 400;
+
+                if (distance < maxDistance) {
+                    // Adjust the displacement scale based on proximity to the mouse
+                    const displacementAmount = (maxDistance - distance) / maxDistance * 70; // Max scale of 40
+                    document.getElementById(filter).setAttribute('scale', displacementAmount);
+                } else {
+                    // Reset to normal when far away
+                    document.getElementById(filter).setAttribute('scale', 0); // No distortion when far
+                    element.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    h1 {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 25vw;
+        letter-spacing: -5px;
+        color: #000; /* Black for contrast */
+        display: flex;
+        justify-content: center;
+    }
+    h1 span {
+        display: inline-block;
+        transition: filter 0.2s ease-out, transform 0.2s ease-out;
+    }
+</style>
+
+<body>
+    <h1 id="word">
+        <span id="letterW" style="filter: url(#wavyFilterW);">W</span>
+        <span id="letterO" style="filter: url(#wavyFilterO);">O</span>
+        <span id="letterR" style="filter: url(#wavyFilterR);">R</span>
+        <span id="letterD" style="filter: url(#wavyFilterD);">D</span>
+        <span id="letterS" style="filter: url(#wavyFilterS);">S</span>
+    </h1>
+
+    <!-- SVG Filters for individual letters -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <!-- Individual filters for each letter -->
+            <filter id="wavyFilterW">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" result="noiseW" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseW" scale="0" id="displacementMapW" />
+            </filter>
+
+            <filter id="wavyFilterO">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" result="noiseO" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseO" scale="0" id="displacementMapO" />
+            </filter>
+
+            <filter id="wavyFilterR">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" result="noiseR" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseR" scale="0" id="displacementMapR" />
+            </filter>
+
+            <filter id="wavyFilterD">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" result="noiseD" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseD" scale="0" id="displacementMapD" />
+            </filter>
+
+            <filter id="wavyFilterS">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" result="noiseS" />
+                <feDisplacementMap in="SourceGraphic" in2="noiseS" scale="0" id="displacementMapS" />
+            </filter>
+        </defs>
+    </svg>
+
+    <script>
+        const letters = [
+            { element: document.getElementById('letterW'), filter: 'displacementMapW' },
+            { element: document.getElementById('letterO'), filter: 'displacementMapO' },
+            { element: document.getElementById('letterR'), filter: 'displacementMapR' },
+            { element: document.getElementById('letterD'), filter: 'displacementMapD' },
+            { element: document.getElementById('letterS'), filter: 'displacementMapS' }
+        ];
+
+        document.addEventListener('mousemove', (e) => {
+            letters.forEach(({ element, filter }) => {
+                const rect = element.getBoundingClientRect();
+                const letterX = rect.left + rect.width / 2;
+                const letterY = rect.top + rect.height / 2;
+
+                // Calculate distance from mouse to letter
+                const distX = e.clientX - letterX;
+                const distY = e.clientY - letterY;
+                const distance = Math.sqrt(distX * distX + distY * distY);
+
+                const maxDistance = 400;
+
+                if (distance < maxDistance) {
+                    // Adjust the displacement scale based on proximity to the mouse
+                    const displacementAmount = (maxDistance - distance) / maxDistance * 40; // Max scale of 40
+                    document.getElementById(filter).setAttribute('scale', displacementAmount);
+                } else {
+                    // Reset to normal when far away
+                    document.getElementById(filter).setAttribute('scale', 0); // No distortion when far
+                    element.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

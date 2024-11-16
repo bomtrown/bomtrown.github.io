@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sine Wave Scroll</title>
+  <style>
+    body {
+      margin: 0;
+      height: 200vh; /* Makes the page scrollable */
+      background: white; /* Page background is white */
+    }
+    .wave-container {
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50vw; /* Half the viewport width */
+      height: 10vh; /* Half the viewport height */
+      /*border: 2px solid black; *//* Black border */
+      background: white; /* Match background */
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="wave-container">
+    <canvas id="sineCanvas"></canvas>
+  </div>
+  <script>
+    const canvas = document.getElementById('sineCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Resize canvas to match the container div
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Sine wave properties
+    const amplitude = 200; // Amplitude of the wave
+    const frequency = 0.04; // Frequency of the wave
+    let phase = 0; // Initial phase
+
+    // Draw the sine waves with gradient shading
+    function drawSineWaves() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      function drawSine(offsetPhase, scrollMultiplier) {
+        ctx.lineWidth = 4; // Increased stroke width
+        ctx.beginPath();
+
+        for (let y = 0; y < canvas.height; y++) {
+          // Calculate y position of the sine wave
+          const x = canvas.width / 2 + amplitude * (Math.sin(frequency * y + phase * scrollMultiplier + offsetPhase)+0.1*Math.sin(0.4*frequency * y + 1.2 * phase * scrollMultiplier));
+
+          // Calculate brightness based on x position (distance along the wave)
+          //const brightness = 1 - x / canvas.width; // From black to light gray
+          const brightness = Math.sin(frequency * y + phase * scrollMultiplier + Math.PI/2 + offsetPhase); // From black to light gray
+          const colorValue = Math.round(255 * brightness); // Convert to grayscale
+          ctx.strokeStyle = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+
+          if (x === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+            ctx.stroke(); // Draw each segment separately to update color
+            ctx.beginPath(); // Start a new path for the next segment
+            ctx.moveTo(x, y);
+          }
+        }
+      }
+
+      // Draw the first sine wave
+      drawSine(0, 1);
+
+      // Draw the second sine wave (180 degrees out of phase)
+      drawSine(Math.PI, 1.3);
+    }
+
+    // Update the wave's phase based on scroll position
+    function updatePhase() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      phase = scrollY * 0.01; // Adjust the multiplier for sensitivity
+      drawSineWaves();
+    }
+
+    // Redraw the waves on scroll
+    window.addEventListener('scroll', updatePhase);
+
+    // Initial draw
+    drawSineWaves();
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: hidden;
+  height: 200vh;
+}
+
+h1 {
+  font-family: 'Arial Narrow', sans-serif;
+  font-size: 10vw;
+}
+
+h2 {
+  font-family: 'Arial Narrow', sans-serif;
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.6;
+  font-family: Avenir Next Condensed;
+}
+
+p a {
+  color: #00ccff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 15vw;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+}

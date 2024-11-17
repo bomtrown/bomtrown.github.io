@@ -48,10 +48,10 @@ footer div {
 #firstPageTitle {
     display: flex;
     align-items: center;
+    height: 50vh;
 }
   
 #firstPageTitle h1 {
-    /*width: 70vw;*/
     flex-grow: 5;
     white-space: nowrap;
 }
@@ -68,7 +68,6 @@ footer div {
     transform:scale(1,0.2); /* W3C */
     transform-origin: center; /* Keep the scale effect aligned to the top */
     line-height: 1; /* Avoid extra spacing */
-    margin: 0;
 }
   
 .wave-container {
@@ -84,5 +83,12 @@ canvas {
 @media (max-width: 600px) {
     #firstPageTitle {
         flex-direction: column;
+        height: auto;
+    }
+    #firstPageTitle h1 {
+        height: 15vh;
+    }
+    .wave-container {
+        width: 20vw;
     }
 }

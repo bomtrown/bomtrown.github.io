@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radial Sine Pattern</title>
+  <style>
+    body {
+      margin: 0;
+      height: 200vh; /* Makes the page scrollable */
+      background: white; /* Page background is white */
+    }
+    .wave-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50vw; /* Half the viewport width */
+      height: 50vh; /* Half the viewport height */
+      background: white; /* Match background */
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="wave-container">
+    <canvas id="sineCanvas"></canvas>
+  </div>
+  <script>
+    const canvas = document.getElementById('sineCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Resize canvas to match the container div
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    let phase = 0; // Initial phase
+    const dampingFactor = 0.15; // Smoothing
+    let targetPhase = 0; // Phase linked to scroll position
+/////////////////////////////////////////////////////////////
+    function drawRadialPattern() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+
+      const maxRadius = Math.min(centerX, centerY) - 10; // Fit within canvas
+
+      ctx.beginPath();
+      for (let theta = 0; theta <= 2 * Math.PI; theta += 0.01) {
+        const r =
+          maxRadius *
+          (Math.sin(
+            5 * Math.sin(phase) * Math.cos(theta) + 5 * phase
+          ) +
+            1);
+        const x = centerX + r * Math.cos(theta);
+        const y = centerY + r * Math.sin(theta);
+/////////////////////////////////////////////////////////////
+        // Use brightness for stroke color
+        const brightness = (r / maxRadius) * 255;
+        ctx.strokeStyle = `rgb(${0}, ${0}, ${0})`;
+
+        if (theta === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    function updatePhase() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      targetPhase = scrollY * 0.01; // Adjust for scroll sensitivity
+
+      // Apply overdamped smoothing
+      phase += (targetPhase - phase) * dampingFactor;
+
+      drawRadialPattern();
+
+      requestAnimationFrame(updatePhase);
+    }
+
+    // Start the animation loop
+    updatePhase();
+  </script>
+</body>
+</html>

@@ -17,6 +17,11 @@ footer {
     font-family: Avenir Next Condensed;
 }
 
+footer div {
+    width: 10vw;
+    height: 10vw;
+}
+
 #thirdPageContainer {
     position: relative; /* Ensures the pseudo-element is positioned relative to this container */
     /*background-image: url('../media/images/SiteBgPlaceholder.jpg');*/
@@ -52,7 +57,7 @@ footer {
 }
   
 #firstPageTitle div {
-    flex-grow: 1;
+    flex-grow: 2;
 }
 
 .squished {
@@ -68,7 +73,7 @@ footer {
   
 .wave-container {
     /*width: 50vw; /* Half the viewport width */
-    height: 20vh; /* Half the viewport height */
+    /*height: 20vh; /* Half the viewport height */
     background: transparent; /* Match background */
 }
 canvas {

@@ -6,6 +6,7 @@
     <title>bom.trown - come back soon :o</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landingPage.css">
+    <script src="js/canvases.js" defer></script>
 </head>
 <body>
     <div id="firstPageContainer">
@@ -22,92 +23,6 @@
                 <div class="wave-container">
                     <canvas id="sineCanvas"></canvas>
                 </div>
-                <script>
-                  const canvas = document.getElementById('sineCanvas');
-                  const ctx = canvas.getContext('2d');
-                
-                  // Resize canvas to match the container div
-                  function resizeCanvas() {
-                    canvas.width = canvas.parentElement.clientWidth;
-                    canvas.height = canvas.parentElement.clientHeight;
-                  }
-                  resizeCanvas();
-                  window.addEventListener('resize', resizeCanvas);
-              
-                  // Sine wave properties
-                  const amplitude = canvas.width/2.5; // Amplitude of the wave
-                  const frequency = 0.0005; // Frequency of the wave
-                  let phase = 0; // Initial phase
-              
-                  // Overdamped spring properties
-                  let targetPhase = 0; // Target phase (based on scroll position)
-                  const dampingFactor = 0.15; // Controls the smoothness of approach (higher = slower)
-              
-                  // Draw the sine waves with gradient shading
-                  function drawSineWaves() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    function drawSine(offsetPhase, scrollMultiplier) {
-                      ctx.lineWidth = 4; // Increased stroke width
-                      ctx.beginPath();
-                    
-                      for (let y = 0; y < canvas.height; y++) {
-                        // Calculate y position of the sine wave
-                        const x =
-                          canvas.width / 2 +
-                          amplitude *
-                            (Math.sin(
-                              canvas.height*frequency * y + phase * scrollMultiplier + offsetPhase
-                            ) +
-                              0.1 *
-                                Math.sin(
-                                  0.7 * canvas.height*frequency * y + 1.2 * phase * scrollMultiplier
-                                ));
-
-                        // Calculate brightness based on x position (distance along the wave)
-                        const value = 0.5+0.5*Math.sin(
-                          canvas.height*frequency * y +
-                            phase * scrollMultiplier +
-                            Math.PI / 2 +
-                            offsetPhase
-                        ); // From black to light gray
-                        ctx.strokeStyle = `rgba(0, 0, 0, ${value})`;
-
-                        if (x === 0) {
-                          ctx.moveTo(x, y);
-                        } else {
-                          ctx.lineTo(x, y);
-                          ctx.stroke(); // Draw each segment separately to update color
-                          ctx.beginPath(); // Start a new path for the next segment
-                          ctx.moveTo(x, y);
-                        }
-                      }
-                    }
-                
-                    // Draw the first sine wave
-                    drawSine(0, 2);
-                
-                    // Draw the second sine wave (180 degrees out of phase)
-                    drawSine(Math.PI, 2.6);
-                  }
-              
-                  // Update the wave's phase with overdamped dynamics
-                  function updatePhase() {
-                    const scrollY = window.scrollY || window.pageYOffset;
-                    targetPhase = scrollY * 0.01; // Adjust the multiplier for sensitivity
-
-                    // Apply overdamped smoothing
-                    phase += (targetPhase - phase) * dampingFactor;
-
-                    drawSineWaves();
-
-                    // Continue updating
-                    requestAnimationFrame(updatePhase);
-                  }
-              
-                  // Start the animation loop
-                  updatePhase();
-                </script>
             </div>
             <h2>Caught me with my website bare :o, how embarrasing!</h2>
             <p>
@@ -119,7 +34,11 @@
         </div>
         <footer class="firstPage">
             I'm on it!
+            <div class="wave-container">
+              <canvas id="radialCanvas"></canvas>
+          </div>
         </footer>
+
     </div>
 
 </body>

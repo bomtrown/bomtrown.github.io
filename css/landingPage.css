@@ -80,6 +80,13 @@ canvas {
     height: 100%;
 }
 
+.pageBreak {
+    width: 100vw;
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove extra spacing if it's inline */
+    margin: -10vw 0; /* Use negative margin to bring the element closer to adjacent elements on top and bottom, with no effect on left and right */
+}
+
 @media (max-width: 600px) {
     #firstPageTitle {
         flex-direction: column;

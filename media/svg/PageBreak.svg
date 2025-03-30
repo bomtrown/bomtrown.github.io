@@ -1,0 +1,1791 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="606.21777mm"
+   height="312.5mm"
+   viewBox="0 0 606.21777 312.5"
+   version="1.1"
+   id="svg3586"
+   sodipodi:docname="Triangles.svg"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview3588"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.23595024"
+     inkscape:cx="387.79362"
+     inkscape:cy="-21.190908"
+     inkscape:window-width="1680"
+     inkscape:window-height="1022"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4033"
+       spacingx="5"
+       spacingy="5"
+       units="mm"
+       enabled="false" />
+    <inkscape:grid
+       type="axonomgrid"
+       id="grid4079"
+       spacingy="2.5" />
+  </sodipodi:namedview>
+  <defs
+     id="defs3583" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(335.58485,143.75)">
+    <g
+       id="g8600"
+       inkscape:label="ClusterR">
+      <g
+         id="g5031"
+         inkscape:label="Tri">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-6"
+         inkscape:label="Tri"
+         transform="rotate(60,84.437473,-3.7499956)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-1"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-3"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-9"
+         inkscape:label="Tri"
+         transform="rotate(60,84.437475,-86.249999)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-6"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-4"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-9-5"
+         inkscape:label="Tri"
+         transform="rotate(120,155.88457,120)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-6-9"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7-6-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-6-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-6-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-7-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-0-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-4-7"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-7-8"
+         inkscape:label="Tri"
+         transform="rotate(60,227.33166,78.750001)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-9-3"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-8-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-4-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-5-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-8-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-8-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-9-7"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-8-4"
+         inkscape:label="Tri"
+         transform="rotate(180,120.16102,-24.374996)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-5-4"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-1-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-2-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-4-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-6-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-7-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-5-1"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-5-5"
+         inkscape:label="Tri"
+         transform="rotate(-120,84.437477,-3.7499956)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-0-9"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-5-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-2-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-0-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-7-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-7-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-9-4"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-7-3"
+         inkscape:label="Tri"
+         transform="rotate(-60,84.437478,-3.7499997)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-5-9"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7-3-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-9-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-9-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-4-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-9-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-1-1"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-9-5-4"
+         inkscape:label="Tri"
+         transform="rotate(120,155.88457,37.500003)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-6-9-6"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7-6-8-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-6-3-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-6-0-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-7-9-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-0-0-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-4-7-4"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-7-8-7"
+         inkscape:label="Tri"
+         transform="rotate(120,84.437477,-3.7499999)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-9-3-0"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-8-8-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-4-6-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-5-1-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-8-9-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-8-6-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-9-7-7"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-9-5-4-9"
+         inkscape:label="Tri"
+         transform="rotate(180,191.60812,16.875001)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-6-9-6-6"
+           inkscape:label="Guide" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,-82.5 223.00154,-3.7499999 214.34129,1.2500002 86.602541,-72.5 Z"
+           id="path5322-5-6-6-3-3-1-9-7-7"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,-67.5 123.408619,71.2500002 -8.66025,5 L 86.602541,-57.5 Z"
+           id="path6804"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,-52.5 187.32369,5.6513821 197.02078,11.25 l -8.66025,5 L 86.602541,-42.5 Z"
+           id="path6800"
+           inkscape:label="Line"
+           sodipodi:nodetypes="cccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,-37.5 97.427859,56.25 -8.66026,5 -88.767599,-51.25 z"
+           id="path5322-5-6-6-3-3-1-9-7"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602545,-22.499999 171.04002,26.25 l -8.66026,5 -75.777215,-43.749999 z"
+           id="path5322-5-6-6-3-3-1-9"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,-7.4999998 158.04964,33.75 l -8.66026,5 L 86.60254,2.5000002 Z"
+           id="path5322-5-6-6-3-3-1"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,7.5000002 145.05926,41.25 136.399,46.25 86.602541,17.5 Z"
+           id="path5324-3-8-6-0-2-3"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,22.5 45.466329,26.25 -8.66025,5 -36.806079,-21.250001 z"
+           id="path5326-1-5-7-9-2-2"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,37.499999 119.07849,56.25 l -8.66025,5 L 86.602541,47.5 Z"
+           id="path5328-0-4-0-0-1-6"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,52.499998 106.08811,63.75 l -8.660252,5 -10.825317,-6.250001 z"
+           id="path5330-1-7-4-7-4-9"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,67.5 6.49519,3.75 -6.49519,3.75 v 0 z"
+           id="path7108"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+      </g>
+      <g
+         id="g5332-5-9-9-5-4-9-4"
+         inkscape:label="Tri"
+         transform="rotate(-60,-129.90381,367.5)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-6-9-6-6-8"
+           inkscape:label="Guide" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,-82.5 223.00154,-3.7499999 214.34129,1.2500002 86.602541,-72.5 Z"
+           id="path5322-5-6-6-3-3-1-9-7-7-1"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,-67.5 123.408619,71.2500002 -8.66025,5 L 86.602541,-57.5 Z"
+           id="path6804-2"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,-52.5 187.32369,5.6513821 197.02078,11.25 l -8.66025,5 L 86.602541,-42.5 Z"
+           id="path6800-8"
+           inkscape:label="Line"
+           sodipodi:nodetypes="cccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,-37.5 97.427859,56.25 -8.66026,5 -88.767599,-51.25 z"
+           id="path5322-5-6-6-3-3-1-9-7-3"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602545,-22.499999 171.04002,26.25 l -8.66026,5 -75.777215,-43.749999 z"
+           id="path5322-5-6-6-3-3-1-9-9"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="display:inline;fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,-7.4999998 158.04964,33.75 l -8.66026,5 L 86.60254,2.5000002 Z"
+           id="path5322-5-6-6-3-3-1-99"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,7.5000002 145.05926,41.25 136.399,46.25 86.602541,17.5 Z"
+           id="path5324-3-8-6-0-2-3-6"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,22.5 45.466329,26.25 -8.66025,5 -36.806079,-21.250001 z"
+           id="path5326-1-5-7-9-2-2-1"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,37.499999 119.07849,56.25 l -8.66025,5 L 86.602541,47.5 Z"
+           id="path5328-0-4-0-0-1-6-7"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.602541,52.499998 106.08811,63.75 l -8.660252,5 -10.825317,-6.250001 z"
+           id="path5330-1-7-4-7-4-9-3"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.602541,67.5 6.49519,3.75 -6.49519,3.75 v 0 z"
+           id="path7108-9"
+           inkscape:label="Line"
+           sodipodi:nodetypes="ccccc" />
+      </g>
+      <g
+         id="g5332-5-5-5-4-4"
+         inkscape:label="Tri"
+         transform="rotate(-60,84.437473,-168.75)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-0-9-5-1"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-5-1-1-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-2-3-2-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-0-8-3-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-7-8-7-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-7-9-2-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-9-4-4-4"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-7-3-1-0"
+         inkscape:label="Tri"
+         transform="translate(142.8942,-82.500005)"
+         style="display:inline">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-5-9-8-4"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7-3-5-2-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-9-1-6-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-9-7-0-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-4-4-3-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-9-5-9-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-1-1-4-7"
+           inkscape:label="Line" />
+      </g>
+      <rect
+         style="opacity:0.442013;fill:none;stroke:none;stroke-width:4.33001;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+         id="rect9294"
+         width="606.21777"
+         height="312.5"
+         x="-335.58484"
+         y="-143.75"
+         ry="4.9937069e-07" />
+    </g>
+    <g
+       id="g8489"
+       inkscape:label="Strays"
+       transform="translate(-433.0127,395)"
+       style="display:none">
+      <g
+         id="g5332"
+         inkscape:label="Tri"
+         transform="rotate(120,-47.812617,34.327041)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5"
+         inkscape:label="Tri"
+         transform="rotate(180,5.4126573,155.625)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9"
+         inkscape:label="Tri"
+         transform="rotate(-120,141.45081,162.5)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-7"
+         inkscape:label="Tri"
+         transform="rotate(60,357.23548,386.25)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-9"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-9"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-6-4"
+         inkscape:label="Tri"
+         transform="rotate(120,301.66552,202.5)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-1-7"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-4-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-0-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-8-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-1-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-0-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-3-3"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-8"
+         inkscape:label="Tri"
+         transform="rotate(180,333.41978,120)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-5"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-5"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-5"
+         inkscape:label="Tri"
+         transform="rotate(-120,186.19546,102.5)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-0"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-9"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-7"
+         inkscape:label="Tri"
+         transform="rotate(-60,342.08003,77.499999)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-5"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-1"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-6-4-8"
+         inkscape:label="Tri"
+         transform="rotate(120,272.798,-97.499998)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-1-7-9"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-4-0-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-0-4-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-8-0-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-1-6-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-0-5-4"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-3-3-9"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-6-4-8-6"
+         inkscape:label="Tri"
+         transform="rotate(180,48.713928,-138.125)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-1-7-9-8"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-4-0-7-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-0-4-5-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-8-0-5-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-1-6-2-8"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-0-5-4-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-3-3-9-7"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-8-4-1"
+         inkscape:label="Tri"
+         transform="rotate(-120,13.712068,-66.250001)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-5-4-2"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-1-7-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-2-9-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-4-5-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-6-5-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-7-6-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-5-1-0"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-5-5-4"
+         inkscape:label="Tri"
+         transform="rotate(-60,-153.71951,73.75)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-0-9-5"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-5-1-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-2-3-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-0-8-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-7-8-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-7-9-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-9-4-4"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-7-3-1"
+         inkscape:label="Tri"
+         transform="translate(-227.33166,-148.75)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-5-9-8"
+           inkscape:label="Guide" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-9-1-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-9-7-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-4-4-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-9-5-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-1-1-4"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-7-8-7-0"
+         inkscape:label="Tri"
+         transform="rotate(120,291.56189,82.499999)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-9-3-0-3"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-8-8-9-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-4-6-5-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-5-1-7-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-8-9-2-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-8-6-9-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-9-7-7-2"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5031-6-4-8-6-6"
+         inkscape:label="Tri"
+         transform="rotate(180,265.22028,43.124999)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path4334-1-7-9-8-9"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path4260-4-0-7-2-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path4324-0-4-5-9-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path4326-8-0-5-9-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path4328-1-6-2-8-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path4330-0-5-4-3-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path4332-3-3-9-7-7"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-8-4-1-3"
+         inkscape:label="Tri"
+         transform="rotate(-120,115.47005,-285)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-5-4-2-8"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-1-7-6-7"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-2-9-1-0"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-4-5-7-3"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-6-5-6-6"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-7-6-5-9"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-5-1-0-1"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g5332-5-9-9-5-4-9-0"
+         inkscape:label="Tri"
+         transform="rotate(180,328.00712,-26.874998)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path5318-0-5-6-9-6-6-1"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path5320-6-7-6-8-0-5-1"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path5322-5-6-6-3-3-1-5"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path5324-3-8-6-0-2-3-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path5326-1-5-7-9-2-2-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path5328-0-4-0-0-1-6-2"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path5330-1-7-4-7-4-9-4"
+           inkscape:label="Line" />
+      </g>
+    </g>
+    <path
+       style="display:none;opacity:0.442013;fill:#000000;stroke:none;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+       d="m 248.98228,-93.749998 c -43.30126,50 -151.554429,12.499999 -162.379749,43.75 -10.82532,31.249999 -75.777221,56.249999 -97.427855,43.749999 -21.650635,-12.5 -54.126588,31.250001 -54.126588,43.749999 0,12.500002 43.301271,-12.499999 75.777223,18.750001 C 43.301265,87.500002 86.602531,37.5 129.9038,62.5 c 43.30127,25 75.77722,-6.25 97.42786,31.250001 21.65062,37.499999 0,74.999999 21.65062,62.499999 21.65065,-12.5 54.12661,-106.249998 54.12661,-118.75 0,-12.499998 -54.12661,-131.249998 -54.12661,-131.249998 z"
+       id="path7110"
+       sodipodi:nodetypes="cssssssssc" />
+    <g
+       id="g9073"
+       inkscape:label="ClusterL"
+       transform="matrix(-1,0,0,1,-45.466334,41.249998)">
+      <g
+         id="g8885"
+         inkscape:label="Tri"
+         transform="rotate(60,155.88457,-44.999998)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8871"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path8873"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path8875"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path8877"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path8879"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path8881"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path8883"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g8901"
+         inkscape:label="Tri"
+         transform="rotate(-60,12.990383,120)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8887"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path8889"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path8891"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path8893"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path8895"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path8897"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path8899"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g8917"
+         inkscape:label="Tri"
+         transform="rotate(-60,227.33165,-86.250005)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8903"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path8905"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path8907"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path8909"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path8911"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path8913"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path8915"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g8933"
+         inkscape:label="Tri"
+         transform="rotate(60,155.88458,120)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8919"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path8921"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path8923"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path8925"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path8927"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path8929"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path8931"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g8949"
+         inkscape:label="Tri"
+         transform="rotate(180,120.16102,16.874999)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8935"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path8937"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path8939"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path8941"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path8943"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path8945"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path8947"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g8981"
+         inkscape:label="Tri"
+         transform="rotate(-60,155.88456,37.499995)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8967"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path8969"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path8971"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path8973"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path8975"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path8977"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path8979"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g8997"
+         inkscape:label="Tri"
+         transform="rotate(120,132.06888,78.749997)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8983"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path8985"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path8987"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path8989"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path8991"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path8993"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path8995"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g9013"
+         inkscape:label="Tri"
+         transform="translate(-71.447096,-41.249998)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path8999"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path9001"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path9003"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path9005"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path9007"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path9009"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path9011"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g9055"
+         inkscape:label="Tri"
+         transform="rotate(-60,155.88456,-127.5)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path9041"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path9043"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path9045"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path9047"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path9049"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path9051"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path9053"
+           inkscape:label="Line" />
+      </g>
+      <g
+         id="g9071"
+         inkscape:label="Tri"
+         transform="translate(142.8942,-1.6276818e-5)">
+        <path
+           style="display:none;fill:none;stroke:#00ffff;stroke-width:4.33;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;paint-order:markers fill stroke"
+           d="M 86.60254,0 151.55444,37.499999 86.60254,75 Z"
+           id="path9057"
+           inkscape:label="Guide" />
+        <path
+           style="fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 43.30127,25 -4.33013,2.5 L 86.60254,5 Z"
+           id="path9059"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,0 64.9519,37.499999 -8.66025,5 L 86.60254,10 Z"
+           id="path9061"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,15 138.56406,44.999999 129.90381,50 86.60254,25 Z"
+           id="path9063"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="m 86.60254,30 38.97114,22.5 -8.66025,4.999998 -30.31089,-17.499999 z"
+           id="path9065"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,44.999999 112.5833,59.999998 103.92305,64.999999 86.60254,55 Z"
+           id="path9067"
+           inkscape:label="Line" />
+        <path
+           style="fill:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+           d="M 86.60254,59.999998 99.59292,67.499999 90.932666,72.5 86.60254,69.999999 Z"
+           id="path9069"
+           inkscape:label="Line" />
+      </g>
+    </g>
+  </g>
+</svg>

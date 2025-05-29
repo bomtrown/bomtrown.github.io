@@ -17,10 +17,19 @@ h2 {
   font-style: italic;
 }
 
-p {
+p, ul {
   font-size: 1em;
   line-height: 1.6;
   font-family: Avenir Next Condensed;
+}
+
+ul {
+  padding-left: 0px;
+  list-style: none;
+  background: -webkit-linear-gradient(#333, #eee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 p a {

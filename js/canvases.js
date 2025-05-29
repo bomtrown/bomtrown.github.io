@@ -1,8 +1,6 @@
 // Get canvas elements and contexts
 const canvas = document.getElementById('sineCanvas');
 const ctx = canvas.getContext('2d');
-const canvas2 = document.getElementById('radialCanvas');
-const ctx2 = canvas2.getContext('2d');
 
 // Sine wave properties
 let amplitude = canvas.width / 2.5; // Wave amplitude
@@ -60,37 +58,6 @@ function drawSineWaves() {
   drawSine(Math.PI, 2.6);
 }
 
-// Draw radial pattern
-function drawRadialPattern() {
-  ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-  ctx2.lineWidth = 4; // Stroke width
-
-  const centerX = canvas2.width / 2;
-  const centerY = canvas2.height / 2;
-  const maxRadius = Math.min(centerX, centerY) - 10; // Radius within canvas
-
-  const aspectRatio = canvas2.width / canvas2.height;
-
-  ctx2.beginPath();
-  for (let theta = 0; theta <= 2 * Math.PI; theta += 0.01) {
-    const r =
-      0.5 * maxRadius *
-      (Math.sin(5 * Math.sin(phase) * Math.cos(theta) + 5 * phase) + 1);
-
-    // Adjust x and y based on the aspect ratio
-    const x = centerX + r * Math.cos(theta) * aspectRatio;
-    const y = centerY + r * Math.sin(theta);
-
-    if (theta === 0) {
-      ctx2.moveTo(x, y);
-    } else {
-      ctx2.lineTo(x, y);
-    }
-  }
-  ctx2.strokeStyle = 'white';
-  ctx2.stroke();
-}
-
 // Update the wave's phase based on scroll position
 function updatePhase() {
   const scrollY = window.scrollY || window.pageYOffset;
@@ -101,7 +68,7 @@ function updatePhase() {
 
   // Draw updated visuals
   drawSineWaves();
-  drawRadialPattern();
+  //drawRadialPattern();
 
   // Continue animation loop
   requestAnimationFrame(updatePhase);

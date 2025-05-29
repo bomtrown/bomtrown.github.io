@@ -80,7 +80,7 @@ canvas {
     height: 100%;
 }
 
-.pageBreak {
+.pageBreak img {
     width: 100vw;
     height: auto; /* Maintain aspect ratio */
     display: block; /* Remove extra spacing if it's inline */

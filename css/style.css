@@ -54,7 +54,7 @@ p a:hover {
     max-width: clamp(30vh, 40vw, 50vh);
 }
 
-.scrolling-wrapperimg {
+.scrolling-wrapper img {
       width: 100%;
       height: auto;
 }

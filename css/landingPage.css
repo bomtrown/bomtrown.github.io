@@ -1,6 +1,12 @@
-#firstPageContainer {
+#first-page-container {
     position: relative; /* Ensures the pseudo-element is positioned relative to this container */
     height: 200vh;
+    width: 100vw;
+}
+
+#second-page-container {
+    position: relative; /* Ensures the pseudo-element is positioned relative to this container */
+
     width: 100vw;
 }
 
@@ -21,18 +27,8 @@ footer div {
     width: 10vw;
     height: 10vw;
 }
-
-#thirdPageContainer {
-    position: relative; /* Ensures the pseudo-element is positioned relative to this container */
-    /*background-image: url('../media/images/SiteBgPlaceholder.jpg');*/
-    background-size: cover;
-    background-position: center;
-    height: 200vh;
-    width: 100vw;
-    overflow: hidden; /* Prevents overflow caused by the pseudo-element */
-}
   
-#firstPageContent {
+#first-page-content {
     height: 100vh;
     text-align: left;
     color: black;
@@ -45,18 +41,18 @@ footer div {
     justify-content: center;
 }
   
-#firstPageTitle {
+#first-page-title {
     display: flex;
     align-items: center;
     height: 50vh;
 }
   
-#firstPageTitle h1 {
+#first-page-title h1 {
     flex-grow: 5;
     white-space: nowrap;
 }
   
-#firstPageTitle div {
+#first-page-title div {
     flex-grow: 2;
 }
 
@@ -80,19 +76,19 @@ canvas {
     height: 100%;
 }
 
-.pageBreak img {
+.page-break img {
     width: 100vw;
     height: auto; /* Maintain aspect ratio */
     display: block; /* Remove extra spacing if it's inline */
-    margin: -10vw 0; /* Use negative margin to bring the element closer to adjacent elements on top and bottom, with no effect on left and right */
+    margin: -10vw 0 6vw; /* Use negative margin to bring the element closer to adjacent elements on top and bottom, with no effect on left and right */
 }
 
 @media (max-width: 600px) {
-    #firstPageTitle {
+    #first-page-title {
         flex-direction: column;
         height: auto;
     }
-    #firstPageTitle h1 {
+    #first-page-title h1 {
         height: 15vh;
     }
     .wave-container {

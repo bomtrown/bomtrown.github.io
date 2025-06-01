@@ -42,6 +42,28 @@ p a:hover {
   text-decoration: underline;
 }
 
+.scrolling-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  .card {
+    flex: 0 0 auto;
+    max-width: clamp(30vh, 40vw, 50vh);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    h2 {
+      font-size: 4vh;
+      margin: 0 1vw;
+    }
+  }
+
 @media (max-width: 600px) {
   h1 {
     font-size: 15vw;

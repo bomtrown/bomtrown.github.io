@@ -47,22 +47,25 @@ p a:hover {
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+
+  .card{
+    flex: 0 0 auto;
+    height: clamp(60vh, 50vw, 70vh);
+    width: auto;
   }
 
-.scrolling-wrapper .card {
-    flex: 0 0 auto;
-    max-width: clamp(30vh, 40vw, 50vh);
-}
-
-.scrolling-wrapper img {
+  img {
       width: 100%;
-      height: auto;
-}
+      height: 100%;
+  }
 
-.scrolling-wrapper h2 {
+  h2 {
+      width: 100vw;
+      height: 100%;
       font-size: 4vh;
       margin: 0 1vw;
-    }
+  }
+}
 
 @media (max-width: 600px) {
   h1 {

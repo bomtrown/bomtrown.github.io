@@ -17,19 +17,10 @@ h2 {
   font-style: italic;
 }
 
-p, ul {
+p{
   font-size: 1em;
   line-height: 1.6;
   font-family: Avenir Next Condensed;
-}
-
-ul {
-  padding-left: 0px;
-  list-style: none;
-  background: -webkit-linear-gradient(#333, #eee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 p a {
@@ -46,31 +37,50 @@ p a:hover {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  min-height: 100px;
 
-  .card{
-    flex: 0 0 auto;
-    height: clamp(60vh, 50vw, 70vh);
-    width: auto;
-  }
+}
 
-  img {
-      width: 100%;
-      height: 100%;
-  }
+.scrolling-wrapper .card{
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+  display: flex;
+  height: clamp(40vh, 50vw, 70vh);
+  width: auto;
+  min-width: 0; /* Some browsers miscalculate flex items. */
+  align-items: center;
+}
 
-  h2 {
-      width: 100vw;
-      height: 100%;
-      font-size: 4vh;
-      margin: 0 1vw;
-  }
+.scrolling-wrapper a {
+  height: 100%;
+}
+
+.scrolling-wrapper img {
+  width: auto;
+  height: 100%;
+}
+
+.scrolling-wrapper .card div {
+  background-color: white;
+  width: 30vw;
+  margin: 2vw;
+  padding: 2vw;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card.active div {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @media (max-width: 600px) {
   h1 {
     font-size: 15vw;
-    margin-bottom: 20px;
     text-align: center;
   }
 
@@ -80,5 +90,20 @@ p a:hover {
 
   p {
     font-size: 1em;
+  }
+  
+  .scrolling-wrapper .card {
+    align-items: flex-start;
+  }
+
+  .scrolling-wrapper .card div {
+    width: 70vw;
+    margin: 0;
+    padding: 0 15vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
   }
 }

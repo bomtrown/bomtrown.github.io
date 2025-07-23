@@ -14,57 +14,86 @@
     <link rel="apple-touch-icon" sizes="152x152" href="media/favicons/apple-touch-icon-152x152.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="media/favicons/apple-touch-icon-180x180.png" />
     <title>bom.trown - come back soon :o</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.0.0/perlin.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landingPage.css">
-    <script src="js/canvases.js" defer></script>
 </head>
 <body>
-    <div id="first-page-container">
-        <div id="first-page-content">
+    <main>
+        <section id="first-page-content">
             <div id="first-page-title">
                 <h1 class="squished">
-                  TOM BROWN<br>
-                  TOM BROWN<br>
-                  TOM BROWN<br>
-                  TOM BROWN<br>
-                  TOM BROWN<br>
+                    TOM BROWN<br>
+                    TOM BROWN<br>
+                    TOM BROWN<br>
+                    TOM BROWN<br>
+                    TOM BROWN<br>
                 </h1>
-                <!--Fusilli-->
-                <div class="wave-container">
-                    <canvas id="sineCanvas"></canvas>
-                </div>
+                <script src="js/nameJitter.js" defer></script>
             </div>
-            <h2>Personal site and portfolio of cool things in no particular order</h2>
-            <ul>
-                <li>
-                    <strong>May 2025:</strong> Projects starting to appear on here at the moment. finally!
-                </li>
-                <li>
-                    <strong>Mar 2025:</strong> Do you like my triangles!
-                </li>
-                <li>
-                    <strong>Oct 2024:</strong> Hello! I really appreciate you following a link to my site, unfortunately I'm still putting it together at the moment! Make sure to give me a follow/connection wherever you found me as I want to get this working as soon as I can. Don't miss it, it's going to be wonderful...<br>
-                    @bom.trown basically everywhere
-                </li>
-            </ul>
-        </div>
+        </section>
         <!-- Page Break -->
         <div class="page-break">
             <img src="media/svg/PageBreak.svg" alt="Page Break"></img>
         </div>
         <!-- Showcases Carousell -->
-         <div id="second-page-container">
+         <section id="second-page-container">
             <div class="scrolling-wrapper">
-                <div class="card"><img src="media/images/poster-pulsar-basilica.jpg" alt="Pulsar Basilica Poster"></div>
-                <div class="card"><img src="media/images/poster-nineties-night.jpg" alt="Nineties Night Poster"></div>
-                <div class="card"><img src="media/images/car-wireframe.png" alt="Car Wireframe"></div>
-                <div class="card"><img src="media/images/site-bg-placeholder.jpg" alt="Site Background Placeholder"></div>
-                <div class="card"><h2>This is where I will be putting content on a project by project basis, I have around four projects lined up that I'd like to start showcasing soon.</h2></div>
+                <div class="card">
+                    <a href="https://github.com/bomtrown/roundabout"><img src="media/images/roundabout-sim.jpg" alt="Roundabout Simulator 3D graph"></a>
+                    <div>
+                        <h2>Roundabout Simulator</h2>
+                        <p>This project aims to investigate traffic flow and optimization in roundabout rules using python simulations.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="media/images/poster-pulsar-basilica.jpg" alt="Pulsar Basilica Poster">
+                    <div>
+                        <h2>Pulsar Basilica</h2>
+                        <p>A simple challenge, create something cool with passion, and sell it!</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="media/images/poster-nineties-night.jpg" alt="Nineties Night Poster">
+                    <div>
+                        <h2>Nineties Night</h2>
+                        <p>Content soon...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="media/images/car-wireframe.png" alt="Car Wireframe">
+                    <div>
+                        <h2>3D Modeling</h2>
+                        <p>Content soon...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="media/images/site-bg-placeholder.jpg" alt="Site Background Placeholder">
+                </div>
             </div>
-         </div>
+         </section>
+         <script>
+  const wrapper = document.querySelector('.scrolling-wrapper');
+  const cards = document.querySelectorAll('.scrolling-wrapper .card');
+
+  let observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('active', entry.isIntersecting && entry.intersectionRatio >= 0.9);
+      });
+    },
+    {
+      root: wrapper,
+      threshold: 0.9, // Consider a card "active" when 90% in view
+    }
+  );
+
+  cards.forEach(card => observer.observe(card));
+        </script>
+
         <footer>
             I'm on it!
         </footer>
-    </div>
+    </main>
 </body>
 </html>

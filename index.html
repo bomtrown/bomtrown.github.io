@@ -20,24 +20,32 @@
 </head>
 <body>
     <main>
-        <section id="first-page-content">
-            <div id="first-page-title">
-                <h1 class="squished">
+        <div id="sticky-container">
+            <div id="first-page-title-wrapper">
+                <h1 class="squished jitter">
                     TOM BROWN<br>
                     TOM BROWN<br>
                     TOM BROWN<br>
                     TOM BROWN<br>
                     TOM BROWN<br>
                 </h1>
+            </div>
+        </div>
+        <section id="first-page">
+            <h2>Personal site and portfolio of cool things in no particular order</h2>
                 <script src="js/nameJitter.js" defer></script>
             </div>
+            <img id="sourceImage" src="./media/images/me.png" alt="source" style="display:none; height: 100vh; width: auto;">
+            <canvas id="preview" style="display: none;"></canvas>
+            <pre id="ascii"></pre>
+            <script src="js/asciify.js" defer></script>
         </section>
         <!-- Page Break -->
         <div class="page-break">
             <img src="media/svg/PageBreak.svg" alt="Page Break"></img>
         </div>
         <!-- Showcases Carousell -->
-         <section id="second-page-container">
+         <section id="second-page">
             <div class="scrolling-wrapper">
                 <div class="card">
                     <a href="https://github.com/bomtrown/roundabout"><img src="media/images/roundabout-sim.jpg" alt="Roundabout Simulator 3D graph"></a>
@@ -61,7 +69,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="media/images/car-wireframe.png" alt="Car Wireframe">
+                    <img src="media/images/car-wireframe-2.png" alt="Car Wireframe">
                     <div>
                         <h2>3D Modeling</h2>
                         <p>Content soon...</p>

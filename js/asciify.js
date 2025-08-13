@@ -60,7 +60,8 @@ const clampDimensions = (width, height) => {
 };
 
 // ===== ASCII CHARACTERS =====
-const grayRamp = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
+//const grayRamp = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
+const grayRamp = "  .:=+-#*%@";
 const rampLength = grayRamp.length;
 const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * grayScale / 255)];
 

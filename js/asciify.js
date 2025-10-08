@@ -6,6 +6,7 @@ const image = document.getElementById('sourceImage'); // Preloaded HTML image
 
 // ===== GRAYSCALE CONVERSION =====
 const toGrayScale = (r, g, b) => 0.21 * r + 0.72 * g + 0.07 * b;
+//const toGrayScale = (r, g, b) => r/3 + g/3 + b/3;
 
 const getFontRatio = () => {
     const pre = document.createElement('pre');
@@ -61,9 +62,9 @@ const clampDimensions = (width, height) => {
 
 // ===== ASCII CHARACTERS =====
 //const grayRamp = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
-const grayRamp = " .:=+-#*%@";
+const grayRamp = "  .:=+-#*%@";
 const rampLength = grayRamp.length;
-const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * grayScale / 255)];
+const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * (grayScale) / 255)];
 
 const drawAscii = (grayScales, width) => {
     const ascii = grayScales.reduce((asciiStr, grayScale, index) => {
@@ -81,6 +82,13 @@ const redrawAscii = () => {
     canvas.height = height;
     context.drawImage(image, 0, 0, width, height);
     const grayScales = convertToGrayScales(context, width, height);
+    const scrollY = window.scrollY || window.pageYOffset;
+    const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
+    const brightness = (scrollY / maxScroll) * 20; // Range: 1 to 3
+
+    for (let i = 0; i < grayScales.length; i++) {
+        grayScales[i] = Math.min(255, Math.max(0, grayScales[i] * brightness));
+    }
     drawAscii(grayScales, width);
 };
 

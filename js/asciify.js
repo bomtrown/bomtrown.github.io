@@ -84,7 +84,7 @@ const redrawAscii = () => {
     const grayScales = convertToGrayScales(context, width, height);
     const scrollY = window.scrollY || window.pageYOffset;
     const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-    const brightness = (scrollY / maxScroll) * 20; // Range: 1 to 3
+    const brightness = (scrollY / maxScroll) * 15; // Range: 1 to 3
 
     for (let i = 0; i < grayScales.length; i++) {
         grayScales[i] = Math.min(255, Math.max(0, grayScales[i] * brightness));

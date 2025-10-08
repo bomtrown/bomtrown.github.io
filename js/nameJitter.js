@@ -74,7 +74,8 @@ window.addEventListener('scroll', () => {
       const hue = hues[Math.floor(fakeNoise(index) * hues.length)];
       span.style.color = `hsl(${hue}, 90%, 60%)`;
     } else {
-      span.style.color = `hsl(0, 0, 0)`;
+       const lightness = (Math.sin(blipSeed / 2) + 1) * 5;
+      span.style.color = `hsl(0, 0%, ${lightness}%)`;
     }
 
     // === BACKGROUND COLOUR ===

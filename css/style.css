@@ -90,6 +90,41 @@ p a:hover {
   pointer-events: auto;
 }
 
+.pop-in {
+  position: absolute;
+  display: inline-block;
+  overflow: visible;
+}
+/* The border is drawn by ::after */
+.pop-in::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -5;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  transition: border-color, opacity;
+  pointer-events: none;
+}
+/* Image fades in separately */
+.pop-in img {
+  opacity: 0;
+  transition: opacity;
+}
+/* Between n1–n2: show only the border */
+.pop-in.border-only::after {
+  border-color: black;
+}
+/* After n2: reveal the image, hide the border */
+.pop-in.visible::after {
+  border-color: transparent;
+}
+.pop-in.visible img {
+  opacity: 1;
+}
+
+
+
 @media (max-width: 600px) {
   h1 {
     font-size: 15vw;

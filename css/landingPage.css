@@ -38,6 +38,7 @@ footer h2 {
 
 #first-page-title-wrapper h1 {
     padding-left: 5vw;
+    background-color: white;
 }
 
 #first-page-title-wrapper h1 span {
@@ -55,6 +56,7 @@ footer h2 {
 #first-page h2 {
     position: absolute;
     top: calc(47vh - 5vw);
+    z-index: 50;
 }
 
 #second-page {
@@ -95,6 +97,10 @@ footer h2 {
 @media (max-width: 600px) {
     #first-page-title-wrapper {
         justify-content: center;
+        padding: 0;
+    }
+
+    #first-page-title-wrapper h1 {
         padding: 0;
     }
 

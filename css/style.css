@@ -15,6 +15,12 @@ h1 {
 }
 
 h2 {
+  font-family: Monospace;
+  font-size: 1.3em;
+  background-color: white;
+}
+
+h3 {
   font-family: 'Arial Narrow', sans-serif;
   font-size: 1.3em;
   font-style: italic;
@@ -22,7 +28,6 @@ h2 {
 
 p{
   font-size: 1em;
-  line-height: 1.6;
   font-family: Avenir Next Condensed;
 }
 
@@ -55,6 +60,8 @@ p a:hover {
   width: auto;
   min-width: 0; /* Some browsers miscalculate flex items. */
   align-items: center;
+  border-right: 1px solid black;
+  padding: 20vh 0;
 }
 
 .scrolling-wrapper a {
@@ -74,6 +81,8 @@ p a:hover {
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  border-top: 1px black solid;
+  border-bottom: 1px black solid;
 }
 
 .card.active div {
@@ -87,7 +96,7 @@ p a:hover {
     text-align: center;
   }
 
-  h2 {
+  h2, h3 {
     font-size: 1.4em;
   }
 
@@ -102,7 +111,7 @@ p a:hover {
   .scrolling-wrapper .card div {
     width: 70vw;
     margin: 0;
-    padding: 0 15vw;
+    padding: 1vh 15vw;
     position: absolute;
     top: 50%;
     left: 50%;

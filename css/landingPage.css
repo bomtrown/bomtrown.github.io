@@ -1,24 +1,21 @@
-#second-page {
-    position: relative; /* Ensures the pseudo-element is positioned relative to this container */
-    width: 100vw;
-}
-
 footer {
     height: 100vh;
     width: 100vw;
     background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color: white;
-    font-size: 1em;
-    line-height: 1.6;
-    font-family: Avenir Next Condensed;
 }
 
 footer div {
-    width: 10vw;
-    height: 10vw;
+    padding: 0 5vw;
+    position: absolute;
+    bottom: calc(25vh - 5vw);
+    display: flex;
+    flex-flow: column;
+}
+
+footer h2 {
+    width: fit-content;
+    margin-bottom: 2vh;
+    padding: 0.1em;
 }
 
 #sticky-container {
@@ -32,9 +29,15 @@ footer div {
 #first-page-title-wrapper {
     position: sticky;
     white-space: nowrap;
-    top: 50vh;
+    top: 0vh; /* Stick to the top of the viewport */
+    height: 100vh; /* Full viewport height */
+    width: 100vw;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+}
+
+#first-page-title-wrapper h1 {
     padding-left: 5vw;
-    transform: translate(0%, -50%);
 }
 
 #first-page-title-wrapper h1 span {
@@ -52,9 +55,13 @@ footer div {
 #first-page h2 {
     position: absolute;
     top: calc(47vh - 5vw);
-    font-family: monospace;
-    font-style: normal;
-    background-color: white;
+}
+
+#second-page {
+    position: relative; /* Ensures the pseudo-element is positioned relative to this container */
+    width: 100vw;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 #ascii {
@@ -87,8 +94,8 @@ footer div {
 
 @media (max-width: 600px) {
     #first-page-title-wrapper {
+        justify-content: center;
         padding: 0;
-        width: 100vw;
     }
 
     #first-page h2 {
@@ -96,6 +103,15 @@ footer div {
         top: 40%;
         transform: translate(-50%, 0);
         font-size: 2vw;
+        text-align: center;
+    }
+
+    footer div {
+        bottom: calc(15vh - 5vw);
+        left: 50%;
+        font-size: 2vw;
+        transform: translate(-50%, 0);
+        align-items: center;
         text-align: center;
     }
 }

@@ -52,6 +52,11 @@ p a:hover {
 
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .scrolling-wrapper .card{
   scroll-snap-align: center;
   flex: 0 0 auto;
@@ -127,7 +132,7 @@ p a:hover {
 
 @media (max-width: 600px) {
   h1 {
-    font-size: 15vw;
+    font-size: 14vw;
     text-align: center;
   }
 

@@ -38,12 +38,12 @@ footer h2 {
 
 #first-page-title-wrapper h1 {
     padding-left: 5vw;
-    background-color: white;
 }
 
 #first-page-title-wrapper h1 span {
     transition: color 0.0s, background-color 0.0s;
     white-space: normal;
+    background-color: white;
 }
 
 #first-page {

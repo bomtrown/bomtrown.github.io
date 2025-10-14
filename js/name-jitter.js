@@ -41,7 +41,6 @@ function fakeNoise(x) {
   return normalised;
 }
 
-
 const spans = header.querySelectorAll('span');
 
 window.addEventListener('scroll', () => {

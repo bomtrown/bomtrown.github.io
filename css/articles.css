@@ -1,0 +1,26 @@
+.article-title {
+  display: flex;
+  justify-content: space-between;
+  /* font-size: 4rem; */
+  text-transform: uppercase;
+}
+
+.article-title span {
+  display: inline-block;
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+}
+.tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* perfectly cropped */
+  display: block;
+}
+.tile.small  { flex: 1 0 12.5%; aspect-ratio: 1 / 1; }
+.tile.medium { flex: 1 0 16.161616%; aspect-ratio: 4 / 3; }
+.tile.large  { flex: 1 0 25%; aspect-ratio: 16 / 9; }

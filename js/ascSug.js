@@ -6,7 +6,6 @@ const image = document.getElementById('sourceImage'); // Preloaded HTML image
 
 // ===== GRAYSCALE CONVERSION =====
 const toGrayScale = (r, g, b) => 0.21 * r + 0.72 * g + 0.07 * b;
-//const toGrayScale = (r, g, b) => r/3 + g/3 + b/3;
 
 const getFontRatio = () => {
     const pre = document.createElement('pre');
@@ -61,7 +60,6 @@ const clampDimensions = (width, height) => {
 };
 
 // ===== ASCII CHARACTERS =====
-//const grayRamp = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
 const grayRamp = "  .:=+-#*%@";
 const rampLength = grayRamp.length;
 const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * (grayScale) / 255)];

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Simulator</title>
+    <!-- Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Markdown Parser for AI Feedback -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        /* Pulse animation for the "Live" state */
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); border-color: rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); border-color: rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); border-color: rgba(239, 68, 68, 0); }
+        }
+
+        .recording-pulse {
+            animation: pulse-red 2s infinite;
+            border: 2px solid transparent;
+        }
+
+        .timer-display {
+            font-variant-numeric: tabular-nums;
+            transition: color 0.3s ease;
+        }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #3b82f6;
+            width: 24px;
+            height: 24px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Webcam styles */
+        #webcam-feed {
+            transform: scaleX(-1); /* Mirror effect */
+            object-fit: cover;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Scrollbar for feedback */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="card w-full max-w-4xl rounded-2xl overflow-hidden flex flex-col h-[750px] max-h-screen">
+        
+        <!-- Header -->
+        <div class="bg-slate-800 text-white p-4 md:p-6 flex justify-between items-center shrink-0 z-20 shadow-md">
+            <div>
+                <h1 class="text-xl font-bold tracking-wide">INTERVIEW<span class="text-blue-400">SIM</span></h1>
+                <p class="text-slate-400 text-xs md:text-sm">AI-Powered Practice & Grading</p>
+            </div>
+            <div id="status-badge" class="px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-600 text-slate-300">
+                Setup
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 relative overflow-hidden bg-slate-50">
+            
+            <!-- VIEW 1: Setup Form -->
+            <div id="setup-view" class="absolute inset-0 p-8 flex flex-col justify-center items-center overflow-y-auto">
+                <div class="w-full max-w-md text-left bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">Customize Session</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2">
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Company Name</label>
+                                <input type="text" id="company-input" placeholder="e.g. Google" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Role / Job Title</label>
+                                <input type="text" id="role-input" placeholder="e.g. Product Manager" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Category</label>
+                                <select id="category-input" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+                                    <option value="mix">Balanced Mix</option>
+                                    <option value="basic">Basic / Fit</option>
+                                    <option value="behavioral">Behavioral</option>
+                                    <option value="technical">Technical</option>
+                                    <option value="leadership">Leadership</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Question Count</label>
+                                <input type="number" id="q-count-input" value="3" min="1" max="10" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Gemini API Key</label>
+                            <input type="password" id="api-key-input" placeholder="Paste your API key here" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <p class="text-xs text-slate-400 mt-1">Required for Q generation & Grading.</p>
+                        </div>
+                    </div>
+
+                    <div id="error-msg" class="text-red-500 text-sm mt-4 hidden text-center bg-red-50 p-2 rounded"></div>
+
+                    <button onclick="initSetup()" id="generate-btn" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow-lg transform transition hover:scale-[1.02] flex justify-center items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>
+                        <span>Enable Camera & Start</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 2: Loading State -->
+            <div id="loading-view" class="hidden absolute inset-0 flex-col items-center justify-center bg-white z-50">
+                <div class="loader w-12 h-12 border-4 mb-4" style="width: 48px; height: 48px; border-width: 4px;"></div>
+                <h3 class="text-xl font-semibold text-slate-800" id="loading-title">Researching...</h3>
+                <p class="text-slate-500 mt-2 max-w-xs text-center" id="loading-text">Analyzing role requirements...</p>
+            </div>
+
+            <!-- VIEW 3: Intro/Ready -->
+            <div id="intro-view" class="hidden absolute inset-0 flex-col items-center justify-center bg-white z-40 p-8 text-center">
+                <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">You're All Set!</h2>
+                <p class="text-slate-500 mb-8 max-w-md">
+                    We have generated <strong id="display-count">5</strong> questions for the <strong id="display-role">Role</strong> position.
+                    <br><br>
+                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Note</span> We will record your answers (text-only) for AI grading.
+                </p>
+                <button onclick="startInterview()" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-full font-bold shadow-lg transform transition hover:scale-105 text-lg">
+                    Begin Interview
+                </button>
+            </div>
+
+            <!-- VIEW 4: Active Interview -->
+            <div id="interview-view" class="hidden absolute inset-0 flex flex-col md:flex-row bg-black">
+                
+                <!-- Main Video Area -->
+                <div class="relative w-full h-full md:w-2/3 lg:w-3/4 bg-slate-900 flex items-center justify-center overflow-hidden">
+                    <video id="webcam-feed" autoplay muted playsinline class="w-full h-full object-cover opacity-80"></video>
+                    
+                    <!-- Overlay Question -->
+                    <div class="absolute top-0 left-0 right-0 p-6 bg-gradient-to-b from-black/80 to-transparent text-white">
+                        <div class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Question <span id="q-counter">1</span> of <span id="q-total">5</span></div>
+                        <h2 id="question-text" class="text-xl md:text-2xl font-semibold leading-tight drop-shadow-md">Loading question...</h2>
+                    </div>
+
+                    <!-- Overlay Timer -->
+                    <div class="absolute bottom-8 right-8 text-right">
+                         <div class="text-6xl font-black timer-display text-white drop-shadow-lg" id="timer-display">00:00</div>
+                         <div id="timer-label" class="text-sm font-bold text-slate-300 uppercase tracking-widest mt-1">Waiting</div>
+                    </div>
+
+                    <!-- Live Transcription Badge -->
+                    <div id="listening-badge" class="hidden absolute bottom-8 left-8 flex items-center gap-2 bg-black/60 px-4 py-2 rounded-full backdrop-blur-sm border border-white/10">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                        </span>
+                        <span class="text-white text-xs font-medium">Listening...</span>
+                    </div>
+                </div>
+
+                <!-- Sidebar Controls / Transcript -->
+                <div class="w-full md:w-1/3 lg:w-1/4 bg-slate-100 border-l border-slate-200 flex flex-col h-[200px] md:h-auto z-10">
+                    <div class="flex-1 p-4 overflow-y-auto">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase mb-2">Live Transcript</h3>
+                        <p id="transcript-preview" class="text-slate-600 text-sm italic leading-relaxed">
+                            (Your answer will appear here as you speak...)
+                        </p>
+                    </div>
+                    <div class="p-4 bg-white border-t border-slate-200">
+                         <button id="main-action-btn" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-lg shadow transition-colors flex items-center justify-center gap-2">
+                            Skip Prep
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 5: Grading/Results -->
+            <div id="grading-view" class="hidden absolute inset-0 flex flex-col bg-slate-50 overflow-hidden">
+                <div class="flex-1 overflow-y-auto p-6 md:p-12 scrollbar-hide">
+                    <div class="max-w-3xl mx-auto">
+                        <div class="text-center mb-10">
+                            <div class="inline-block p-4 rounded-full bg-blue-100 text-blue-600 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                </svg>
+                            </div>
+                            <h2 class="text-3xl font-bold text-slate-800">Assessment Complete</h2>
+                            <p class="text-slate-500 mt-2">Here is the AI feedback on your session.</p>
+                        </div>
+
+                        <div id="scorecard-container" class="space-y-6">
+                            <!-- Feedback items will be injected here -->
+                        </div>
+                        
+                        <div class="h-20"></div> <!-- Spacer -->
+                    </div>
+                </div>
+                
+                <div class="p-6 bg-white border-t border-slate-200 flex justify-center shrink-0 shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
+                    <button onclick="location.reload()" class="bg-slate-800 hover:bg-slate-900 text-white px-8 py-3 rounded-lg font-bold">
+                        Start New Session
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Config ---
+        const PREP_TIME = 30;
+        const SPEAK_TIME = 120; // 2 minutes
+
+        // --- State ---
+        let questions = []; 
+        let interviewData = []; // Stores { question, answer }
+        let currentQuestionIndex = -1;
+        let timerInterval;
+        let timeLeft;
+        let currentPhase = 'idle'; 
+        let apiKey = '';
+        let recognition;
+        let currentTranscript = "";
+
+        // --- Elements ---
+        const setupView = document.getElementById('setup-view');
+        const loadingView = document.getElementById('loading-view');
+        const introView = document.getElementById('intro-view');
+        const interviewView = document.getElementById('interview-view');
+        const gradingView = document.getElementById('grading-view');
+        
+        // Inputs
+        const companyInput = document.getElementById('company-input');
+        const roleInput = document.getElementById('role-input');
+        const categoryInput = document.getElementById('category-input');
+        const qCountInput = document.getElementById('q-count-input');
+        const apiKeyInput = document.getElementById('api-key-input');
+        
+        // Display Text
+        const loadingTitle = document.getElementById('loading-title');
+        const loadingText = document.getElementById('loading-text');
+        const displayRole = document.getElementById('display-role');
+        const displayCount = document.getElementById('display-count');
+        const statusBadge = document.getElementById('status-badge');
+        
+        // Interview UI
+        const videoElement = document.getElementById('webcam-feed');
+        const questionText = document.getElementById('question-text');
+        const qCounter = document.getElementById('q-counter');
+        const qTotal = document.getElementById('q-total');
+        const timerDisplay = document.getElementById('timer-display');
+        const timerLabel = document.getElementById('timer-label');
+        const actionBtn = document.getElementById('main-action-btn');
+        const transcriptPreview = document.getElementById('transcript-preview');
+        const listeningBadge = document.getElementById('listening-badge');
+
+        // --- 1. Initialization & Webcam ---
+
+        async function initSetup() {
+            apiKey = apiKeyInput.value.trim();
+            if (!companyInput.value || !roleInput.value || !apiKey) {
+                showError("Please fill in all fields.");
+                return;
+            }
+
+            try {
+                // Request Webcam
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                videoElement.srcObject = stream;
+                
+                // If successful, proceed to generate questions
+                generateQuestions();
+            } catch (err) {
+                console.error(err);
+                showError("Camera/Microphone access denied. Please allow permissions to use the simulator.");
+            }
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('error-msg');
+            el.innerText = msg;
+            el.classList.remove('hidden');
+        }
+
+        // --- 2. Speech Recognition Setup ---
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = 'en-US';
+
+                recognition.onresult = (event) => {
+                    let interimTranscript = '';
+                    let finalTranscript = '';
+
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            finalTranscript += event.results[i][0].transcript;
+                        } else {
+                            interimTranscript += event.results[i][0].transcript;
+                        }
+                    }
+                    
+                    if (finalTranscript) {
+                        currentTranscript += finalTranscript + " ";
+                    }
+                    
+                    transcriptPreview.innerText = currentTranscript + interimTranscript;
+                };
+
+                recognition.onerror = (event) => {
+                    console.error("Speech recognition error", event.error);
+                };
+            } else {
+                alert("Web Speech API is not supported in this browser. Grading will not work based on audio.");
+            }
+        }
+
+        // --- Helper: Robust API Call with Retry ---
+        async function callGeminiAPI(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // Handle 503 specifically for retry
+                    if (response.status === 503) {
+                        throw new Error("503 Service Unavailable");
+                    }
+
+                    if (!response.ok) {
+                        const errData = await response.json().catch(() => ({}));
+                        throw new Error(errData.error?.message || `API Error: ${response.status} ${response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    
+                    // Validate data structure
+                    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+                        throw new Error("Invalid API response format (no candidates)");
+                    }
+                    
+                    return data.candidates[0].content.parts[0].text;
+
+                } catch (err) {
+                    const isLastAttempt = i === 4;
+                    // Only retry on network errors or 503s
+                    const isRetryable = err.message.includes('503') || err.message.includes('Failed to fetch');
+
+                    if (!isRetryable || isLastAttempt) {
+                        throw err;
+                    }
+                    
+                    console.warn(`API Attempt ${i+1} failed. Retrying in ${delay}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; // Exponential backoff
+                }
+            }
+        }
+
+        // --- 3. API: Generate Questions ---
+        async function generateQuestions() {
+            setupView.style.display = 'none';
+            loadingView.style.display = 'flex';
+            statusBadge.innerText = "RESEARCHING";
+
+            const company = companyInput.value;
+            const role = roleInput.value;
+            const category = categoryInput.value;
+            const count = qCountInput.value;
+
+            try {
+                let focusInstruction = category === 'mix' ? "mixed behavioral and technical" : `${category} focused`;
+                
+                const prompt = `
+                    Generate ${count} interview questions for a "${role}" position at "${company}".
+                    Focus: ${focusInstruction}.
+                    Return ONLY a JSON array of strings. Example: ["Q1", "Q2"]
+                `;
+
+                const text = await callGeminiAPI(prompt);
+                
+                // Parse the response
+                const cleanText = text.replace(/```json/g, '').replace(/```/g, '').trim();
+                questions = JSON.parse(cleanText);
+
+                // Setup complete
+                loadingView.style.display = 'none';
+                introView.style.display = 'flex';
+                displayRole.innerText = role;
+                displayCount.innerText = questions.length;
+                qTotal.innerText = questions.length;
+                statusBadge.innerText = "READY";
+                
+                initSpeechRecognition();
+
+            } catch (err) {
+                console.error(err);
+                loadingView.style.display = 'none';
+                setupView.style.display = 'block';
+                showError(`Failed to generate questions: ${err.message}`);
+            }
+        }
+
+        // --- 4. Interview Loop ---
+
+        function startInterview() {
+            introView.style.display = 'none';
+            interviewView.classList.remove('hidden');
+            interviewView.style.display = 'flex';
+            loadNextQuestion();
+        }
+
+        function loadNextQuestion() {
+            // Save previous answer if exists
+            if (currentQuestionIndex >= 0) {
+                stopListening();
+                interviewData.push({
+                    question: questions[currentQuestionIndex],
+                    answer: currentTranscript.trim() || "(No audio detected)"
+                });
+            }
+
+            currentQuestionIndex++;
+            currentTranscript = ""; // Reset for new question
+            transcriptPreview.innerText = "Waiting for you to speak...";
+
+            if (currentQuestionIndex >= questions.length) {
+                finishSession();
+                return;
+            }
+
+            questionText.innerText = questions[currentQuestionIndex];
+            qCounter.innerText = currentQuestionIndex + 1;
+            
+            startPrepPhase();
+        }
+
+        function startPrepPhase() {
+            currentPhase = 'prep';
+            timeLeft = PREP_TIME;
+            
+            // UI
+            timerDisplay.classList.remove('text-red-500');
+            timerDisplay.classList.add('text-white'); // default
+            timerLabel.innerText = "PREPARATION";
+            timerLabel.className = "text-sm font-bold text-orange-400 uppercase tracking-widest mt-1";
+            
+            actionBtn.innerText = "Skip Prep";
+            actionBtn.onclick = startSpeakingPhase;
+            actionBtn.className = "w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg shadow transition-colors";
+            
+            listeningBadge.classList.add('hidden');
+            document.querySelector('.relative.w-full').classList.remove('recording-pulse');
+
+            clearInterval(timerInterval);
+            updateTimer();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                if (timeLeft <= 0) startSpeakingPhase();
+            }, 1000);
+        }
+
+        function startSpeakingPhase() {
+            clearInterval(timerInterval);
+            currentPhase = 'speak';
+            timeLeft = SPEAK_TIME;
+
+            // UI
+            timerLabel.innerText = "RECORDING";
+            timerLabel.className = "text-sm font-bold text-red-500 uppercase tracking-widest mt-1 animate-pulse";
+            
+            actionBtn.innerText = "Finish Answer";
+            actionBtn.onclick = loadNextQuestion;
+            actionBtn.className = "w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg shadow transition-colors";
+            
+            listeningBadge.classList.remove('hidden');
+            document.querySelector('.relative.w-full').classList.add('recording-pulse'); // Red border on video
+
+            startListening(); // Start Speech API
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                if (timeLeft <= 0) loadNextQuestion();
+            }, 1000);
+        }
+
+        function updateTimer() {
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            timerDisplay.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        function startListening() {
+            if(recognition) {
+                try { recognition.start(); } catch(e) { console.log("Recognition already started"); }
+            }
+        }
+
+        function stopListening() {
+            if(recognition) {
+                try { recognition.stop(); } catch(e) {}
+            }
+        }
+
+        // --- 5. Grading Logic ---
+
+        async function finishSession() {
+            // Stop everything
+            stopListening();
+            clearInterval(timerInterval);
+            
+            // Stop Webcam
+            const stream = videoElement.srcObject;
+            if (stream) stream.getTracks().forEach(track => track.stop());
+
+            // Switch Views
+            interviewView.style.display = 'none';
+            loadingView.style.display = 'flex';
+            statusBadge.innerText = "GRADING";
+            loadingTitle.innerText = "Analyzing Answers...";
+            loadingText.innerText = "Our AI is reviewing your transcripts against best practices...";
+
+            // Construct Prompt
+            const interviewJSON = JSON.stringify(interviewData);
+            const prompt = `
+                You are an expert interview coach. I have just completed a practice interview. 
+                Here is the data (Questions and my Transcribed Answers):
+                ${interviewJSON}
+
+                Please analyze each answer. 
+                For EACH question, provide:
+                1. A rating (1 to 5 stars).
+                2. A brief critique (What was good, what was missing).
+                3. A tip for improvement.
+
+                Return the output as a Markdown formatted string. Use ### for Question Headers.
+                Be encouraging but constructive.
+            `;
+
+            try {
+                // Use the robust helper function
+                const feedbackMarkdown = await callGeminiAPI(prompt);
+                renderScorecard(feedbackMarkdown);
+            } catch (err) {
+                console.error(err);
+                loadingTitle.innerText = "Error Grading";
+                loadingText.innerText = `We could not generate the grading report: ${err.message}. Please refresh to try again.`;
+            }
+        }
+
+        function renderScorecard(markdown) {
+            loadingView.style.display = 'none';
+            gradingView.classList.remove('hidden');
+            statusBadge.innerText = "COMPLETE";
+
+            const container = document.getElementById('scorecard-container');
+            
+            // Simple markdown parsing to HTML
+            const htmlContent = marked.parse(markdown);
+            
+            const card = document.createElement('div');
+            card.className = "bg-white p-8 rounded-xl shadow-sm border border-slate-200 prose prose-slate max-w-none";
+            card.innerHTML = htmlContent;
+            
+            container.appendChild(card);
+        }
+
+    </script>
+</body>
+</html>

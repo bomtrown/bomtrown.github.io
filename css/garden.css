@@ -1,0 +1,204 @@
+/* Garden Specific Overrides */
+
+body {
+    overflow: hidden;
+    background-color: #fafafa;
+}
+
+/* Ensure proper sizing for all garden elements */
+.garden-container * {
+    box-sizing: border-box;
+}
+
+.garden-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.garden-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: transparent;
+    pointer-events: none;
+}
+.garden-nav a {
+    pointer-events: auto;
+    padding: 1rem;
+    display: inline-block;
+}
+.garden-nav a:hover {
+    text-decoration: none;
+    border-left: black 1px solid;
+    border-right: black 1px solid;
+}
+
+/* The Canvas Background */
+#garden-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* The Watermark Title */
+.garden-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0.05;
+    pointer-events: none;
+    white-space: nowrap;
+}
+.garden-watermark h1 {
+    font-size: 15vw;
+}
+
+/* The Floating Nodes */
+.garden-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* DEFAULT BACKGROUND (Fallback) */
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Using 70% size keeps the icon contained nicely within the box */
+    background-size: 90%; 
+    
+    width: 120px;
+    height: 120px;
+    
+    padding: 1rem;
+    border: none;
+    text-decoration: none;
+    color: black;
+    z-index: 10;
+    user-select: none;
+    cursor: pointer;
+    
+    transition: border-color 0.2s ease;
+    will-change: transform;
+}
+
+/* SPECIFIC SVG BACKGROUNDS */
+/* Note: These paths are relative to the CSS file location */
+.garden-node.bg-ai {
+    background-image: url('../media/svg/AI.svg');
+}
+.garden-node.bg-thoughts {
+    background-image: url('../media/svg/thoughts.svg');
+}
+.garden-node.bg-bloom {
+    background-image: url('../media/svg/bloom.svg');
+}
+.garden-node.bg-projects {
+    background-image: url('../media/svg/projects.svg');
+}
+.garden-node.bg-cd {
+    background-image: url('../media/svg/cd.svg');
+}
+
+.garden-node:hover {
+    border-color: #000;
+    z-index: 20; 
+
+    border-top: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+/* EXPANDED STATE */
+.garden-node.expanded {
+    z-index: 100 !important;
+    background-color: white !important; 
+    background-image: none !important; /* Hide SVG when expanded to show list */
+    color: black; 
+    cursor: default;
+    align-items: stretch; 
+    padding: 0; 
+    border: 1px solid black;
+    
+    width: 250px !important; 
+    height: auto !important; 
+}
+
+/* Wrapper for the Emoji/Title */
+.garden-node .original-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.2s ease;
+    position: relative; 
+}
+
+/* Hide original content when expanded */
+.garden-node.expanded .original-content {
+    display: none; 
+}
+
+.garden-node .emoji {
+    display: none;
+}
+
+.garden-node .text {
+    font-family: 'Courier New', Courier, monospace; 
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 2px 5px;
+    margin-top: 40px; /* Push text down so it doesn't cover the icon center */
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+/* Sub-items List */
+.garden-node .sub-item-list {
+    display: none; 
+    flex-direction: column;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+/* Show list when expanded */
+.garden-node.expanded .sub-item-list {
+    display: flex;
+}
+
+.sub-item-link {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    color: #333;
+    font-family: 'Avenir Next Condensed', sans-serif;
+    transition: padding-left 0.2s; 
+    font-size: 1.1rem;
+    box-sizing: border-box; 
+}
+.sub-item-link:last-child {
+    border-bottom: none;
+}
+.sub-item-link:hover {
+    background: transparent;
+    padding-left: 1rem;
+    color: black;
+    outline: 1px solid black;
+    outline-offset: -1px; 
+}

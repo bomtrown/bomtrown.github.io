@@ -1,0 +1,24 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .wf-line-white { stroke: #ffffff; stroke-width: 1; fill: none; opacity: 0.9; stroke-linecap: round; stroke-linejoin: round; }
+        .wf-line-red { stroke: #ff0000; stroke-width: 1; fill: none; opacity: 0.8; stroke-linecap: round; }
+        .wf-line-green { stroke: #00ff00; stroke-width: 0.8; fill: none; opacity: 0.6; }
+        .wf-node { fill: #000; stroke: #fff; stroke-width: 1; }
+    </style>
+    <rect width="100%" height="100%" fill="#000000"/>
+
+    <path class="wf-line-red" d="M100 110 L140 130 L100 150 L60 130 Z" />
+    <path class="wf-line-white" d="M60 130 L60 170 L100 190 L140 170 L140 130" />
+    <line class="wf-line-white" x1="100" y1="150" x2="100" y2="190" />
+    <path class="wf-line-green" d="M60 90 L100 110 L140 90" stroke-dasharray="2,2"/>
+    <path class="wf-line-white" d="M100 70 L140 90 L100 110 L60 90 Z" />
+    <line class="wf-line-white" x1="60" y1="90" x2="60" y2="130" />
+    <line class="wf-line-white" x1="140" y1="90" x2="140" y2="130" />
+    <line class="wf-line-white" x1="100" y1="110" x2="100" y2="150" />
+    <path class="wf-line-white" d="M100 30 L140 50 L100 70 L60 50 Z" />
+    <line class="wf-line-white" x1="60" y1="50" x2="60" y2="90" />
+    <line class="wf-line-white" x1="140" y1="50" x2="140" y2="90" />
+    <line class="wf-line-white" x1="100" y1="70" x2="100" y2="110" />
+    <line class="wf-line-red" x1="60" y1="50" x2="100" y2="70" opacity="0.5"/>
+    <line class="wf-line-red" x1="140" y1="50" x2="100" y2="70" opacity="0.5"/>
+</svg>

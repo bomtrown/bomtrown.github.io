@@ -1,0 +1,30 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .wf-line-white { stroke: #ffffff; stroke-width: 1; fill: none; opacity: 0.9; stroke-linecap: round; stroke-linejoin: round; }
+        .wf-line-red { stroke: #ff0000; stroke-width: 1; fill: none; opacity: 0.8; stroke-linecap: round; }
+        .wf-line-green { stroke: #00ff00; stroke-width: 0.8; fill: none; opacity: 0.6; }
+        .wf-node { fill: #000; stroke: #fff; stroke-width: 1; }
+    </style>
+    <rect width="100%" height="100%" fill="#000000"/>
+
+    <g class="wf-line-white">
+        <polygon points="100,100 70,160 130,160" transform="rotate(0 100 100)" />
+        <polygon points="100,100 70,160 130,160" transform="rotate(60 100 100)" />
+        <polygon points="100,100 70,160 130,160" transform="rotate(120 100 100)" />
+        <polygon points="100,100 70,160 130,160" transform="rotate(180 100 100)" />
+        <polygon points="100,100 70,160 130,160" transform="rotate(240 100 100)" />
+        <polygon points="100,100 70,160 130,160" transform="rotate(300 100 100)" />
+    </g>
+
+    <g class="wf-line-green" opacity="0.8">
+        <polygon points="100,100 85,140 115,140" transform="rotate(30 100 100)" />
+        <polygon points="100,100 85,140 115,140" transform="rotate(90 100 100)" />
+        <polygon points="100,100 85,140 115,140" transform="rotate(150 100 100)" />
+        <polygon points="100,100 85,140 115,140" transform="rotate(210 100 100)" />
+        <polygon points="100,100 85,140 115,140" transform="rotate(270 100 100)" />
+        <polygon points="100,100 85,140 115,140" transform="rotate(330 100 100)" />
+    </g>
+
+    <rect x="90" y="90" width="20" height="20" transform="rotate(45 100 100)" class="wf-line-red" fill="#000" />
+    <rect x="94" y="94" width="12" height="12" transform="rotate(45 100 100)" fill="#fff" />
+</svg>

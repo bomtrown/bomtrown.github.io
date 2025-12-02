@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Playlist Sorter</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Spotify Web API Wrapper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spotify-web-api-js/1.5.2/spotify-web-api.min.js"></script>
+
+    <!-- YouTube Iframe API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <style>
+        /* Custom styles for the video background effect */
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* We scale the iframe to 300% to zoom in and cut off 
+           YouTube controls/black bars, creating a full-cover effect 
+        */
+        .youtube-iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300vw; 
+            height: 300vh;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Crucial: passes clicks to the parent div */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            filter: grayscale(40%) contrast(1.1);
+        }
+
+        .youtube-iframe.visible {
+            opacity: 1;
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Loading spinner */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #1DB954;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-black text-white h-screen overflow-hidden selection:bg-green-500 selection:text-black">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const spotifyApi = new SpotifyWebApi();
+
+        // --- PKCE UTILITY FUNCTIONS (REQUIRED FOR SECURE AUTH) ---
+
+        // Generate a random string for the code verifier
+        const generateRandomString = (length) => {
+            let text = '';
+            const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < length; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return text;
+        };
+
+        // Encodes the buffer to base64url format
+        const base64urlencode = (buffer) => {
+            return btoa(String.fromCharCode(...new Uint8Array(buffer)))
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .replace(/=+$/, '');
+        };
+
+        // Hash the verifier using SHA256 and encode it to get the challenge
+        async function sha256(plain) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(plain);
+            return window.crypto.subtle.digest('SHA-256', data);
+        }
+
+        // --- COMPONENTS ---
+
+        // Custom implementation of YouTube Player Rendering that SEQUENTIALLY tests video IDs
+        const YouTubeEmbed = ({ videoIdCandidates, isHovering, onBuffered }) => {
+            const containerRef = useRef(null);
+            const playerRef = useRef(null);
+            const [buffered, setBuffered] = useState(false);
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const currentVideoId = videoIdCandidates[currentIndex];
+
+            // Primary effect for loading, testing, and switching video IDs
+            useEffect(() => {
+                if (!videoIdCandidates || videoIdCandidates.length === 0 || !window.YT || !currentVideoId) {
+                    if (currentIndex >= videoIdCandidates.length) {
+                        onBuffered(false); // Signal failure if we ran out of candidates
+                    }
+                    return;
+                }
+                
+                // Guard against null ref during initial render cycle
+                if (!containerRef.current) return;
+                
+                // Cleanup previous player if it exists
+                if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+                    playerRef.current.destroy();
+                }
+
+                // Reset state for new attempt
+                setBuffered(false);
+                containerRef.current.innerHTML = '<div id="yt-slot"></div>';
+                
+                // Function to try the next candidate
+                const tryNextCandidate = () => {
+                    // Destroy current player before moving to next index
+                    if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+                        playerRef.current.destroy();
+                    }
+                    if (currentIndex + 1 < videoIdCandidates.length) {
+                        setCurrentIndex(prev => prev + 1);
+                    } else {
+                        // All candidates exhausted
+                        onBuffered(false);
+                    }
+                };
+
+                const p = new window.YT.Player(containerRef.current.querySelector('#yt-slot'), {
+                    videoId: currentVideoId,
+                    width: '100%',
+                    height: '100%',
+                    playerVars: {
+                        autoplay: 0, controls: 0, rel: 0, showinfo: 0,
+                        modestbranding: 1, iv_load_policy: 3, disablekb: 1,
+                        playsinline: 1, origin: window.location.origin,
+                        mute: 1 
+                    },
+                    events: {
+                        onReady: (e) => {
+                            e.target.mute();
+                            e.target.playVideo();
+                        },
+                        onStateChange: (e) => {
+                            // If playing (1) and not yet buffered
+                            if (e.data === 1 && !playerRef.current.buffered) {
+                                setTimeout(() => {
+                                    e.target.pauseVideo();
+                                    playerRef.current.buffered = true;
+                                    setBuffered(true);
+                                    if (onBuffered) onBuffered(true);
+                                    
+                                    // SEEK TO START TIME (8 seconds) after buffering
+                                    e.target.seekTo(8, true); 
+                                }, 1500);
+                            }
+                        },
+                        onError: (e) => {
+                            // Error codes 100, 101, 150 (video blocked/unavailable)
+                            // If an error occurs, try the next candidate
+                            tryNextCandidate();
+                        }
+                    }
+                });
+                
+                p.buffered = false;
+                playerRef.current = p;
+
+                return () => {
+                    if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+                         playerRef.current.destroy();
+                    }
+                };
+            }, [videoIdCandidates, currentIndex]); // Rerun when candidate list changes or index advances
+
+            // Effect for handling hover/playback independent of load sequence
+            useEffect(() => {
+                if (!playerRef.current || !playerRef.current.buffered) return;
+                
+                if (isHovering) {
+                    playerRef.current.unMute();
+                    
+                    if (playerRef.current.getCurrentTime() < 1) {
+                         playerRef.current.seekTo(8, true); 
+                    }
+                    
+                    playerRef.current.playVideo();
+                } else {
+                    playerRef.current.mute();
+                    playerRef.current.pauseVideo();
+                    playerRef.current.seekTo(0); 
+                }
+            }, [isHovering, buffered]);
+
+            if (!currentVideoId) return null; // Only render if we have a candidate ID to try
+
+            return (
+                <div className="video-container">
+                    {/* The div where the YT iframe will be injected */}
+                    <div className={`youtube-iframe ${isHovering && buffered ? 'visible' : ''}`} ref={containerRef}></div>
+                    
+                    {/* Loader overlay visible only while video is found but not yet buffered */}
+                    {(!buffered) && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10"> 
+                            <div className="loader"></div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // 1. YouTube Background Component (Wrapper)
+        const YouTubeBackground = ({ query, isHovering, apiKey, onVideoReady }) => { 
+            const [videoIdCandidates, setVideoIdCandidates] = useState([]);
+            const [isLoading, setIsLoading] = useState(true);
+            const [error, setError] = useState(false);
+            const [isBuffered, setIsBuffered] = useState(false); 
+
+            // Fetch Video ID Candidates from YouTube Data API
+            useEffect(() => {
+                const fetchVideo = async () => {
+                    if (!query || !apiKey) {
+                        setIsLoading(false);
+                        onVideoReady(false); 
+                        return;
+                    }
+                    
+                    const cacheKey = `yt_cands_${query}`;
+                    const cachedIds = localStorage.getItem(cacheKey);
+                    
+                    if (cachedIds) {
+                        setVideoIdCandidates(JSON.parse(cachedIds));
+                        setIsLoading(false);
+                        return; 
+                    }
+
+                    try {
+                        const search_query = encodeURIComponent(query + " audio song"); 
+                        
+                        // Fetch up to 5 results to increase hit rate
+                        const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search_query}&type=video&maxResults=5&key=${apiKey}`);
+                        const data = await res.json();
+                        
+                        if (data.items && data.items.length > 0) {
+                            const ids = data.items.map(item => item.id.videoId);
+                            setVideoIdCandidates(ids);
+                            localStorage.setItem(cacheKey, JSON.stringify(ids));
+                        } else {
+                            setError(true);
+                            onVideoReady(false); 
+                        }
+                    } catch (err) {
+                        console.error("YouTube Search Error", err);
+                        setError(true);
+                        onVideoReady(false); 
+                    } finally {
+                        setIsLoading(false);
+                    }
+                };
+                fetchVideo();
+            }, [query, apiKey]);
+
+            // Report the combined status (found + buffered)
+            useEffect(() => {
+                // If we have candidates, we let the inner component handle the result. 
+                // We only report true once the inner component reports success (isBuffered).
+                if (videoIdCandidates.length > 0) { 
+                    onVideoReady(isBuffered);
+                }
+            }, [isBuffered, videoIdCandidates, onVideoReady]);
+
+
+            // Do not render the YouTube component during initial API fetch.
+            if (isLoading) {
+                 onVideoReady(false); 
+                 return null;
+            }
+            
+            // If an error occurred or no video ID was found, return null (album art remains visible).
+            if (error || videoIdCandidates.length === 0) {
+                onVideoReady(false);
+                return null; 
+            }
+            
+            // If we reach here, we have a list of candidates to try.
+            return <YouTubeEmbed videoIdCandidates={videoIdCandidates} isHovering={isHovering} onBuffered={setIsBuffered} />;
+        };
+
+        // 2. Song Card Component
+        const SongCard = ({ track, onVote, isHovering, setHover, apiKey }) => {
+            // NEW STATE to track if the background video is ready to play
+            const [isVideoReady, setIsVideoReady] = useState(false); 
+
+            if (!track) return <div className="flex-1 bg-black"></div>;
+
+            const query = `${track.name} ${track.artists[0].name}`;
+
+            // Image fade logic now depends on isVideoReady
+            // If isVideoReady is false (due to API error or not loaded), the image stays at opacity-40
+            const imageOpacityClass = isHovering && isVideoReady ? 'opacity-0' : 'opacity-40';
+            
+            return (
+                <div 
+                    className="flex-1 relative cursor-pointer border-r border-zinc-800 last:border-r-0 group overflow-hidden"
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                    onClick={onVote}
+                >
+                    {/* Background Layer (Static Image Fallback) */}
+                    <div className="absolute inset-0 z-0">
+                         <img 
+                            src={track.album.images[0]?.url} 
+                            alt={`${track.name} album art`}
+                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${imageOpacityClass}`} 
+                        />
+                        
+                        {/* Video Layer */}
+                        <YouTubeBackground 
+                            query={query} 
+                            isHovering={isHovering} 
+                            apiKey={apiKey} 
+                            onVideoReady={setIsVideoReady} 
+                        />
+                    </div>
+
+                    {/* Content Layer */}
+                    <div className="absolute inset-0 z-10 flex flex-col justify-center items-center p-6 text-center transition-transform duration-300 transform group-hover:scale-105 pointer-events-none">
+                        <div className="bg-black/60 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-2xl">
+                            <h2 className="text-3xl font-bold mb-2 drop-shadow-lg">{track.name}</h2>
+                            <p className="text-xl text-gray-300 drop-shadow-md">{track.artists.map(a => a.name).join(', ')}</p>
+                            
+                            {/* Hover Hint */}
+                            <div className={`mt-4 transition-all duration-300 overflow-hidden ${isHovering ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
+                                <span className="inline-block px-4 py-1 rounded-full bg-green-500 text-black font-bold text-sm uppercase tracking-wider">
+                                    Click to Vote
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+
+        // 3. Main App Component
+        const App = () => {
+            const [config, setConfig] = useState({
+                spotifyClientId: localStorage.getItem('s_client_id') || '',
+                youtubeApiKey: localStorage.getItem('y_api_key') || ''
+            });
+            const [token, setToken] = useState(null);
+            const [playlistUrl, setPlaylistUrl] = useState('');
+            const [playlistData, setPlaylistData] = useState(null);
+            const [tracks, setTracks] = useState([]);
+            const [pair, setPair] = useState([null, null]); // [TrackA, TrackB]
+            const [hoverSide, setHoverSide] = useState(null); // 'left' or 'right'
+            const [status, setStatus] = useState('');
+
+            // --- PKCE CALLBACK HANDLING ---
+            useEffect(() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get('code');
+                
+                // If we have a code and are not authenticated yet
+                if (code && !token) {
+                    setStatus("Exchanging code for token...");
+                    
+                    // Prioritize config state but fallback to localStorage
+                    const codeVerifier = localStorage.getItem('pkce_code_verifier');
+                    const clientId = config.spotifyClientId || localStorage.getItem('s_client_id');
+
+                    if (!codeVerifier || !clientId) {
+                        alert("Authentication error: Missing PKCE verifier or Client ID. Please re-enter your configuration.");
+                        setStatus('');
+                        return;
+                    }
+
+                    const redirectUri = window.location.href.split('?')[0]; 
+                    
+                    // Reset URL to clean state
+                    window.history.pushState({}, document.title, redirectUri);
+                    localStorage.removeItem('pkce_code_verifier');
+
+                    const tokenUrl = 'https://accounts.spotify.com/api/token';
+                    
+                    const body = new URLSearchParams({
+                        grant_type: 'authorization_code',
+                        code: code,
+                        redirect_uri: redirectUri,
+                        client_id: clientId,
+                        code_verifier: codeVerifier
+                    });
+
+                    fetch(tokenUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: body.toString()
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch access token: ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        setToken(data.access_token);
+                        spotifyApi.setAccessToken(data.access_token);
+                        setStatus('Login successful!');
+                    })
+                    .catch(error => {
+                        console.error('PKCE Token Exchange Error:', error);
+                        alert('Authentication failed during token exchange. Please check your Client ID and Redirect URI.');
+                        setStatus('');
+                    });
+                } else if (window.location.hash) {
+                    // Fallback check for old Implicit Grant hash 
+                    const params = new URLSearchParams(window.location.hash.substring(1));
+                    const _token = params.get('access_token');
+                    if (_token) {
+                        setToken(_token);
+                        spotifyApi.setAccessToken(_token);
+                        window.location.hash = ''; 
+                    }
+                }
+            }, [token, config.spotifyClientId]);
+
+
+            const saveConfig = () => {
+                if (!config.spotifyClientId || !config.youtubeApiKey) {
+                     alert("Both Spotify Client ID and YouTube API Key are required.");
+                     return;
+                }
+                localStorage.setItem('s_client_id', config.spotifyClientId);
+                localStorage.setItem('y_api_key', config.youtubeApiKey);
+                // Clear any existing token to force fresh login if keys change
+                localStorage.removeItem('s_auth_token'); 
+                window.location.reload(); 
+            };
+            
+            // --- PKCE Login Implementation ---
+            const login = async () => {
+                if (!config.spotifyClientId) return alert("Please set Client ID first");
+                
+                // 1. Generate PKCE values
+                const codeVerifier = generateRandomString(128);
+                const hashed = await sha256(codeVerifier);
+                const codeChallenge = base64urlencode(hashed);
+                
+                // 2. Store verifier locally for later exchange
+                localStorage.setItem('pkce_code_verifier', codeVerifier);
+                
+                // Ensure Client ID is fresh in localStorage before redirect
+                localStorage.setItem('s_client_id', config.spotifyClientId); 
+
+                // 3. Define parameters
+                const redirectUri = window.location.href.split('#')[0].split('?')[0]; // Base URL
+                const scopes = [
+                    'playlist-read-private', 
+                    'playlist-modify-public', 
+                    'playlist-modify-private',
+                    'user-read-private' 
+                ];
+                
+                // 4. Construct URL with response_type=code and PKCE challenge
+                const authUrl = `https://accounts.spotify.com/authorize?` + 
+                                `client_id=${config.spotifyClientId}&` +
+                                `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+                                `scope=${encodeURIComponent(scopes.join(' '))}&` +
+                                `response_type=code&` + 
+                                `code_challenge_method=S256&` + // Mandatory for PKCE
+                                `code_challenge=${codeChallenge}`;
+                                
+                window.location.href = authUrl;
+            };
+            // --- END PKCE Login Implementation ---
+
+
+            // --- GAME LOGIC ---
+
+            const loadPlaylist = async () => {
+                if (!playlistUrl.includes('/playlist/')) {
+                    alert("Invalid Spotify Playlist Link. Please ensure the URL contains '/playlist/'.");
+                    return;
+                }
+                
+                setStatus('Loading Playlist...');
+                try {
+                    const id = playlistUrl.split('/playlist/')[1].split('?')[0];
+                    const data = await spotifyApi.getPlaylist(id);
+                    setPlaylistData(data);
+                    
+                    const items = data.tracks.items
+                        .filter(item => item.track) // Filter out null tracks (local files, etc.)
+                        .map((item, index) => ({
+                            ...item.track,
+                            playlistIndex: index, 
+                            uri: item.track.uri
+                        }));
+                    
+                    if (items.length < 2) {
+                        alert("Playlist needs at least 2 public tracks.");
+                        setPlaylistData(null);
+                        setStatus('');
+                        return;
+                    }
+
+                    setTracks(items);
+                    pickRandomPair(items);
+                    setStatus('');
+                } catch (err) {
+                    console.error("Error loading playlist:", err.status || err);
+                    alert(`Error loading playlist (Status: ${err.status}). Make sure you own this playlist and it is not empty.`);
+                    setStatus('');
+                }
+            };
+
+            const pickRandomPair = (allTracks) => {
+                if (allTracks.length < 2) return;
+                
+                let idx1 = Math.floor(Math.random() * allTracks.length);
+                let idx2 = Math.floor(Math.random() * allTracks.length);
+                
+                while (idx1 === idx2) {
+                    idx2 = Math.floor(Math.random() * allTracks.length);
+                }
+                
+                setPair([allTracks[idx1], allTracks[idx2]]);
+            };
+
+            const handleVote = async (winner, loser) => {
+                const winnerIdx = winner.playlistIndex;
+                const loserIdx = loser.playlistIndex;
+
+                console.log(`Vote: ${winner.name} (${winnerIdx}) vs ${loser.name} (${loserIdx})`);
+
+                if (winnerIdx > loserIdx) {
+                    setStatus(`Swapping ${winner.name} with ${loser.name}...`);
+                    
+                    try {
+                        const playlistId = playlistData.id;
+                        
+                        // We move the winner (higher index) to the position of the loser (lower index).
+                        await spotifyApi.reorderTracksInPlaylist(playlistId, winnerIdx, loserIdx);
+                        
+                        console.log("Reorder success: Winner moved up.");
+                        setStatus('Playlist updated!');
+                        
+                        // Reload playlist to get fresh indices and ensure the next pair uses the new order
+                        await loadPlaylist(); 
+                    } catch (err) {
+                        console.error("Spotify Reorder Error:", err.status || err);
+                        alert(`Could not reorder track (Status: ${err.status}). Ensure you have write permission.`);
+                        setStatus('');
+                    }
+                } else {
+                    console.log("Winner is already higher. No change.");
+                    setStatus('Good choice! No change needed.');
+                    pickRandomPair(tracks); // Just pick a new pair
+                }
+
+                // If a successful swap happened, loadPlaylist handles the next pair pick
+                if (winnerIdx <= loserIdx) {
+                    setTimeout(() => {
+                        setStatus('');
+                        pickRandomPair(tracks);
+                    }, 1000);
+                }
+            };
+
+            // --- RENDER ---
+
+            // 1. Config Screen
+            if (!config.spotifyClientId || !config.youtubeApiKey) {
+                return (
+                    <div className="flex flex-col items-center justify-center h-screen bg-neutral-900 text-center p-8">
+                        <h1 className="text-4xl font-bold mb-8 text-green-500">Setup Required</h1>
+                        <div className="bg-neutral-800 p-8 rounded-lg shadow-xl w-full max-w-md text-left">
+                            <label className="block mb-4">
+                                <span className="text-gray-400 text-sm">Spotify Client ID</span>
+                                <input 
+                                    type="text" 
+                                    value={config.spotifyClientId}
+                                    onChange={(e) => setConfig({...config, spotifyClientId: e.target.value})}
+                                    className="w-full bg-neutral-700 p-3 rounded mt-1 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    placeholder="From Spotify Dashboard"
+                                />
+                            </label>
+                            <label className="block mb-6">
+                                <span className="text-gray-400 text-sm">YouTube API Key</span>
+                                <input 
+                                    type="text" 
+                                    value={config.youtubeApiKey}
+                                    onChange={(e) => setConfig({...config, youtubeApiKey: e.target.value})}
+                                    className="w-full bg-neutral-700 p-3 rounded mt-1 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    placeholder="From Google Cloud Console"
+                                />
+                            </label>
+                            <button 
+                                onClick={saveConfig}
+                                className="w-full bg-green-500 hover:bg-green-400 text-black font-bold py-3 rounded transition"
+                            >
+                                Save & Continue
+                            </button>
+                            <p className="mt-4 text-xs text-gray-500 text-center">
+                                Keys are stored in your browser's local storage.
+                            </p>
+                        </div>
+                    </div>
+                );
+            }
+
+            // 2. Login Screen
+            if (!token) {
+                return (
+                    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-neutral-900 to-black">
+                        <h1 className="text-6xl font-bold mb-4 tracking-tighter">Playlist <span className="text-green-500">Sorter</span></h1>
+                        <p className="text-gray-400 mb-8 text-xl">Curate your playlist with A/B testing.</p>
+                        <button 
+                            onClick={login}
+                            className="bg-green-500 hover:bg-green-400 text-black text-xl font-bold py-4 px-10 rounded-full transition transform hover:scale-105 shadow-lg"
+                        >
+                            Log in with Spotify
+                        </button>
+                        <div className="mt-8 text-center text-xs text-gray-400">
+                             <p className="text-red-300">Note on Auth Error:</p>
+                             <p>If you were seeing "unsupported_response_type," this update to PKCE should resolve it.</p>
+                             <p>Ensure your Redirect URI in the Spotify Dashboard still matches: <code>{window.location.href.split('#')[0].split('?')[0]}</code></p>
+                        </div>
+                    </div>
+                );
+            }
+
+            // 3. Playlist Input
+            if (!playlistData || pair[0] === null) {
+                return (
+                    <div className="flex flex-col items-center justify-center h-screen bg-neutral-900">
+                        {status && <div className="mb-4 text-green-400 animate-pulse">{status}</div>}
+                        <div className="w-full max-w-xl px-4">
+                            <h2 className="text-3xl font-bold mb-6 text-center">Enter Playlist Link</h2>
+                            <div className="flex gap-2">
+                                <input 
+                                    type="text" 
+                                    value={playlistUrl}
+                                    onChange={(e) => setPlaylistUrl(e.target.value)}
+                                    placeholder="https://open.spotify.com/playlist/..."
+                                    className="flex-1 bg-neutral-800 p-4 rounded-l-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                                />
+                                <button 
+                                    onClick={loadPlaylist}
+                                    className="bg-green-500 text-black font-bold px-8 rounded-r-lg hover:bg-green-400 transition"
+                                >
+                                    Start
+                                </button>
+                            </div>
+                            <p className="mt-4 text-sm text-gray-500 text-center">Note: You must own the playlist to reorder it.</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            // 4. Comparison View
+            return (
+                <div className="flex w-screen h-screen relative">
+                    {/* Status Overlay */}
+                    {status && (
+                        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-50 bg-black/80 px-6 py-2 rounded-full border border-green-500/50">
+                            <p className="text-green-400 font-mono">{status}</p>
+                        </div>
+                    )}
+
+                    {/* Playlist Name Badge */}
+                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50 opacity-50 hover:opacity-100 transition">
+                        <p className="text-xs uppercase tracking-widest text-center mb-1">Sorting</p>
+                        <p className="font-bold">{playlistData.name}</p>
+                    </div>
+
+                    {/* Left Song */}
+                    <SongCard 
+                        track={pair[0]} 
+                        apiKey={config.youtubeApiKey}
+                        isHovering={hoverSide === 'left'}
+                        setHover={(isHov) => setHoverSide(isHov ? 'left' : null)}
+                        onVote={() => handleVote(pair[0], pair[1])}
+                    />
+
+                    {/* VS Badge */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                        <div className="bg-white text-black font-black text-2xl w-12 h-12 rounded-full flex items-center justify-center shadow-xl border-4 border-black">
+                            VS
+                        </div>
+                    </div>
+
+                    {/* Right Song */}
+                    <SongCard 
+                        track={pair[1]} 
+                        apiKey={config.youtubeApiKey}
+                        isHovering={hoverSide === 'right'}
+                        setHover={(isHov) => setHoverSide(isHov ? 'right' : null)}
+                        onVote={() => handleVote(pair[1], pair[0])}
+                    />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

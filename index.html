@@ -13,14 +13,14 @@
     <link rel="apple-touch-icon" sizes="144x144" href="media/favicons/apple-touch-icon-144x144.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="media/favicons/apple-touch-icon-152x152.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="media/favicons/apple-touch-icon-180x180.png" />
-    <title>Tom Brown Portfolio</title>
+    <title>Tom Brown - Portfolio</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.0.0/perlin.min.js"></script>
     <!--<script src="js/cursor.js" defer></script>-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landingPage.css">
 </head>
 <body>
-    <div class="cursor"></div>
+    <!--<div class="cursor"></div>-->
     <main>
         <div id="sticky-container">
             <div id="first-page-title-wrapper">
@@ -36,7 +36,7 @@
         <section id="first-page">
             <h2>Personal site and portfolio of cool things in no particular order</h2>
                 <script src="js/name-jitter.js" defer></script>
-            </div>
+            
             <div class="pop-in" data-n1="70" data-n2="200" style="position: absolute; top: 10vh; right: 5vw; height: 30vh;">
               <img src="media/images/dj.png" alt="" style="height: 100%; width: auto;">
             </div>
@@ -55,35 +55,43 @@
             <pre id="ascii"></pre>
             <script src="js/asciify.js"></script>
         </section>
-        <!-- Page Break -->
-        <!--<div class="page-break">
-            <img src="media/svg/PageBreak.svg" alt="Page Break"></img>
-        </div>-->
-        <!-- Showcases Carousel -->
+        
         <section id="second-page">
             <div class="scrolling-wrapper">
                 <div class="card">
-                    <a href="https://github.com/bomtrown/roundabout"><img src="media/images/roundabout-sim.jpg" alt="Roundabout Simulator 3D graph"></a>
-                    <div>
-                        <h2>Roundabout Simulator</h2>
-                        <p>This project aims to investigate traffic flow and optimization in roundabout rules using python simulations.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <a href="/projects/this-website.html"><img src="media/images/this-website.jpg" alt="This website"></a>
+                    <a href="projects/this-website.html"><img src="media/images/this-website.jpg" alt="This website"></a>
                     <div>
                         <h2>This Website!</h2>
                         <p>An ongoing discussion of the purpose, origin, and design of this portfolio site.</p>
                     </div>
                 </div>
                 <div class="card">
-                    <a href="/projects/finance-app.html"><img src="media/images/finance-gui-app.png" alt="Personal Finances Severely Overthought"></a>
+                    <a href="projects/finance-app.html"><img src="media/images/finance-gui-app.png" alt="Personal Finances Severely Overthought"></a>
                     <div>
                         <h2>Personal Finances Severely Overthought</h2>
                         <p>In my interest of creating offline software, I'm currently working on a personal finance tool
                             that allows for easy conversion of statements into categories, forecasting, and visualisations
                             for gaining the best insight into personal spending habits.
                         </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="projects/digital-garden.html" style="background: white; border: 2px solid black; display: flex; align-items: center; justify-content: center; width: 100%; text-decoration: none;">
+                        <div style="text-align: center; border: none; background: transparent; opacity: 1; pointer-events: auto;">
+                            <h1 class="squished" style="font-size: 8rem; line-height: 0.8;">DIGITAL<br>GARDEN</h1>
+                            <p style="margin-top: 20px;">🌱 💭 🎵</p>
+                        </div>
+                    </a>
+                    <div>
+                        <h2>Digital Garden</h2>
+                        <p>A non-linear collection of thoughts, half-baked ideas, and things that don't fit in a case study. Step into the graph.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <a href="https://github.com/bomtrown/roundabout"><img src="media/images/roundabout-sim.jpg" alt="Roundabout Simulator 3D graph"></a>
+                    <div>
+                        <h2>Roundabout Simulator</h2>
+                        <p>This project aims to investigate traffic flow and optimization in roundabout rules using python simulations.</p>
                     </div>
                 </div>
                 <div class="card">

@@ -94,22 +94,23 @@ body {
 /* SPECIFIC SVG BACKGROUNDS */
 /* Note: These paths are relative to the CSS file location */
 .garden-node.bg-ai {
-    background-image: url('../media/svg/AI.svg');
+    background-image: url('/media/svg/AI.svg');
 }
 .garden-node.bg-thoughts {
-    background-image: url('../media/svg/thoughts.svg');
+    background-image: url('/media/svg/thoughts.svg');
 }
 .garden-node.bg-bloom {
-    background-image: url('../media/svg/bloom.svg');
+    background-image: url('/media/svg/bloom.svg');
 }
 .garden-node.bg-projects {
-    background-image: url('../media/svg/projects.svg');
+    background-image: url('/media/svg/projects.svg');
 }
 .garden-node.bg-cd {
-    background-image: url('../media/svg/cd.svg');
+    background-image: url('/media/svg/cd.svg');
 }
 
 .garden-node:hover {
+    text-decoration: none;
     border-color: #000;
     z-index: 20; 
 

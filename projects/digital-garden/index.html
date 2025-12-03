@@ -3,6 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="Welcome to my Digital Garden. A non-linear collection of thoughts, experiments, game dev logs, and creative coding projects by Tom Brown.">
+    <meta name="keywords" content="Tom Brown, Digital Garden, Portfolio, Creative Coding, Web Development, Personal Blog, Interactive Design">
+    <meta name="author" content="Tom Brown">
+    
+    <!-- Open Graph / Social Media (Facebook, LinkedIn, Discord) -->
+    <meta property="og:title" content="Tom's Digital Garden">
+    <meta property="og:description" content="A non-linear collection of thoughts, experiments, and creative coding projects. Step into the graph.">
+    <meta property="og:type" content="website">
+    <!-- Using a relative path for the image is risky for social cards; ideally use a full URL (e.g., https://yourdomain.com/media/...) -->
+    <meta property="og:image" content="../media/images/site-bg-placeholder.jpg"> 
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tom's Digital Garden">
+    <meta name="twitter:description" content="A non-linear collection of thoughts, experiments, and creative coding projects. Step into the graph.">
+    <meta name="twitter:image" content="../media/images/site-bg-placeholder.jpg">
+
     <link rel="shortcut icon" href="/media/favicons/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/media/favicons/apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="57x57" href="/media/favicons/apple-touch-icon-57x57.png" />
@@ -15,16 +34,16 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/media/favicons/apple-touch-icon-180x180.png" />
     <title>Tom Brown - Digital Garden</title>
     <!-- Reusing main styles for thematic consistency -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/landingPage.css"> 
+    <link rel="stylesheet" href="/media/css/style.css">
+    <link rel="stylesheet" href="/media/css/landingPage.css"> 
     <!-- New Garden specific styles -->
-    <link rel="stylesheet" href="../css/garden.css">
+    <link rel="stylesheet" href="/media/css/garden.css">
 </head>
 <body>
     <main class="garden-container">
         <!-- Floating Navigation (Themic callback but softer) -->
         <nav class="garden-nav">
-            <a href="../index.html"><h1 class="squished" style="font-size: 4vw;">TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN</h1></a>
+            <a href="/"><h1 class="squished" style="font-size: 4vw;">TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN</h1></a>
         </nav>
 
         <!-- The Canvas for the network lines (sits behind the links) -->
@@ -61,8 +80,8 @@
             <a href="#" class="garden-node bg-ai" 
                id="node-ai-tat"
                data-subitems='[
-                   {"text":"Playlist Sorter", "emoji":"🎧", "href":"garden/sortify.html"},
-                   {"text":"Robot Interview", "emoji":"🤖", "href":"garden/interview-helper.html"}
+                   {"text":"Playlist Sorter", "emoji":"🎧", "href":"/projects/digital-garden/sortify/"},
+                   {"text":"Robot Interview", "emoji":"🤖", "href":"/projects/digital-garden/interview-helper/"}
                ]'>
                 <span class="text">AI Tat</span>
             </a>
@@ -84,6 +103,6 @@
 
     </main>
 
-    <script src="../js/garden.js"></script>
+    <script src="/media/js/garden.js"></script>
 </body>
 </html>

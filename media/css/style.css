@@ -1,8 +1,22 @@
+:root {
+  --bg-color: #ffffff;
+  --border-color: #000000;
+  --accent: #e5e5e5;
+  --highlight: #ee2222; /* Keeping the cyan accent but flatter */
+  --text-muted: #666;
+}
+
 * {
   margin: 0;
   padding: 0;
   border: 0;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: white; }
+::-webkit-scrollbar-thumb { background: white; border: 1px solid black; }
+::-webkit-scrollbar-thumb:hover { background: white; border: 1px solid black; }
 
 body {
   position: relative;
@@ -38,7 +52,7 @@ h1 {
 h2 {
   font-family: Monospace;
   font-size: 1.3em;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 h3 {
   font-family: 'Arial Narrow', sans-serif;
@@ -50,8 +64,8 @@ p {
   font-family: Avenir Next Condensed;
 }
 article {
-  font-size: 1em;
-  font-family: Avenir Next Condensed;
+  font-size: 0.8em;
+  font-family: Avenir Next;
   text-align: justify;
 }
 a {
@@ -101,7 +115,7 @@ a:hover {
   height: 100%;
 }
 .scrolling-wrapper .card div {
-  background-color: white;
+  background-color: var(--bg-color);
   width: 30vw;
   margin: 2vw;
   padding: 2vw;
@@ -155,7 +169,7 @@ nav {
   left: 0;
   width: 100vw;
   height: 10vh;
-  background-color: white;
+  background-color: var(--bg-color);
   display: flex;
   align-items: center;
   padding: 0 5vw;
@@ -168,7 +182,7 @@ footer {
   width: 100vw;
   background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
 }
-footer div {
+footer .contact-info {
   padding: 0 5vw;
   position: absolute;
   bottom: calc(25vh - 5vw);
@@ -180,6 +194,38 @@ footer h2 {
   margin-bottom: 2vh;
   padding: 0.1em;
 }
+
+footer .h-card {
+  position: absolute;
+  bottom: 50vh;
+  right: 5vw;
+  transform: translateY(50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  background-color: var(--bg-color);
+}
+footer .h-card .u-photo {
+  width: 10vw;
+  height: auto;
+  margin-bottom: 1vh;
+}
+footer .h-card .p-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 1vh;
+  font-family: monospace;
+  padding: 1px 5px;
+}
+footer .h-card .p-note {
+  font-size: 1em;
+  text-align: center;
+  max-width: 15vw;
+  font-family: monospace;
+}
+
 
 @media (max-width: 600px) {
   /* Typography */

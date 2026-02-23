@@ -51,7 +51,7 @@ window.addEventListener('scroll', () => {
     if (!originalChar || originalChar.trim() === '') return; // Skip blank or whitespace
 
     const blipSeed = (scrollTop + fakeNoise(index) * 1000) / 100;
-    const weight = index / spans.length + scrollTop / 5000; // Weight based on position in the header from 0 to 1
+    const weight = Math.min(index / spans.length + scrollTop / 5000, scrollTop); // Weight based on position in the header from 0 to 1 - min ensures zero scoll has no effect
 
     // === CHARACTER FLICKER ===
     const charChangeThreshold = weight * 0.5;

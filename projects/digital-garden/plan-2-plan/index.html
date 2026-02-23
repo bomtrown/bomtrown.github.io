@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOAN SIMULATOR // BOMTROWN</title>
+    
+    <!-- Link to your base CSS -->
+    <link rel="stylesheet" href="/media/css/style.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Component-specific overrides that respect your base variables */
+        
+        /* Raw Inputs */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+            width: 100%;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            background: var(--highlight);
+            border: 1px solid var(--border-color);
+            cursor: crosshair;
+            margin-top: -7px;
+            border-radius: 0; /* Square thumb */
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 1px;
+            background: var(--border-color);
+            cursor: crosshair;
+        }
+
+        /* Brutalist Select Dropdown */
+        .brutalist-select {
+            appearance: none;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--border-color);
+            font-family: monospace;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23000000'%3E%3Cpath stroke-linecap='square' stroke-linejoin='miter' stroke-width='2' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1rem;
+        }
+        .brutalist-select:focus {
+            outline: none;
+            box-shadow: 2px 2px 0px 0px var(--border-color);
+        }
+
+        .brutalist-input {
+            background: transparent;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--border-color);
+            font-family: monospace;
+            border-radius: 0;
+            font-size: 1.2em;
+        }
+        .brutalist-input:focus {
+            outline: none;
+            border-bottom-color: var(--highlight);
+        }
+
+        /* Marquee using your 10vw h1 tag */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+        }
+        .marquee-content {
+            display: inline-block;
+            /*animation: marquee 15s linear infinite;*/
+        }
+        /*@keyframes marquee {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100vw); }
+        }*/
+
+        /* Chart Canvas styling to match brutalism */
+        canvas { touch-action: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[var(--bg-color)] text-[var(--border-color)]">
+
+    <!-- Header: Marquee of your massive h1 tag -->
+    <header class="marquee-container">
+        <div class="marquee-content">
+            <!-- Utilizing your h1 (Arial Narrow, 10vw) -->
+            <h1 class="squished">LOAN SIMULATOR LOAN SIMULATOR LOAN SIMULATOR LOAN SIMULATOR LOAN SIMULATOR</h1>
+        </div>
+    </header>
+
+    <!-- Navigation / Top Controls -->
+    <nav class="border-b border-[var(--border-color)] bg-[var(--bg-color)] justify-between">
+        <p class="hidden md:block pl-0 tracking-widest uppercase">Trajectory Planner // V2.2</p>
+        <div class="flex items-center gap-3 ml-auto">
+            <p class="text-[10px] uppercase text-[var(--text-muted)] hidden sm:block">Display Adjustment:</p>
+            <select id="viewModeSelect" class="brutalist-select">
+                <option value="nominal">No Adjustment (Nominal)</option>
+                <option value="rpi" selected>Real Terms (RPI)</option>
+                <option value="cpi">Real Terms (CPI est.)</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-0 flex-grow">
+        
+        <!-- Left Column: Controls & Data -->
+        <div class="lg:col-span-3 border-r border-[var(--border-color)] bg-[var(--bg-color)] flex flex-col">
+            
+            <div class="p-6 border-b border-[var(--border-color)]">
+                <!-- Utilizing your h2 (Monospace, bg-color) -->
+                <h2 class="mb-6 tracking-widest uppercase border-y border-[var(--border-color)] block w-full px-2">// PARAMETERS</h2>
+                
+                <!-- RPI Control -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-4">
+                        <p class="uppercase">RPI (Inflation)</p>
+                        <span class="font-mono text-xl text-[var(--highlight)]" id="rpiDisplay">3.0%</span>
+                    </div>
+                    <input type="range" id="rpiSlider" min="0" max="15" step="0.5" value="3.0">
+                    <article class="mt-2 pl-2 border-l-2 border-[var(--border-color)] text-[var(--text-muted)]">
+                        P2_INTEREST = RPI_BASE + VARIABLE_SCALE
+                    </article>
+                </div>
+
+                <!-- Debt Control -->
+                <div class="mb-4">
+                    <p class="uppercase block mb-3">Starting Debt</p>
+                    <div class="flex items-center">
+                        <span class="font-mono text-xl mr-2">£</span>
+                        <input type="number" id="debtInput" value="50000" class="brutalist-input w-full py-2">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Output -->
+            <div class="p-6 flex-grow flex flex-col justify-center">
+                <h2 class="mb-6 tracking-widest uppercase border-y border-[var(--border-color)] block w-full px-2">// OUTPUT</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between uppercase mb-1">
+                            <p>Total Repaid</p>
+                            <span class="font-mono font-bold" id="statPaid">£0</span>
+                        </div>
+                        <div class="w-full bg-[var(--accent)] h-2 border border-[var(--border-color)]">
+                            <div id="barPaid" class="bg-[var(--border-color)] h-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between uppercase mb-1">
+                            <p>Interest Accrued</p>
+                            <span class="font-mono font-bold" id="statInterest">£0</span>
+                        </div>
+                        <div class="w-full bg-[var(--accent)] h-2 border border-[var(--border-color)]">
+                            <div id="barInterest" class="bg-[var(--text-muted)] h-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between uppercase mb-1">
+                            <p>Write Off</p>
+                            <span class="font-mono text-[var(--highlight)]" id="statWrittenOff">£0</span>
+                        </div>
+                        <div class="w-full bg-[var(--accent)] h-2 border border-[var(--border-color)]">
+                            <div id="barWriteOff" class="bg-[var(--highlight)] h-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border-2 border-[var(--border-color)] relative">
+                    <p class="text-[10px] text-[var(--text-muted)] absolute -top-2 left-2 bg-[var(--bg-color)] px-1 uppercase">Status_Code</p>
+                    <span id="finalStatus" class="text-2xl uppercase tracking-tight block text-center">CALCULATING...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Visualization -->
+        <div class="lg:col-span-9 flex flex-col relative bg-[var(--bg-color)]">
+            <!-- Light Grid Background Overlay -->
+
+            <!-- Salary Chart -->
+            <div class="h-[55%] border-b border-[var(--border-color)] p-6 relative">
+                <div class="absolute top-4 left-6 z-10 pointer-events-none bg-[var(--bg-color)] px-2 border-y border-[var(--border-color)]">
+                    <!-- Utilizing your h3 (Arial Narrow, italic) -->
+                    <h3>Salary Trajectory</h3>
+                </div>
+                <div class="absolute top-4 right-6 z-10 pointer-events-none">
+                    <p class="font-mono text-[10px] text-[var(--highlight)] bg-[var(--bg-color)] px-1 border border-[var(--border-color)]">> INTERACTIVE_MODE: ENABLED</p>
+                </div>
+                <div class="w-full h-full pt-10 relative">
+                    <canvas id="salaryChart"></canvas>
+                    
+                    <!-- Brutalist Tooltip -->
+                    <div id="salaryTooltip" class="hidden absolute pointer-events-none bg-[var(--bg-color)] border-2 border-[var(--border-color)] font-mono text-sm px-3 py-1 z-50 shadow-[4px_4px_0px_0px_var(--border-color)] transition-none">
+                        VAL: £0
+                    </div>
+                </div>
+            </div>
+
+            <!-- Debt Chart -->
+            <div class="h-[45%] p-6 relative">
+                 <div class="absolute top-4 left-6 z-10 pointer-events-none bg-[var(--bg-color)] px-2 border-y border-[var(--border-color)]">
+                    <!-- Utilizing your h3 (Arial Narrow, italic) -->
+                    <h3>Debt Horizon</h3>
+                </div>
+                <div class="absolute bottom-4 right-6 z-10 pointer-events-none">
+                    <p class="font-mono text-xs text-[var(--text-muted)] font-bold">T-MINUS 30 YEARS</p>
+                </div>
+                <div class="w-full h-full pt-10">
+                    <canvas id="debtChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- CONSTANTS & STATE ---
+        const CONFIG = {
+            startYear: 0,
+            duration: 30,
+            freezeYears: 4,
+            thresholdLower: 27295,
+            thresholdUpper: 49130,
+            controlPointsX: [0, 5, 10, 15, 20, 25, 30] 
+        };
+
+        let state = {
+            rpi: 0.03,
+            initialDebt: 50000,
+            viewMode: 'rpi', // 'nominal', 'rpi', 'cpi'
+            salaryPointsY: [30000, 35000, 42000, 52000, 65000, 75000, 85000] // Stored as "Real Terms RPI" (Year 0 currency)
+        };
+
+        let salaryChart = null;
+        let debtChart = null;
+        let isDragging = false;
+        let activeControlIndex = -1;
+
+        // Fetch CSS Variables for Chart.js
+        const rootStyles = getComputedStyle(document.documentElement);
+        const colorBorder = rootStyles.getPropertyValue('--border-color').trim() || '#000000';
+        const colorHighlight = rootStyles.getPropertyValue('--highlight').trim() || '#22d3ee';
+        const colorBg = rootStyles.getPropertyValue('--bg-color').trim() || '#ffffff';
+
+        // --- HELPERS ---
+        
+        function getDiscountRate() {
+            if (state.viewMode === 'nominal') return 0;
+            if (state.viewMode === 'cpi') return Math.max(0, state.rpi - 0.01); 
+            return state.rpi; 
+        }
+
+        function getDisplayFactor(year) {
+            const rpiFactor = Math.pow(1 + state.rpi, year);
+            const discountRate = getDiscountRate();
+            const discountFactor = Math.pow(1 + discountRate, year);
+            return rpiFactor / discountFactor;
+        }
+        
+        function getStorageFactor(year) {
+            const rpiFactor = Math.pow(1 + state.rpi, year);
+            const discountRate = getDiscountRate();
+            const discountFactor = Math.pow(1 + discountRate, year);
+            return discountFactor / rpiFactor;
+        }
+
+        function interpolateSalary(years) {
+            const result = [];
+            for (let t = 0; t <= CONFIG.duration; t++) {
+                let i = 0;
+                while(i < CONFIG.controlPointsX.length - 1 && t > CONFIG.controlPointsX[i+1]) i++;
+                const x0 = CONFIG.controlPointsX[i];
+                const x1 = CONFIG.controlPointsX[i+1];
+                const y0 = state.salaryPointsY[i];
+                const y1 = state.salaryPointsY[i+1];
+                const ratio = (t - x0) / (x1 - x0);
+                const val = y0 + (y1 - y0) * ratio;
+                result.push(val);
+            }
+            return result;
+        }
+
+        // --- SIMULATION ---
+        function runSimulation() {
+            const wagesRealRPI = interpolateSalary(); 
+            const years = Array.from({length: 31}, (_, i) => i);
+            
+            let currentDebt = state.initialDebt;
+            let paidTotal = 0;
+            let interestTotal = 0;
+
+            const debtNominal = [currentDebt];
+            const thresholdTrajectoryNominal = [];
+            
+            const wagesNominal = wagesRealRPI.map((w, i) => w * Math.pow(1 + state.rpi, i));
+
+            for (let i = 0; i < 30; i++) {
+                let lowerThresh, upperThresh;
+                if (i < CONFIG.freezeYears) {
+                    lowerThresh = CONFIG.thresholdLower;
+                    upperThresh = CONFIG.thresholdUpper;
+                } else {
+                    const growthFactor = Math.pow(1 + state.rpi, i - CONFIG.freezeYears + 1);
+                    lowerThresh = CONFIG.thresholdLower * growthFactor;
+                    upperThresh = CONFIG.thresholdUpper * growthFactor;
+                }
+                thresholdTrajectoryNominal.push(lowerThresh);
+
+                const wage = wagesNominal[i];
+                let rate;
+                if (wage <= lowerThresh) rate = state.rpi;
+                else if (wage >= upperThresh) rate = state.rpi + 0.03;
+                else {
+                    const scale = (wage - lowerThresh) / (upperThresh - lowerThresh);
+                    rate = state.rpi + (scale * 0.03);
+                }
+
+                const interest = currentDebt * rate;
+                interestTotal += interest;
+                currentDebt += interest;
+
+                let payment = 0;
+                if (wage > lowerThresh) {
+                    payment = (wage - lowerThresh) * 0.09;
+                }
+                
+                const actualPayment = Math.min(payment, currentDebt);
+                paidTotal += actualPayment;
+                currentDebt -= actualPayment;
+
+                debtNominal.push(currentDebt <= 0 ? 0 : currentDebt);
+            }
+            
+            const displayWages = [];
+            const displayThresholds = [];
+            const displayDebts = [];
+            const discountRate = getDiscountRate();
+
+            for(let i=0; i<31; i++) {
+                const factor = Math.pow(1 + discountRate, i);
+                displayWages.push(wagesNominal[i] / factor);
+                displayDebts.push(debtNominal[i] / factor);
+                if (i < 30) {
+                    displayThresholds.push(thresholdTrajectoryNominal[i] / factor);
+                }
+            }
+
+            return {
+                wages: displayWages,
+                thresholds: displayThresholds,
+                debts: displayDebts,
+                stats: { paid: paidTotal, interest: interestTotal, remainder: currentDebt }
+            };
+        }
+
+        // --- UI UPDATES ---
+        function updateDashboard() {
+            const simData = runSimulation();
+            
+            document.getElementById('statPaid').innerText = `£${Math.round(simData.stats.paid).toLocaleString()}`;
+            document.getElementById('statInterest').innerText = `£${Math.round(simData.stats.interest).toLocaleString()}`;
+            document.getElementById('statWrittenOff').innerText = `£${Math.round(simData.stats.remainder).toLocaleString()}`;
+
+            const totalVal = simData.stats.paid + simData.stats.remainder; 
+            const maxVal = Math.max(simData.stats.paid, simData.stats.interest, simData.stats.remainder) || 1;
+            document.getElementById('barPaid').style.width = (simData.stats.paid / maxVal * 100) + '%';
+            document.getElementById('barInterest').style.width = (simData.stats.interest / maxVal * 100) + '%';
+            document.getElementById('barWriteOff').style.width = (simData.stats.remainder / maxVal * 100) + '%';
+
+            const statusEl = document.getElementById('finalStatus');
+            if (simData.stats.remainder < 100) {
+                statusEl.innerText = "DEBT CLEARED";
+                statusEl.style.color = colorBorder;
+            } else {
+                statusEl.innerText = "WRITTEN OFF";
+                statusEl.style.color = colorHighlight;
+            }
+
+            const labels = Array.from({length: 31}, (_, i) => `${i}y`);
+
+            // 1. Salary Chart
+            salaryChart.data.labels = labels;
+            salaryChart.data.datasets[0].data = simData.wages; 
+            
+            const scatterSparseData = new Array(31).fill(null);
+            
+            CONFIG.controlPointsX.forEach((yearIndex, i) => {
+                const storedVal = state.salaryPointsY[i];
+                const displayVal = storedVal * getDisplayFactor(yearIndex);
+                scatterSparseData[yearIndex] = displayVal;
+            });
+
+            salaryChart.data.datasets[1].data = scatterSparseData;
+            salaryChart.data.datasets[2].data = simData.thresholds;
+            
+            let yLabel = "Income (£)";
+            if(state.viewMode === 'nominal') yLabel = "Income (Nominal £)";
+            if(state.viewMode === 'rpi') yLabel = "Income (Real RPI £)";
+            if(state.viewMode === 'cpi') yLabel = "Income (Real CPI £)";
+            salaryChart.options.scales.y.title.text = yLabel;
+            
+            const maxSalary = Math.max(...simData.wages, ...scatterSparseData.filter(n=>n!==null));
+            salaryChart.options.scales.y.suggestedMax = Math.max(150000, maxSalary * 1.1);
+            salaryChart.update('none');
+
+            // 2. Debt Chart
+            debtChart.data.labels = labels;
+            debtChart.data.datasets[0].data = simData.debts;
+            const maxDebt = Math.max(...simData.debts);
+            const ceiling = Math.max(state.initialDebt, maxDebt); 
+            debtChart.options.scales.y.suggestedMax = ceiling * 1.1; 
+            debtChart.update('none');
+        }
+
+        // --- CHART SETUP ---
+        function initCharts() {
+            Chart.defaults.color = colorBorder;
+            Chart.defaults.font.family = 'monospace';
+            Chart.defaults.font.size = 12;
+
+            const gridColor = 'rgba(0, 0, 0, 0.1)';
+
+            // Salary Chart
+            const ctxSalary = document.getElementById('salaryChart').getContext('2d');
+            salaryChart = new Chart(ctxSalary, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Salary',
+                            data: [],
+                            borderColor: colorBorder, 
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            tension: 0, 
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Controls',
+                            type: 'line', 
+                            showLine: false,
+                            data: [], 
+                            backgroundColor: colorBg,
+                            borderColor: colorBorder, 
+                            borderWidth: 2,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            pointBackgroundColor: colorBg,
+                            pointHoverBackgroundColor: colorHighlight,
+                            pointBorderColor: colorBorder,
+                        },
+                        {
+                            label: 'Threshold',
+                            data: [],
+                            borderColor: 'rgba(0,0,0,0.4)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'nearest', intersect: true },
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: {
+                        x: { grid: { color: gridColor }, ticks: { maxTicksLimit: 7 } },
+                        y: { 
+                            grid: { color: gridColor }, 
+                            beginAtZero: true,
+                            title: { display: true, text: "Income"}
+                        }
+                    }
+                }
+            });
+
+            // Debt Chart
+            const ctxDebt = document.getElementById('debtChart').getContext('2d');
+            debtChart = new Chart(ctxDebt, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Balance',
+                        data: [],
+                        borderColor: colorHighlight, 
+                        backgroundColor: 'rgba(0, 0, 0, 0.2)', 
+                        borderWidth: 3,
+                        tension: 0,
+                        fill: true,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: gridColor }, ticks: { maxTicksLimit: 7 } },
+                        y: { grid: { color: gridColor }, beginAtZero: true, title: { display: true, text: "Debt Balance"} }
+                    }
+                }
+            });
+            
+            // Drag Logic
+            const canvas = document.getElementById('salaryChart');
+            const tooltip = document.getElementById('salaryTooltip');
+
+            canvas.addEventListener('pointerdown', (e) => {
+                const points = salaryChart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+                const point = points.find(p => p.datasetIndex === 1);
+                if (point) {
+                    isDragging = true;
+                    const yearIndex = point.index;
+                    activeControlIndex = CONFIG.controlPointsX.indexOf(yearIndex);
+                    canvas.style.cursor = 'row-resize';
+                    tooltip.classList.remove('hidden');
+                    updateTooltip(e);
+                }
+            });
+
+            const updateTooltip = (e) => {
+                const containerRect = canvas.parentElement.getBoundingClientRect();
+                const x = e.clientX - containerRect.left;
+                const y = e.clientY - containerRect.top;
+                
+                const yVal = salaryChart.scales.y.getValueForPixel(y);
+                tooltip.innerText = `VAL: £${Math.round(yVal).toLocaleString()}`;
+                
+                tooltip.style.left = `${x + 20}px`;
+                tooltip.style.top = `${y - 10}px`;
+            };
+
+            window.addEventListener('pointermove', (e) => {
+                if (!isDragging || activeControlIndex === -1) return;
+                const rect = canvas.getBoundingClientRect();
+                const yVal = salaryChart.scales.y.getValueForPixel(e.clientY - rect.top);
+                let safeY = Math.max(0, Math.min(1000000, yVal)); 
+                
+                const yearIndex = CONFIG.controlPointsX[activeControlIndex];
+                const storedVal = safeY * getStorageFactor(yearIndex);
+                
+                state.salaryPointsY[activeControlIndex] = storedVal;
+                
+                updateTooltip(e);
+                updateDashboard();
+            });
+
+            window.addEventListener('pointerup', () => {
+                isDragging = false;
+                activeControlIndex = -1;
+                canvas.style.cursor = 'default';
+                tooltip.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            updateDashboard();
+
+            document.getElementById('rpiSlider').addEventListener('input', (e) => {
+                state.rpi = parseFloat(e.target.value) / 100;
+                document.getElementById('rpiDisplay').innerText = e.target.value + "%";
+                updateDashboard();
+            });
+
+            document.getElementById('debtInput').addEventListener('input', (e) => {
+                state.initialDebt = parseFloat(e.target.value) || 0;
+                updateDashboard();
+            });
+
+            document.getElementById('viewModeSelect').addEventListener('change', (e) => {
+                state.viewMode = e.target.value;
+                updateDashboard();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,20 +1,29 @@
 const popIns = document.querySelectorAll('.pop-in');
+let isPopInTicking = false;
 
 window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
+  if (!isPopInTicking) {
+    window.requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
 
-  popIns.forEach(el => {
-    const n1 = parseInt(el.dataset.n1);
-    const n2 = parseInt(el.dataset.n2);
+      popIns.forEach(el => {
+        const n1 = parseInt(el.dataset.n1);
+        const n2 = parseInt(el.dataset.n2);
 
-    if (scrollY < n1) {
-      el.classList.remove('border-only', 'visible');
-    } else if (scrollY >= n1 && scrollY < n2) {
-      el.classList.add('border-only');
-      el.classList.remove('visible');
-    } else {
-      el.classList.add('visible');
-      el.classList.remove('border-only');
-    }
-  });
+        if (scrollY < n1) {
+          el.classList.remove('border-only', 'visible');
+        } else if (scrollY >= n1 && scrollY < n2) {
+          el.classList.add('border-only');
+          el.classList.remove('visible');
+        } else {
+          el.classList.add('visible');
+          el.classList.remove('border-only');
+        }
+      });
+
+      isPopInTicking = false;
+    });
+    
+    isPopInTicking = true;
+  }
 });

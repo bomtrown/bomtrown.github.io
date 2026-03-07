@@ -163,7 +163,6 @@ body {
     letter-spacing: 1px;
     text-align: center;
     padding: 2px 5px;
-    margin-top: 40px; /* Push text down so it doesn't cover the icon center */
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
 }

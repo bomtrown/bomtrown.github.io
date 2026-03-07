@@ -76,15 +76,17 @@ const drawAscii = (grayScales, width) => {
 };
 
 // ===== REDRAW FUNCTION =====
-const redrawAscii = () => {
+// Change the function definition to accept a parameter
+const redrawAscii = (easedScrollY) => {
     const [width, height] = clampDimensions(image.naturalWidth, image.naturalHeight);
     canvas.width = width;
     canvas.height = height;
     context.drawImage(image, 0, 0, width, height);
     const grayScales = convertToGrayScales(context, width, height);
-    const scrollY = window.scrollY || window.pageYOffset;
+    
+    // Use the new parameter here instead of window.scrollY
     const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-    const brightness = (scrollY / maxScroll) * 15; // Range: 1 to 3
+    const brightness = (easedScrollY / maxScroll) * 15; 
 
     for (let i = 0; i < grayScales.length; i++) {
         grayScales[i] = Math.min(255, Math.max(0, grayScales[i] * brightness));
@@ -92,16 +94,36 @@ const redrawAscii = () => {
     drawAscii(grayScales, width);
 };
 
-// ===== PERFORMANCE OPTIMIZATION =====
-let ticking = false;
+// ===== SMOOTH SCROLL EASING (LERP) =====
+let targetScrollY = window.scrollY || window.pageYOffset;
+let currentScrollY = targetScrollY;
+let isAnimating = false;
 
+const updateAsciiAnimation = () => {
+    // Move current position 5% closer to the target (adjust 0.05 for more/less lag)
+    currentScrollY += (targetScrollY - currentScrollY) * 0.05;
+
+    // If we are close enough to the target, snap to it and stop the loop to save CPU
+    if (Math.abs(targetScrollY - currentScrollY) < 0.5) {
+        currentScrollY = targetScrollY;
+        redrawAscii(currentScrollY);
+        isAnimating = false;
+        return;
+    }
+
+    // Otherwise, draw the current frame and request the next one
+    redrawAscii(currentScrollY);
+    window.requestAnimationFrame(updateAsciiAnimation);
+};
+
+// The scroll event now ONLY updates the target destination
 window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            redrawAscii();
-            ticking = false;
-        });
-        ticking = true;
+    targetScrollY = window.scrollY || window.pageYOffset;
+    
+    // If the loop isn't running, start it
+    if (!isAnimating) {
+        isAnimating = true;
+        window.requestAnimationFrame(updateAsciiAnimation);
     }
 });
 
@@ -112,6 +134,9 @@ window.addEventListener('load', () => {
         asciiImage.textContent = 'Error: Image not found or invalid dimensions.';
         return;
     }
-    redrawAscii();
-    // Removed direct scroll listener here in favor of the optimized one above
+    
+    // Initialize both values and run the first draw
+    targetScrollY = window.scrollY || window.pageYOffset;
+    currentScrollY = targetScrollY;
+    redrawAscii(currentScrollY);
 });

@@ -13,8 +13,8 @@ const CONFIG = {
     connectionDist: 1000,
     mouseRepelDist: 150,
     mouseAttractDist: 300,
-    mouseRepelForce: 0.05,
-    mouseAttractForce: 0.12,
+    mouseRepelForce: 1.2,
+    mouseAttractForce: 1.12,
     friction: 0.98,
     padding: 50
 };

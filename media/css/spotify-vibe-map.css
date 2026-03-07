@@ -1,0 +1,159 @@
+/* --- Vibe Map Specific Styles --- */
+body {
+    overflow: hidden;
+    /* Utilizing your global background color */
+    background-color: var(--bg-color); 
+}
+
+.garden-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.garden-nav {
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 100;
+    background: transparent;
+    pointer-events: none;
+}
+.garden-nav a {
+    pointer-events: auto;
+    padding: 1rem;
+    display: inline-block;
+}
+.garden-nav a:hover {
+    text-decoration: none;
+    /* Utilizing global border color */
+    border-left: var(--border-color) 1px solid;
+    border-right: var(--border-color) 1px solid;
+}
+
+/* The Canvas Background */
+#vibe-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* The Watermark Title */
+.garden-watermark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0.05;
+    pointer-events: none;
+    white-space: nowrap;
+}
+.garden-watermark h1 {
+    font-size: 15vw;
+    color: var(--border-color);
+}
+
+/* --- THE NODES (Playlists) --- */
+#vibe-items {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; /* Let clicks pass through empty space */
+}
+
+.vibe-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* Make them look like CDs/Records */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; 
+    background-size: cover;
+    background-position: center;
+    /* Utilize global accent color as fallback while image loads */
+    background-color: var(--accent); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: 2px solid transparent;
+    
+    z-index: 10;
+    user-select: none;
+    cursor: pointer;
+    pointer-events: auto; /* Re-enable clicks for nodes */
+    
+    transition: border-color 0.2s ease, transform 0.1s ease;
+    will-change: transform;
+}
+
+.vibe-node:hover {
+    border-color: var(--border-color);
+    z-index: 20; 
+    transform: scale(1.05) !important; /* Slight pop on hover */
+}
+
+/* EXPANDED STATE */
+.vibe-node.expanded {
+    z-index: 100 !important;
+    background-image: none !important; /* Hide cover to show text */
+    background-color: var(--bg-color) !important; 
+    color: var(--border-color); 
+    cursor: default;
+    align-items: stretch; 
+    
+    /* Morph from circle to card */
+    border-radius: 0; 
+    border: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    
+    width: 250px !important; 
+    height: auto !important; 
+    min-height: 100px;
+    padding: 0;
+    transform: scale(1) !important;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+}
+
+.vibe-node .playlist-info {
+    display: none;
+    flex-direction: column;
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.vibe-node.expanded .playlist-info {
+    display: flex;
+}
+
+.playlist-title {
+    font-family: 'Avenir Next Condensed', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.spotify-link {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    text-decoration: none;
+    color: var(--border-color);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    transition: all 0.2s; 
+    box-sizing: border-box; 
+}
+
+.spotify-link:hover {
+    background: var(--border-color);
+    color: var(--bg-color);
+    text-decoration: none;
+}

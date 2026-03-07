@@ -43,48 +43,54 @@ function fakeNoise(x) {
 
 const spans = header.querySelectorAll('span');
 
+let isJitterTicking = false;
+
 window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
+  if (!isJitterTicking) {
+    window.requestAnimationFrame(() => {
+      const scrollTop = window.scrollY;
 
-  spans.forEach((span, index) => {
-    const originalChar = span.dataset.char;
-    if (!originalChar || originalChar.trim() === '') return; // Skip blank or whitespace
+      spans.forEach((span, index) => {
+        const originalChar = span.dataset.char;
+        if (!originalChar || originalChar.trim() === '') return;
 
-    const blipSeed = (scrollTop + fakeNoise(index) * 1000) / 100;
-    const weight = Math.min(index / spans.length + scrollTop / 5000, scrollTop); // Weight based on position in the header from 0 to 1 - min ensures zero scoll has no effect
+        const blipSeed = (scrollTop + fakeNoise(index) * 1000) / 100;
+        const weight = Math.min(index / spans.length + scrollTop / 5000, scrollTop);
 
-    // === CHARACTER FLICKER ===
-    const charChangeThreshold = weight * 0.5;
+        // === CHARACTER FLICKER ===
+        const charChangeThreshold = weight * 0.5;
+        if (fakeNoise(blipSeed) < charChangeThreshold) {
+          const glitchChars = ['@', '#', '%', '&', '*', '~', '?'];
+          span.textContent = glitchChars[Math.floor(fakeNoise(index) * glitchChars.length)];
+        } else {
+          span.textContent = originalChar;
+        }
 
-    if (fakeNoise(blipSeed) < charChangeThreshold) {
-      const glitchChars = ['@', '#', '%', '&', '*', '~', '?'];
-      const glitchLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-      const glitchNums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-      span.textContent = glitchChars[Math.floor(fakeNoise(index) * glitchChars.length)];
-    } else {
-      span.textContent = originalChar;
-    }
+        // === TEXT COLOUR ===
+        const colourThreshold = 0.5 * weight;
+        if (fakeNoise(blipSeed) < colourThreshold) {
+          const hues = [0, 50, 210];
+          const hue = hues[Math.floor(fakeNoise(index) * hues.length)];
+          span.style.color = `hsl(${hue}, 90%, 60%)`;
+        } else {
+          const lightness = (Math.sin(blipSeed / 2) + 1) * 5;
+          span.style.color = `hsl(0, 0%, ${lightness}%)`;
+        }
 
-    // === TEXT COLOUR ===
-    const colourThreshold = 0.5 * weight;
-
-    if (fakeNoise(blipSeed) < colourThreshold) {
-      const hues = [0, 50, 210]; // Red, Yellow, Blue
-      const hue = hues[Math.floor(fakeNoise(index) * hues.length)];
-      span.style.color = `hsl(${hue}, 90%, 60%)`;
-    } else {
-       const lightness = (Math.sin(blipSeed / 2) + 1) * 5;
-      span.style.color = `hsl(0, 0%, ${lightness}%)`;
-    }
-
-    // === BACKGROUND COLOUR ===
-    const bgThreshold = weight * 0.5;
-
-    if (fakeNoise(blipSeed + 2356) < bgThreshold) {
-      span.style.backgroundColor = 'black';
-      span.style.color = 'white';
-    } else {
-      span.style.backgroundColor = 'white';
-    }
-  });
+        // === BACKGROUND COLOUR ===
+        const bgThreshold = weight * 0.5;
+        if (fakeNoise(blipSeed + 2356) < bgThreshold) {
+          span.style.backgroundColor = 'black';
+          span.style.color = 'white';
+        } else {
+          span.style.backgroundColor = 'white';
+        }
+      });
+      
+      // Reset the tick flag after the frame is painted
+      isJitterTicking = false;
+    });
+    
+    isJitterTicking = true;
+  }
 });

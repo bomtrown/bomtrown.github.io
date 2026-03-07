@@ -46,11 +46,40 @@
   border-bottom: 1px solid black;
 }
 
+.project-heading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--bg-color);
+}
+
+.project-heading h1 {
+  position: relative;
+  display: inline-block;
+  color: var(--border-color); /* Assuming black text */
+  margin: -4vw;
+  white-space: nowrap;
+}
+
+/* We will apply this class to our generated slices */
+.wave-slice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  white-space: nowrap;
+  pointer-events: none; /* Prevents text-selection weirdness */
+}
+
 #ascii {
-  font-family: 'monospace';
+  font-family: Avenir Next Condensed;
+  font-weight: 100;
   color: rgb(210, 210, 210);
   font-size: 1vw;
   line-height: 1;
+  font-weight: 100;
   position: absolute;
   top: 50%;
   transform: translate(0%, -50%);

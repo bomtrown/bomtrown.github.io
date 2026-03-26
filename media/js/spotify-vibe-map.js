@@ -13,7 +13,7 @@ const CONFIG = {
     centerGravity: 0.0008,// Very gentle center pull to prevent tight center clumps
     friction: 0.92,       // Less friction allows them to glide and untangle smoothly
     mouseRepelDist: 200,
-    mouseRepelForce: 0.8,
+    mouseRepelForce: -0.8,
     
     // Map JSON distance (0.0 - 1.0) to pixel distances on screen
     minSpringLength: 50, // Give closely related items more physical space
@@ -29,18 +29,34 @@ let nodeMap = {}; // Quick lookup by ID
 
 // --- Resize Handler ---
 function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    // Use the container's exact dimensions instead of the window.
+    // This stops nodes from bleeding off the right side (accounting for scrollbars)
+    // and correctly bounds the bottom so they don't overlap the title below.
+    width = container.clientWidth;
+    height = container.clientHeight;
+    
+    // Fix for high DPI (mobile/retina) screens making lines look extremely thin
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+    
+    // Adjust physics bounds for smaller screens so it fits nicely
+    const isMobile = width < 600;
+    CONFIG.minSpringLength = isMobile ? 30 : 50;
+    CONFIG.maxSpringLength = isMobile ? 120 : 200;
+    CONFIG.repulsion = isMobile ? 4000 : 7000;
 }
 window.addEventListener('resize', resize);
 resize();
 
 // --- Mouse Tracking ---
 document.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    // Offset the mouse coordinates by the container's position.
+    // This ensures physics (hover/repel) still align perfectly if you scroll down!
+    const rect = container.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
 });
 
 // --- Fetch Data and Initialize ---
@@ -70,10 +86,10 @@ async function initGraph() {
             const nodeObj = {
                 id: n.id,
                 element: el,
-                width: 100, // initial circle size
-                height: 100,
-                x: Math.random() * (width - 100),
-                y: Math.random() * (height - 100),
+                width: 40, // initial circle size
+                height: 40,
+                x: Math.random() * (width - 40),
+                y: Math.random() * (height - 40),
                 vx: (Math.random() - 0.5) * 10, // Give them initial momentum to break clumps
                 vy: (Math.random() - 0.5) * 10,
                 expanded: false,
@@ -215,7 +231,7 @@ function animate() {
     // 3. Update Positions, Draw Lines, Update DOM
     
     // Draw Algorithmic Strength Lines!
-    ctx.lineWidth = 1.5; // Slightly thicker lines for visibility
+    ctx.lineWidth = window.innerWidth < 600 ? 2.5 : 1.5; // Thicker lines on mobile for visibility
     links.forEach(link => {
         let n1 = link.source;
         let n2 = link.target;

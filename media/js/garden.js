@@ -64,12 +64,16 @@ document.querySelectorAll('.garden-node').forEach(node => {
 // --- Node Factory ---
 function createNode(element) {
     const rect = element.getBoundingClientRect();
+    // Fallback to window dimensions if container is 0 at init
+    const spawnW = container.clientWidth || window.innerWidth;
+    const spawnH = container.clientHeight || window.innerHeight;
+    
     return {
         element: element,
         width: rect.width,
         height: rect.height,
-        x: Math.random() * (window.innerWidth - 200) + 100,
-        y: Math.random() * (window.innerHeight - 200) + 100,
+        x: Math.random() * (spawnW - 200) + 100,
+        y: Math.random() * (spawnH - 200) + 100,
         vx: (Math.random() - 0.5) * CONFIG.speed,
         vy: (Math.random() - 0.5) * CONFIG.speed,
         expanded: false
@@ -82,18 +86,25 @@ const nodes = domNodes.map(el => createNode(el));
 
 // --- Resize Handler ---
 function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    // Bound physics to the container instead of window
+    width = container.clientWidth;
+    height = container.clientHeight;
+    
+    // Fix for high DPI (mobile/retina) screens
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
 }
 window.addEventListener('resize', resize);
 resize();
 
 // --- Mouse Tracking ---
 document.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    // Offset the mouse coordinates by the container's position for correct scrolling
+    const rect = container.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
 });
 
 // --- Click Interaction (Simple Toggle) ---
@@ -216,7 +227,7 @@ function animate() {
                 ctx.moveTo(node.x + node.width/2, node.y + node.height/2);
                 ctx.lineTo(other.x + other.width/2, other.y + other.height/2);
                 ctx.strokeStyle = `rgba(0, 0, 0, ${opacity * 2})`; 
-                ctx.lineWidth = 1;
+                ctx.lineWidth = width < 600 ? 2 : 1; // Thicker lines on mobile screens
                 ctx.stroke();
             }
         }

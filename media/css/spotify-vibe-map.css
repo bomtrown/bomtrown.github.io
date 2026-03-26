@@ -1,6 +1,6 @@
 /* --- Vibe Map Specific Styles --- */
 body {
-    overflow: hidden;
+    /* overflow: hidden;  <-- Removed to allow scrolling to the article */
     /* Utilizing your global background color */
     background-color: var(--bg-color); 
 }
@@ -70,8 +70,8 @@ body {
     justify-content: center;
     
     /* Make them look like CDs/Records */
-    width: 100px;
-    height: 100px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%; 
     background-size: cover;
     background-position: center;
@@ -156,4 +156,40 @@ body {
     background: var(--border-color);
     color: var(--bg-color);
     text-decoration: none;
+}
+
+/* --- SCROLL HINT --- */
+.scroll-hint {
+    position: absolute;
+    bottom: 3vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 50;
+    pointer-events: none;
+    color: var(--border-color);
+    opacity: 0.7;
+}
+
+.scroll-hint p {
+    font-family: 'Avenir Next Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+    animation: bob 2s ease-in-out infinite;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 40px;
+    background-color: var(--border-color);
+    animation: bob 2s ease-in-out infinite;
+    animation-delay: 0.1s;
+}
+
+@keyframes bob {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(10px); opacity: 1; }
 }

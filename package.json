@@ -1,0 +1,24 @@
+{
+  "name": "bomtrown.github.io",
+  "version": "1.0.0",
+  "description": "Using this as a requirements list for now:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bomtrown/bomtrown.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bomtrown/bomtrown.github.io/issues"
+  },
+  "homepage": "https://github.com/bomtrown/bomtrown.github.io#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.5"
+  }
+}

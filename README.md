@@ -41,3 +41,9 @@ To convey myself effectively through the design language I want it to encorperat
 - Cars/strong brands
 - Science/mathematics - displays of mathematical 'beauty' should be plentiful
 - My favourite aesthetics, 'lights', 'train', 'bright'
+
+
+Built using 11ty
+```
+npx @11ty/eleventy --serve
+```

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="Personal portfolio of Tom Brown. A collection of coding projects, 3D modeling, and digital experiments.">
+    <meta name="keywords" content="Tom Brown, Portfolio, Web Developer, 3D Modeling, Creative Coding, Front End Developer">
+    <meta name="author" content="Tom Brown">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Tom Brown Portfolio">
+    <meta property="og:description" content="Personal portfolio of Tom Brown. A collection of coding projects, 3D modeling, and digital experiments.">
+    <meta property="og:type" content="website">
+    <!-- Note: No '../' needed here because we are at the root -->
+    <meta property="og:image" content="media/images/site-bg-placeholder.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tom Brown Portfolio">
+    <meta name="twitter:description" content="Personal portfolio of Tom Brown. A collection of coding projects, 3D modeling, and digital experiments.">
+    <meta name="twitter:image" content="media/images/site-bg-placeholder.jpg">
+
+    <link rel="shortcut icon" href="/media/favicons/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/media/favicons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/media/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/media/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/media/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/media/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/media/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/media/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/media/favicons/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/media/favicons/apple-touch-icon-180x180.png" />
+    <title>{{ title }}</title>
+    
+    <link rel="stylesheet" href="/media/css/style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.0.0/perlin.min.js"></script>
+
+    {% if custom_css %}
+    <link rel="stylesheet" href="{{ custom_css }}">
+    {% endif %}
+
+    {% if needs_mono_font %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+    {% endif %}
+</head>
+<body>
+    <main>
+        {{ content }}
+
+        {% include "footer.html" %}
+    </main>
+</body>
+</html>

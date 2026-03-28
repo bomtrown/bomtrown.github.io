@@ -2,7 +2,6 @@
 layout: base.html
 title: Tom Brown - Portfolio
 custom_css: /media/css/landingPage.css
-needs_mono_font: true
 ---
 
 <!--<div class="cursor"></div>-->
@@ -47,60 +46,30 @@ needs_mono_font: true
             <script src="/media/js/projects-glitch.js" defer></script>
         </div>
         <div class="scrolling-wrapper">
+            
+            {% for post in collections.project reversed %}
             <div class="card">
-                <a href="/projects/this-website/"><img src="/media/images/this-website.jpg" alt="This website"></a>
-                <div>
-                    <h2>This Website!</h2>
-                    <p>An ongoing discussion of the purpose, origin, and design of this portfolio site.</p>
-                </div>
-            </div>
-            <div class="card">
-                <a href="/projects/finance-app/"><img src="/media/images/finance-gui-app.png" alt="Personal Finances Severely Overthought"></a>
-                <div>
-                    <h2>Personal Finances Severely Overthought</h2>
-                    <p>In my interest of creating offline software, I'm currently working on a personal finance tool
-                        that allows for easy conversion of statements into categories, forecasting, and visualisations
-                        for gaining the best insight into personal spending habits.
-                    </p>
-                </div>
-            </div>
-            <div class="card">
-                <a href="/projects/digital-garden/">
-                    <img src="/media/svg/bloom.svg" alt="Digital Garden" style="filter: invert(1);">
+                
+                {% if post.data.external_url %}
+                    <a href="{{ post.data.external_url }}" target="_blank" rel="noopener noreferrer">
+                {% else %}
+                    <a href="{{ post.url }}">
+                {% endif %}
+                    
+                    <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
                 </a>
+                
                 <div>
-                    <h2>Digital Garden</h2>
-                    <p>A non-linear collection of thoughts, half-baked ideas, and things that don't fit in a case study. Step into the graph.</p>
+                    <h2>{{ post.data.title }}</h2>
+                    <p>{{ post.data.description }}</p>
                 </div>
             </div>
-            <div class="card">
-                <a href="https://github.com/bomtrown/roundabout"><img src="media/images/roundabout-sim.jpg" alt="Roundabout Simulator 3D graph"></a>
-                <div>
-                    <h2>Roundabout Simulator</h2>
-                    <p>This project aims to investigate traffic flow and optimization in roundabout rules using python simulations.</p>
-                </div>
-            </div>
-            <div class="card">
-                <a href="/">
-                    <img src="/media/images/poster-pulsar-basilica.jpg" alt="Pulsar Basilica Poster">
-                </a>
-                <div>
-                    <h2>Pulsar Basilica</h2>
-                    <p>A simple challenge, create something cool with passion, and sell it!</p>
-                </div>
-            </div>
-            <div class="card">
-                <a href="/">
-                    <img src="/media/images/car-wireframe.png" alt="Car Wireframe">
-                </a>
-                <div>
-                    <h2>3D Modeling</h2>
-                    <p>Content soon...</p>
-                </div>
-            </div>
+            {% endfor %}
+        
             <div class="card">
                 <img src="/media/images/site-bg-placeholder.jpg" alt="Site Background Placeholder">
             </div>
+        
         </div>
         </section>
         <script>

@@ -191,6 +191,12 @@ nav {
   z-index: 10;
 }
 
+/* Back Button */
+.back-button {
+  font-family: "Major Mono Display";
+  font-size: 1.2em;
+}
+
 footer {
   height: 100vh;
   width: 100vw;
@@ -245,8 +251,7 @@ footer .h-card .p-note {
   /* Typography */
   h1 {
     font-size: 14vw;
-    text-align: center;
-  }
+    }
   h2, h3 {
     font-size: 1.4em;
   }

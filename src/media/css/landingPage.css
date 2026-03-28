@@ -94,6 +94,10 @@
 }
 
 @media (max-width: 600px) {
+  h1 {
+    text-align: center;
+  }
+
   #first-page-title-wrapper {
     justify-content: center;
     padding: 0;

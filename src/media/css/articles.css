@@ -1,12 +1,47 @@
+/* --- BASE TITLE STYLES (Shared by both) --- */
 .article-title {
   display: flex;
-  justify-content: space-between;
-  /* font-size: 4rem; */
+  flex-wrap: wrap;
+  width: 100%;
+  row-gap: 0;
+  line-height: 0.8;
   text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 4vh;
 }
 
-.article-title span {
+/* --- STYLE 1: SPACED (The Flex-Grow Method) --- */
+.title-spaced {
+  gap: 2.5vw;
+}
+
+.title-spaced .word {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+.title-spaced .word span {
   display: inline-block;
+}
+
+
+/* --- STYLE 2: STRETCH (The JavaScript Method) --- */
+.title-stretch {
+  column-gap: 0.5vw;
+  overflow: hidden; 
+}
+
+.title-stretch .word-wrapper {
+  display: block;
+}
+
+.title-stretch .stretch-text {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform;
+  font-weight: 100
 }
 
 .tile {

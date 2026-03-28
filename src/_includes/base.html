@@ -18,8 +18,9 @@
       "jobTitle": "Web Developer & 3D Modeler",
       "description": "Developer specializing in creative coding, 3D modeling, and digital experiments.",
       "sameAs": [
-        "https://github.com/bomtrown"
-        /* Add your LinkedIn/Twitter URLs here */
+        "https://github.com/bomtrown",
+        "https://www.linkedin.com/in/bomtrown/",
+        "https://pin.it/6T3qZajY0"
       ]
     }
     </script>
@@ -41,7 +42,9 @@
 
     <link rel="stylesheet" href="/media/css/style.css">
     {% if custom_css %}
-    <link rel="stylesheet" href="{{ custom_css }}">
+      {% for css_file in custom_css %}
+        <link rel="stylesheet" href="{{ css_file }}">
+      {% endfor %}
     {% endif %}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,6 +54,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.0.0/perlin.min.js" defer></script>
 </head>
 <body>
+    <div class="cursor"></div>
+    <script src="/media/js/cursor.js" defer></script>
     <main>
         {{ content }}
     </main>

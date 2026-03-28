@@ -21,28 +21,42 @@
 body {
   position: relative;
   overflow-x: hidden;
-  /*cursor: none;*/
 }
 
-/*.cursor {
+/* Custom Cursor */
+.cursor {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 20px;
   height: 20px;
-  border: 1px solid black; /* default thickness *//*
+  border: 1px solid black; /* default thickness */
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: border-width 0.5s ease, transform 0.05s linear;
+  transition: border-width 0.05s ease, width 0.1s linear, height 0.1s linear, transform 0.1s ease;
   z-index: 9999;
   will-change: transform;
 }
 
 .cursor.link-hover {
-  border-width: 5px; /* thickness when over <a> *//*
+  border-width: 5px; /* thickness when over <a> */
   width: 0px;
   height: 0px;
-}*/
+
+  border-color: white; /* Switch to white on hover */
+  mix-blend-mode: difference; /* Apply the inversion on hover */
+}
+
+/* Enable custom cursor for devices with a mouse/trackpad */
+@media (hover: hover) and (pointer: fine) {
+  body, a {
+    cursor: none; /* Hide the default system cursor */
+  }
+  
+  .cursor {
+    display: block; /* Show your custom circle */
+  }
+}
 
 /* Typography */
 h1 {
@@ -73,7 +87,6 @@ article {
 a {
   text-decoration: none;
   color: inherit;
-  /*cursor: none;*/
 }
 a:hover {
   text-decoration: underline;

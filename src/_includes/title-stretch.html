@@ -1,0 +1,42 @@
+<h1 class="article-title title-stretch">
+    {% assign words = title | split: " " %}
+    {% for word in words %}
+        <span class="word-wrapper"><span class="stretch-text">{{ word }}</span></span>
+    {% endfor %}
+</h1>
+
+<script>
+    function brutalistStretch() {
+        const title = document.querySelector('.title-stretch');
+        if (!title) return;
+        const wrappers = title.querySelectorAll('.word-wrapper');
+        const containerWidth = title.clientWidth;
+
+        wrappers.forEach(w => { w.style.width = 'auto'; w.children[0].style.transform = 'none'; });
+
+        let lines = {};
+        wrappers.forEach(w => {
+            let top = w.offsetTop;
+            if (!lines[top]) lines[top] = [];
+            lines[top].push(w);
+        });
+
+        Object.values(lines).forEach(line => {
+            let naturalWidth = line.reduce((sum, w) => sum + w.offsetWidth, 0);
+            let gapPixels = (window.innerWidth * 0.025) * (line.length - 1);
+            let targetWidth = containerWidth - gapPixels;
+            let ratio = targetWidth / naturalWidth;
+
+            line.forEach(w => {
+                let text = w.children[0];
+                let newWidth = w.offsetWidth * ratio;
+                text.style.transform = `scaleX(${ratio})`;
+                text.style.transformOrigin = 'left';
+                w.style.width = `${newWidth}px`; 
+            });
+        });
+    }
+    window.addEventListener('load', brutalistStretch);
+    window.addEventListener('resize', brutalistStretch);
+    brutalistStretch();
+</script>

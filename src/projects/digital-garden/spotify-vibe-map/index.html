@@ -1,86 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tom Brown - The Record Crate</title>
-    
-    <!-- Global styles -->
-    <link rel="stylesheet" href="/media/css/style.css">
-    <link rel="stylesheet" href="/media/css/landingPage.css"> 
-    <link rel="stylesheet" href="/media/css/articles.css">
+---
+layout: base.html
+title: Spotify Vibe Map
+title_style: stretch
+date: 2026-03-28
+description: In my interest of creating offline software, I'm currently working on a personal finance tool that allows for easy conversion of statements into categories, forecasting, and visualisations...
+custom_css:
+    - /media/css/landingPage.css
+    - /media/css/spotify-vibe-map.css
+    - /media/css/articles.css
+---
 
-    <!-- Vibe Map Specific Styles -->
-    <link rel="stylesheet" href="/media/css/spotify-vibe-map.css">
-</head>
-<body>
-    <main class="garden-container">
-        <!-- Floating Navigation -->
-        <nav class="garden-nav">
-            <a href="/"><h1 class="squished" style="font-size: 4vw;">TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN</h1></a>
-        </nav>
+<div class="garden-container">
+    <!-- Floating Navigation -->
+    <nav class="garden-nav">
+        <a href="/"><h1 class="squished" style="font-size: 4vw;">TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN</h1></a>
+    </nav>
 
-        <!-- The Canvas for the spring lines -->
-        <canvas id="vibe-canvas"></canvas>
+    <!-- The Canvas for the spring lines -->
+    <canvas id="vibe-canvas"></canvas>
 
-        <!-- Container where JS will inject the nodes -->
-        <div id="vibe-items"></div>
+    <!-- Container where JS will inject the nodes -->
+    <div id="vibe-items"></div>
 
-        <!-- Static Background Watermark -->
-        <div class="garden-watermark">
-            <h1 class="squished">THE RECORD CRATE</h1>
+    <!-- Static Background Watermark -->
+    <div class="garden-watermark">
+        <h1 class="squished">THE RECORD CRATE</h1>
+    </div>
+
+    <!-- Scroll Hint -->
+    <div class="scroll-hint">
+        <p>SCROLL</p>
+        <div class="scroll-line"></div>
+    </div>
+
+    <!-- SVG Filter for Horizontal Motion Blur -->
+    <svg style="display: none;">
+        <filter id="horizontal-blur">
+            <feGaussianBlur id="vibe-blur" stdDeviation="0 0" />
+        </filter>
+    </svg>
+
+    <!-- New Modal Overlay -->
+    <div id="vibe-modal" class="hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button id="modal-close">&times;</button>
+            <img id="modal-img" src="" alt="Playlist Cover">
+            <div class="modal-text">
+                <h2 id="modal-title">Title</h2>
+                <p id="modal-desc">Description</p>
+                <a id="modal-link" href="#" target="_blank" class="spotify-link">Listen on Spotify ↗</a>
+            </div>
         </div>
+    </div>
+</div>
 
-        <!-- Scroll Hint -->
-        <div class="scroll-hint">
-            <p>SCROLL</p>
-            <div class="scroll-line"></div>
-        </div>
-    </main>
+<!-- Article Content -->
+<section style="padding: 0 5vw;">
+    {% include "title-stretch.html" %}
 
-    <!-- Article Content -->
-    <section style="padding: 0 5vw;">
-        <h1 class="article-title">
-            <span>T</span>
-            <span>H</span>
-            <span>E</span>
-            <span> </span>
-            <span>V</span>
-            <span>I</span>
-            <span>B</span>
-            <span>E</span>
-            <span> </span>
-            <span>M</span>
-            <span>A</span>
-            <span>P</span>
-        </h1>
-        <div style="display: flex; flex-wrap: wrap; width: 100%; gap: 0; padding-bottom: 2vh;">
-            <div class="tile medium"><img src="https://i.pinimg.com/1200x/72/20/05/72200518085eb924eb7d1ee116d22916.jpg" style="filter: grayscale(1) brightness(1);" alt=""></div>
-            <div class="tile small" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
-            <div class="tile small"><img src="https://i.pinimg.com/736x/3a/06/06/3a06067799fc681de3f8570887e58330.jpg" style="filter: grayscale(1) brightness(1);" alt=""></div>
-            <div class="tile large" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
-        </div>
-        <article>Welcome to The Record Crate. What started as a simple idea to catalogue my favorite music quickly evolved into the interactive, physics-based visualization you see above. I wanted a way to explore my Spotify listening habits not just as a static list, but as a living, breathing ecosystem where tracks and artists gravitate towards each other based on their sonic footprint and shared vibes.
-        </article>
-        <br>
-        <article>Under the hood, the Vibe Map is powered by a custom physics engine. Each node represents a track or album, injected dynamically via JavaScript into the DOM. The connections—those visual spring lines drawn onto the HTML canvas—act as physical constraints, pulling related genres together while pushing disparate sounds apart. It's a delicate balance of collision detection and spring forces, creating a web of music that reacts naturally when you click, drag, and interact with it.
-        </article>
-        <br>
-        <article>Designing this space was all about merging the analog nostalgia of digging through physical records with modern, creative web development. The typography features bold, repetitive, squished text to ground the design, while the fluid nature of the node graph provides a stark, playful contrast. Feel free to toss the nodes around and see how the map settles—it's meant to be as tactile and exploratory as a real record crate.
-        </article>
-    </section>
+    <div style="display: flex; flex-wrap: wrap; width: 100%; gap: 0; padding-bottom: 2vh;">
+        <div class="tile medium"><img src="https://i.pinimg.com/1200x/72/20/05/72200518085eb924eb7d1ee116d22916.jpg" style="filter: grayscale(1) brightness(1);" alt=""></div>
+        <div class="tile small" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
+        <div class="tile small"><img src="https://i.pinimg.com/736x/3a/06/06/3a06067799fc681de3f8570887e58330.jpg" style="filter: grayscale(1) brightness(1);" alt=""></div>
+        <div class="tile large" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
+    </div>
+    <article>Welcome to The Record Crate. What started as a simple idea to catalogue my favorite music quickly evolved into the interactive, physics-based visualization you see above. I wanted a way to explore my Spotify listening habits not just as a static list, but as a living, breathing ecosystem where tracks and artists gravitate towards each other based on their sonic footprint and shared vibes.
+    </article>
+    <br>
+    <article>Under the hood, the Vibe Map is powered by a custom physics engine. Each node represents a track or album, injected dynamically via JavaScript into the DOM. The connections—those visual spring lines drawn onto the HTML canvas—act as physical constraints, pulling related genres together while pushing disparate sounds apart. It's a delicate balance of collision detection and spring forces, creating a web of music that reacts naturally when you click, drag, and interact with it.
+    </article>
+    <br>
+    <article>Designing this space was all about merging the analog nostalgia of digging through physical records with modern, creative web development. The typography features bold, repetitive, squished text to ground the design, while the fluid nature of the node graph provides a stark, playful contrast. Feel free to toss the nodes around and see how the map settles—it's meant to be as tactile and exploratory as a real record crate.
+    </article>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div>
-            <h2>Contact Information</h2>
-            <h2><a href="https://www.linkedin.com/in/bomtrown" target="_blank" rel="noopener noreferrer">LinkedIn</a></h2>
-            <h2><a href="https://github.com/bomtrown" target="_blank" rel="noopener noreferrer me">GitHub</a></h2>
-            <h2>© 2025 Tom Brown. All rights reserved.</h2>
-        </div>
-    </footer>
-
-    <!-- Vibe Map Physics Engine -->
-    <script src="/media/js/spotify-vibe-map.js" defer></script>
-</body>
-</html>
+<!-- Vibe Map Physics Engine -->
+<script src="/media/js/spotify-vibe-map.js" defer></script>

@@ -1,6 +1,5 @@
 /* --- Vibe Map Specific Styles --- */
 body {
-    /* overflow: hidden;  <-- Removed to allow scrolling to the article */
     /* Utilizing your global background color */
     background-color: var(--bg-color); 
 }
@@ -25,7 +24,6 @@ body {
 }
 .garden-nav a:hover {
     text-decoration: none;
-    /* Utilizing global border color */
     border-left: var(--border-color) 1px solid;
     border-right: var(--border-color) 1px solid;
 }
@@ -69,93 +67,29 @@ body {
     align-items: center;
     justify-content: center;
     
-    /* Make them look like CDs/Records */
     width: 40px;
     height: 40px;
-    border-radius: 50%; 
+    
     background-size: cover;
     background-position: center;
-    /* Utilize global accent color as fallback while image loads */
+    background-repeat: no-repeat; /* Prevents wrap-around glitch */
+    box-sizing: border-box;       /* Keeps border from breaking size */
     background-color: var(--accent); 
+    
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     border: 2px solid transparent;
     
     z-index: 10;
     user-select: none;
-    cursor: pointer;
     pointer-events: auto; /* Re-enable clicks for nodes */
-    
-    transition: border-color 0.2s ease, transform 0.1s ease;
-    will-change: transform;
+
+    transition: border-color 0.2s ease;
+    will-change: transform, filter; /* Optimized for js manipulation */
 }
 
 .vibe-node:hover {
     border-color: var(--border-color);
     z-index: 20; 
-    transform: scale(1.05) !important; /* Slight pop on hover */
-}
-
-/* EXPANDED STATE */
-.vibe-node.expanded {
-    z-index: 100 !important;
-    background-image: none !important; /* Hide cover to show text */
-    background-color: var(--bg-color) !important; 
-    color: var(--border-color); 
-    cursor: default;
-    align-items: stretch; 
-    
-    /* Morph from circle to card */
-    border-radius: 0; 
-    border: 1px solid var(--border-color);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    
-    width: 250px !important; 
-    height: auto !important; 
-    min-height: 100px;
-    padding: 0;
-    transform: scale(1) !important;
-    box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-}
-
-.vibe-node .playlist-info {
-    display: none;
-    flex-direction: column;
-    padding: 1.5rem;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.vibe-node.expanded .playlist-info {
-    display: flex;
-}
-
-.playlist-title {
-    font-family: 'Avenir Next Condensed', sans-serif;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.spotify-link {
-    display: block;
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid var(--border-color);
-    text-align: center;
-    text-decoration: none;
-    color: var(--border-color);
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    transition: all 0.2s; 
-    box-sizing: border-box; 
-}
-
-.spotify-link:hover {
-    background: var(--border-color);
-    color: var(--bg-color);
-    text-decoration: none;
 }
 
 /* --- SCROLL HINT --- */
@@ -192,4 +126,110 @@ body {
 @keyframes bob {
     0%, 100% { transform: translateY(0); opacity: 0.5; }
     50% { transform: translateY(10px); opacity: 1; }
+}
+
+/* --- MODAL OVERLAY --- */
+#vibe-modal {
+    position: absolute; /* Using absolute maps to garden-container */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none; /* Let clicks pass through when hidden */
+    transition: opacity 0.3s ease;
+}
+
+#vibe-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.5); 
+    backdrop-filter: url(#horizontal-blur);     
+    -webkit-backdrop-filter: url(#horizontal-blur);
+}
+
+.modal-content {
+    position: relative;
+    z-index: 1001;
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#vibe-modal.visible .modal-content {
+    transform: translateY(0);
+}
+
+#modal-close {
+    position: absolute;
+    top: 10px; right: 15px;
+    background: none; border: none;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--border-color);
+}
+
+#modal-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+
+.modal-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+#modal-title {
+    font-family: 'Avenir Next Condensed', sans-serif;
+    font-size: 2rem;
+    margin: 0;
+    line-height: 1.1;
+    color: var(--border-color);
+}
+
+#modal-desc {
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.8;
+    color: var(--border-color);
+}
+
+.spotify-link {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    text-decoration: none;
+    color: var(--border-color);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    transition: all 0.2s; 
+    box-sizing: border-box; 
+    margin-top: 0.5rem;
+}
+
+.spotify-link:hover {
+    background: var(--border-color);
+    color: var(--bg-color);
+    text-decoration: none;
 }

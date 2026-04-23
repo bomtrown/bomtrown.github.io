@@ -20,18 +20,6 @@ custom_css:
         <h2>Personal site and portfolio of cool things in no particular order</h2>
             <script src="/media/js/name-jitter.js" defer></script>
         
-        <!--<div class="pop-in" data-n1="70" data-n2="200" style="position: absolute; top: 10vh; right: 5vw; height: 30vh;">
-            <img src="/media/images/dj.png" alt="" style="height: 100%; width: auto;">
-        </div>
-
-        <div class="pop-in" data-n1="50" data-n2="240" style="position: absolute; top: 50vh; right: 10vw; height: calc(20vh + 10vw);">
-            <img src="/media/images/turbofan.jpg" alt="" style="height: 100%; width: auto;">
-        </div>
-
-        <div class="pop-in" data-n1="100" data-n2="180" style="position: absolute; bottom: 40vh; left: 45vw; height: 40vh;">
-            <img src="/media/images/speaker.jpg" alt="" style="height: 100%; width: auto;">
-        </div>-->
-
         <script src="/media/js/pop-in.js" defer></script>
         <img id="sourceImage" src="/media/images/ascii.jpg" alt="source" style="display:none; height: 100vh; width: auto;">
         <canvas id="preview" style="display: none;"></canvas>
@@ -39,53 +27,123 @@ custom_css:
         <script src="/media/js/asciify.js"></script>
     </section>
     
+    <!-- INVISIBLE SPACER: Gives the scroll animation 100vh of room to breathe and fade out before the projects hit -->
+    <div style="height: 100vh; width: 100vw; pointer-events: none; background: transparent;"></div>
+    
     <section id="second-page">
-        <div class="project-heading">
-            <h1 class="squished">PROJECTS PROJECTS PROJECTS</h1>
-            <script src="/media/js/projects-glitch.js" defer></script>
-        </div>
-        <div class="scrolling-wrapper">
+        
+        <!-- NEW BRUTALIST VERTICAL ACCORDION -->
+        <div class="project-list">
             
             {% for post in collections.project reversed %}
-            <div class="card">
-                
                 {% if post.data.external_url %}
-                    <a href="{{ post.data.external_url }}" target="_blank" rel="noopener noreferrer">
+                    <a href="{{ post.data.external_url }}" target="_blank" rel="noopener noreferrer" class="project-row" data-expanded="false">
                 {% else %}
-                    <a href="{{ post.url }}">
+                    <a href="{{ post.url }}" class="project-row" data-expanded="false">
                 {% endif %}
                     
-                    <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+                    <div class="row-image">
+                        <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+                    </div>
+                    
+                    <div class="row-info">
+                        <!-- Targeting the glitch-title explicitly -->
+                        <h2 class="glitch-title">{{ post.data.title }}</h2>
+                        <p>{{ post.data.description }}</p>
+                    </div>
                 </a>
-                
-                <div>
-                    <h2>{{ post.data.title }}</h2>
-                    <p>{{ post.data.description }}</p>
-                </div>
-            </div>
             {% endfor %}
         
-            <div class="card">
-                <img src="/media/images/site-bg-placeholder.jpg" alt="Site Background Placeholder">
-            </div>
+            <!-- Placeholder to match your original site data -->
+            <a href="#" class="project-row" data-expanded="false">
+                <div class="row-image">
+                    <img src="/media/images/site-bg-placeholder.jpg" alt="Site Background Placeholder">
+                </div>
+                <div class="row-info">
+                    <h2 class="glitch-title">MORE SOON</h2>
+                    <p>I am always working on something new. Check back later for more updates and experiments.</p>
+                </div>
+            </a>
         
         </div>
-        </section>
-        <script>
-const wrapper = document.querySelector('.scrolling-wrapper');
-const cards = document.querySelectorAll('.scrolling-wrapper .card');
+    </section>
 
-let observer = new IntersectionObserver(
-entries => {
-    entries.forEach(entry => {
-    entry.target.classList.toggle('active', entry.isIntersecting && entry.intersectionRatio >= 0.9);
-    });
-},
-{
-    root: wrapper,
-    threshold: 0.9, // Consider a card "active" when 90% in view
-}
-);
+    <!-- Project animation logic -->
+    <script src="/media/js/projects-glitch.js" defer></script>
+    <script>
+        // Reveal elements smoothly as you scroll down
+        const rows = document.querySelectorAll('.project-row');
 
-cards.forEach(card => observer.observe(card));
+        let observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    // Stop observing the element once it's revealed
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15 // Triggers when 15% of the row is visible
+        });
+
+        rows.forEach(row => observer.observe(row));
+
+        // ACCORDION LOGIC - Ensures only one opens at a time cleanly
+        const accordionRows = document.querySelectorAll('.project-row');
+        const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+
+        if (!isTouchDevice) {
+            // Desktop strict hover with Hover Intent Logic
+            let hoverTimer; 
+            accordionRows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    clearTimeout(hoverTimer); // Cancel any pending transitions
+                    
+                    // Add a 150ms delay to ensure the user intended to stop on this item.
+                    // This intercepts the sweeping motion and prevents the jumping bug!
+                    hoverTimer = setTimeout(() => {
+                        accordionRows.forEach(r => {
+                            if (r !== row && r.getAttribute('data-expanded') === 'true') {
+                                r.setAttribute('data-expanded', 'false');
+                                r.dispatchEvent(new Event('statechange'));
+                            }
+                        });
+                        if (row.getAttribute('data-expanded') !== 'true') {
+                            row.setAttribute('data-expanded', 'true');
+                            row.dispatchEvent(new Event('statechange'));
+                        }
+                    }, 150); 
+                });
+                
+                // If the mouse leaves before the 150ms is up, it was a sweeping motion. Cancel it!
+                row.addEventListener('mouseleave', () => {
+                    clearTimeout(hoverTimer);
+                });
+            });
+        } else {
+            // Mobile strict-center observer
+            const strictObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        accordionRows.forEach(r => {
+                            if (r !== entry.target && r.getAttribute('data-expanded') === 'true') {
+                                r.setAttribute('data-expanded', 'false');
+                                r.dispatchEvent(new Event('statechange'));
+                            }
+                        });
+                        if (entry.target.getAttribute('data-expanded') !== 'true') {
+                            entry.target.setAttribute('data-expanded', 'true');
+                            entry.target.dispatchEvent(new Event('statechange'));
+                        }
+                    }
+                });
+            }, {
+                // Widened from -45% to -30%. This gives the active item a much larger 
+                // 40% "safe zone" in the middle of the screen, preventing adjacent 
+                // items from accidentally triggering when the mobile layout shifts!
+                rootMargin: "-30% 0px -30% 0px" 
+            });
+
+            accordionRows.forEach(row => strictObserver.observe(row));
+        }
     </script>

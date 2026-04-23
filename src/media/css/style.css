@@ -89,7 +89,7 @@ a {
   color: inherit;
 }
 a:hover {
-  text-decoration: underline;
+  text-decoration: none; /* Removed underline to keep the brutalist blocks clean */
 }
 
 /* Text Effects */
@@ -101,60 +101,6 @@ a:hover {
   transform:scale(1,0.2); /* W3C */
   transform-origin: center; /* Keep the scale effect aligned to the top */
   line-height: 1; /* Avoid extra spacing */
-}
-
-/* Scrolling Wrapper */
-.scrolling-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  min-height: 100px;
-  border-top: 1px solid black;
-  background: white;
-}
-.scrolling-wrapper .card{
-  scroll-snap-align: center;
-  flex: 0 0 auto;
-  display: flex;
-  height: clamp(40vh, 50vw, 70vh);
-  width: auto;
-  min-width: 0; /* Some browsers miscalculate flex items. */
-  align-items: center;
-  border-right: 1px solid black;
-  padding: 3vh 0;
-}
-.scrolling-wrapper img, .scrolling-wrapper a {
-  width: auto;
-  height: 100%;
-}
-.scrolling-wrapper a {
-  padding-right: 2vw;
-  border-right: black solid 1px;
-}
-
-.scrolling-wrapper .card div {
-  background-color: var(--bg-color);
-  width: 30vw;
-  margin-top: 2vw;
-  margin-right: 2vw;
-  margin-bottom: 2vw;
-  padding: 2vw;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  border-top: 1px black solid;
-  border-bottom: 1px black solid;
-}
-.card.active div {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.scrolling-wrapper .card div h2 {
-  margin-bottom: 1vh;
 }
 
 /* Pop-in effect */
@@ -259,32 +205,16 @@ footer .h-card .p-note {
   font-family: monospace;
 }
 
-
 @media (max-width: 600px) {
   /* Typography */
   h1 {
     font-size: 14vw;
-    }
+  }
   h2, h3 {
     font-size: 1.4em;
   }
   p {
     font-size: 1em;
-  }
-  
-  /* Scrolling Wrapper */
-  .scrolling-wrapper .card {
-    align-items: flex-start;
-  }
-  .scrolling-wrapper .card div {
-    width: 70vw;
-    margin: 0;
-    padding: 1vh 15vw;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
   }
 
   footer div {

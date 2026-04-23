@@ -60,5 +60,36 @@
         {{ content }}
     </main>
     {% include "footer.html" %}
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        // Respect user accessibility preferences!
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!prefersReducedMotion) {
+            // Initialize Lenis
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // standard easing
+                direction: 'vertical', 
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false, // Keep standard mobile behavior
+                touchMultiplier: 2,
+                infinite: false,
+            })
+
+            // Hook it into the animation frame
+            function raf(time) {
+                lenis.raf(time)
+                requestAnimationFrame(raf)
+            }
+
+            requestAnimationFrame(raf)
+        }
+    });
+</script>
 </body>
 </html>

@@ -14,6 +14,7 @@
   width: 100vw;
   display: flex;
   align-items: center; /* Vertically center the content */
+  pointer-events: none; /* CRITICAL: Allows clicks to pass through to project cards below */
 }
 
 #first-page-title-wrapper h1 {
@@ -21,7 +22,7 @@
 }
 
 #first-page-title-wrapper h1 span {
-  transition: color 0.0s, background-color 0.0s;
+  transition: color 0.0s, background-color 0.0s; /* No transition on opacity, instant snap fits glitch aesthetic */
   white-space: normal;
   background-color: white;
 }
@@ -40,43 +41,17 @@
 }
 
 #second-page {
-  position: relative; /* Ensures the pseudo-element is positioned relative to this container */
+  position: relative; 
   width: 100vw;
-  border-top: 1px solid black;
   border-bottom: 1px solid black;
-}
-
-.project-heading {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
   background-color: var(--bg-color);
-}
-
-.project-heading h1 {
-  position: relative;
-  display: inline-block;
-  color: var(--border-color); /* Assuming black text */
-  margin: -4vw;
-  white-space: nowrap;
-}
-
-/* We will apply this class to our generated slices */
-.wave-slice {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  white-space: nowrap;
-  pointer-events: none; /* Prevents text-selection weirdness */
+  z-index: 100;
 }
 
 #ascii {
   font-family: Avenir Next Condensed;
   font-weight: 100;
-  color: rgb(210, 210, 210);
+  color: rgba(210, 210, 210, 0.6); 
   font-size: 1vw;
   line-height: 1;
   font-weight: 100;
@@ -88,9 +63,129 @@
 
 .page-break img {
   width: 100vw;
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Remove extra spacing if it's inline */
-  /* Use negative margin to bring the element closer to adjacent elements on top and bottom, with no effect on left and right */
+  height: auto; 
+  display: block; 
+}
+
+/* =========================================
+   BRUTALIST ACCORDION STYLES
+   ========================================= */
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  background-color: var(--bg-color);
+  border-top: 1px solid black;
+}
+
+.project-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 1px solid black;
+  color: var(--border-color);
+  background-color: var(--bg-color);
+  transition: background-color 0.15s ease, color 0.15s ease;
+  
+  /* Initial state for Intersection Observer animation */
+  opacity: 0;
+  transform: translateY(10vh);
+}
+
+.project-row.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, color 0.15s ease;
+}
+
+.project-row .row-info {
+  flex: 1; 
+  min-width: 0; 
+  padding: 3vh 5vw; /* Tighter vertical padding when collapsed */
+  transition: padding 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.row-info .glitch-title {
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  position: relative; /* CRITICAL: Anchors the absolute slices */
+  
+  /* Decreased further for even more premium negative space */
+  font-size: 1.2vw; 
+  background-color: transparent; 
+}
+
+/* Forces slices to strictly lay over each other */
+.wave-slice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  white-space: normal !important; 
+  pointer-events: none;
+}
+
+/* Maintain border and apply stark threshold filter when collapsed */
+.project-row .row-image {
+  width: 35vw;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-color) !important;
+  transition: border-color 0.4s ease, filter 0.5s ease;
+  
+  /* Harsh photocopy/threshold effect */
+  filter: grayscale(100%) contrast(500%) brightness(0.9); 
+}
+
+/* Keep a visible strip of the image when collapsed */
+.project-row .row-image img {
+  width: 100%;
+  max-height: 8vh; /* Reduced from 12vh for a slimmer preview strip */
+  min-height: 8vh !important;
+  opacity: 1; /* Always visible now */
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), min-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  object-fit: cover;
+  display: block;
+}
+
+/* Collapse the paragraph description */
+.project-row .row-info p {
+  max-height: 0px;
+  opacity: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, margin-top 0.4s ease;
+  font-size: 1.1em;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+/* EXPAND STATE (Controlled strictly by JS data-attribute now) */
+.project-row[data-expanded="true"] .row-info {
+  padding: 5vh 5vw; /* Expands visually to give the image room */
+}
+
+.project-row[data-expanded="true"] .row-image {
+  border-color: var(--border-color) !important; 
+  
+  /* Restores full beautiful color when expanded */
+  filter: grayscale(0%) contrast(1) brightness(1); 
+}
+
+.project-row[data-expanded="true"] .row-image img {
+  max-height: 40vh; /* Responsive viewport height instead of fixed pixels */
+  min-height: 40vh !important;
+}
+
+.project-row[data-expanded="true"] .row-info p {
+  max-height: 300px;
+  opacity: 1;
+  margin-top: 1.5vh;
 }
 
 @media (max-width: 600px) {
@@ -113,5 +208,29 @@
     transform: translate(-50%, 0);
     font-size: 2vw;
     text-align: center;
+  }
+  
+  /* Brutalist Stack Mobile Layout */
+  .project-row {
+    flex-direction: column; 
+  }
+  
+  .project-row .row-image {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .project-row[data-expanded="true"] .row-image {
+    border-color: var(--border-color) !important; 
+  }
+  
+  .row-info .glitch-title {
+    /* Dropped even smaller on mobile */
+    font-size: 4vw; 
+  }
+  
+  .project-row .row-info p {
+    max-width: 100%;
   }
 }

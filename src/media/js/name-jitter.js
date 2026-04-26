@@ -179,7 +179,7 @@ window.addEventListener('scroll', () => {
           span.style.backgroundColor = 'black';
           span.style.color = 'white';
         } else {
-          span.style.backgroundColor = 'white';
+          span.style.backgroundColor = 'var(--bg-color)';
         }
       });
       

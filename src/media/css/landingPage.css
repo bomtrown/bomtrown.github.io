@@ -9,12 +9,12 @@
 #first-page-title-wrapper {
   position: sticky;
   white-space: nowrap;
-  top: 0vh; /* Stick to the top of the viewport */
-  height: 100vh; /* Full viewport height */
+  top: 0vh; 
+  height: 100vh; 
   width: 100vw;
   display: flex;
-  align-items: center; /* Vertically center the content */
-  pointer-events: none; /* CRITICAL: Allows clicks to pass through to project cards below */
+  align-items: center; 
+  pointer-events: none; 
 }
 
 #first-page-title-wrapper h1 {
@@ -22,9 +22,9 @@
 }
 
 #first-page-title-wrapper h1 span {
-  transition: color 0.0s, background-color 0.0s; /* No transition on opacity, instant snap fits glitch aesthetic */
+  transition: color 0.0s, background-color 0.0s; 
   white-space: normal;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 
 #first-page {
@@ -77,6 +77,9 @@
   width: 100vw;
   background-color: var(--bg-color);
   border-top: 1px solid black;
+  
+  /* Initialize the CSS counter */
+  counter-reset: project-number; 
 }
 
 .project-row {
@@ -87,41 +90,86 @@
   color: var(--border-color);
   background-color: var(--bg-color);
   transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
   
-  /* Initial state for Intersection Observer animation */
-  opacity: 0;
-  transform: translateY(10vh);
+  --target-scale: 35; /* Default scale for desktop watermark */
 }
 
-.project-row.revealed {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, color 0.15s ease;
+/* Prevents a double-border at the very bottom of the accordion list */
+.project-row:last-child {
+  border-bottom: none;
 }
+
+/* Number Column Styling */
+.project-row .row-number {
+  width: 8vw;
+  flex-shrink: 0;
+  padding: 1.5vh 0 1.5vh 5vw; 
+  display: flex;
+  
+  /* Center the number perfectly to match the text column */
+  align-items: center; 
+  
+  transition: padding 0.4s ease;
+  position: relative;
+  z-index: 0; /* Drops behind text */
+}
+
+.project-row .row-number h2 {
+  font-size: 0.8vw; 
+  background-color: transparent;
+  margin: 0;
+  line-height: 1; /* Keeps alignment tight */
+  color: var(--border-color);
+  
+  /* When collapsing: snap back to scale(1) instantly, and fade back to full opacity */
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 0s, opacity 0.3s ease, color 0.3s ease;
+  
+  transform-origin: left center;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CSS COUNTER MAGIC - No more 11ty conflicts */
+.project-row .row-number h2::before {
+  counter-increment: project-number;
+  content: "0" counter(project-number);
+}
+.project-row:nth-child(n+10) .row-number h2::before {
+  content: counter(project-number); /* Drop the leading zero for 10+ */
+}
+.project-row:last-child .row-number h2::before {
+  content: "**"; /* Custom override for the "More Soon" placeholder row */
+}
+
 
 .project-row .row-info {
   flex: 1; 
   min-width: 0; 
-  padding: 3vh 5vw; /* Tighter vertical padding when collapsed */
+  padding: 1.5vh 5vw 1.5vh 2vw; 
   transition: padding 0.4s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 2; /* Keeps title safely above the watermark number */
 }
 
 .row-info .glitch-title {
-  width: 100%;
+  width: fit-content; 
+  max-width: 100%; 
+  
   overflow-wrap: break-word;
   word-break: break-word;
   white-space: normal;
-  position: relative; /* CRITICAL: Anchors the absolute slices */
+  position: relative; 
   
-  /* Decreased further for even more premium negative space */
-  font-size: 1.2vw; 
+  font-size: 0.8vw; 
   background-color: transparent; 
 }
 
-/* Forces slices to strictly lay over each other */
 .wave-slice {
   position: absolute;
   top: 0;
@@ -131,61 +179,94 @@
   pointer-events: none;
 }
 
-/* Maintain border and apply stark threshold filter when collapsed */
 .project-row .row-image {
   width: 35vw;
   flex-shrink: 0;
-  border-right: 1px solid var(--border-color) !important;
-  transition: border-color 0.4s ease, filter 0.5s ease;
+  border-left: 1px solid var(--border-color) !important;
+  border-right: none !important;
   
-  /* Harsh photocopy/threshold effect */
-  filter: grayscale(100%) contrast(500%) brightness(0.9); 
+  transition: border-color 0.4s ease, filter 0.5s ease, min-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 4vh;
+  
+  filter: grayscale(100%) opacity(0.4); 
+  position: relative;
+  z-index: 2;
 }
 
-/* Keep a visible strip of the image when collapsed */
 .project-row .row-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-height: 8vh; /* Reduced from 12vh for a slimmer preview strip */
-  min-height: 8vh !important;
-  opacity: 1; /* Always visible now */
-  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), min-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
-/* Collapse the paragraph description */
 .project-row .row-info p {
   max-height: 0px;
   opacity: 0;
   margin-top: 0;
   overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, margin-top 0.4s ease;
+  /* Faster transition here so it snaps closed before the box shrinks */
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin-top 0.4s ease;
   font-size: 1.1em;
   max-width: 80%;
   line-height: 1.4;
 }
 
-/* EXPAND STATE (Controlled strictly by JS data-attribute now) */
+/* =========================================
+   EXPANDED STATE
+   ========================================= */
+
+.project-row[data-expanded="true"] .row-number {
+  padding-top: 3vh; 
+}
+
+/* The bleeding massive grey watermark number effect! */
+.project-row[data-expanded="true"] .row-number h2 {
+  animation: numberExpand 0.8s forwards;
+  z-index: 0;
+}
+
+@keyframes numberExpand {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    color: var(--border-color);
+  }
+  25% {
+    transform: scale(1);
+    opacity: 0; /* Fades out quickly while small */
+  }
+  50% {
+    transform: scale(var(--target-scale));
+    opacity: 0; /* Stays invisible while the accordion box is pushing open */
+  }
+  100% {
+    transform: scale(var(--target-scale));
+    opacity: 0.1; /* Fades back in at massive size! */
+    color: #dfdfdf; 
+  }
+}
+
 .project-row[data-expanded="true"] .row-info {
-  padding: 5vh 5vw; /* Expands visually to give the image room */
+  padding: 3vh 5vw 3vh 2vw; 
 }
 
 .project-row[data-expanded="true"] .row-image {
   border-color: var(--border-color) !important; 
+  filter: grayscale(0%) opacity(1) brightness(1); 
   
-  /* Restores full beautiful color when expanded */
-  filter: grayscale(0%) contrast(1) brightness(1); 
-}
-
-.project-row[data-expanded="true"] .row-image img {
-  max-height: 40vh; /* Responsive viewport height instead of fixed pixels */
-  min-height: 40vh !important;
+  /* This smoothly pushes the accordion open */
+  min-height: 40vh; 
 }
 
 .project-row[data-expanded="true"] .row-info p {
   max-height: 300px;
   opacity: 1;
   margin-top: 1.5vh;
+  transition-delay: 0.3s; /* Delay this so the box expands first! */
 }
 
 @media (max-width: 600px) {
@@ -212,13 +293,42 @@
   
   /* Brutalist Stack Mobile Layout */
   .project-row {
-    flex-direction: column; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    
+    --target-scale: 15; /* Automatically adapts the @keyframes scale for mobile! */
+  }
+
+  .project-row .row-number {
+    width: 15vw;
+    padding: 2vh 0 2vh 5vw;
+  }
+
+  .project-row .row-number h2 {
+    font-size: 2.5vw;
+    /* Remove transitions to save performance on mobile */
+    transition: none;
+  }
+  
+  .project-row[data-expanded="true"] .row-number h2 {
+    /* REMOVE the desktop two-stage keyframe completely */
+    animation: none;
+    
+    /* Keep static size and color on mobile */
+    transform: scale(1);
+    opacity: 1;
+    color: var(--border-color);
+  }
+
+  .project-row .row-info {
+    width: 85vw;
+    padding: 2vh 5vw 2vh 2vw;
   }
   
   .project-row .row-image {
     width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color) !important;
+    border-left: none !important;
+    border-top: 1px solid var(--border-color) !important;
   }
 
   .project-row[data-expanded="true"] .row-image {
@@ -226,11 +336,15 @@
   }
   
   .row-info .glitch-title {
-    /* Dropped even smaller on mobile */
-    font-size: 4vw; 
+    font-size: 2.5vw; 
   }
   
   .project-row .row-info p {
     max-width: 100%;
+  }
+
+  .project-row[data-expanded="true"] .row-info p {
+    /* Override desktop 0.3s delay specifically on the expanded state so mobile items fluidly expand immediately */
+    transition-delay: 0s;
   }
 }

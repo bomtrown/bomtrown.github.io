@@ -42,8 +42,9 @@ custom_css:
                     <a href="{{ post.url }}" class="project-row" data-expanded="false">
                 {% endif %}
                     
-                    <div class="row-image">
-                        <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+                    <!-- EMPTY NUMBER COLUMN: The CSS Counter handles this completely now! -->
+                    <div class="row-number">
+                        <h2></h2>
                     </div>
                     
                     <div class="row-info">
@@ -51,17 +52,25 @@ custom_css:
                         <h2 class="glitch-title">{{ post.data.title }}</h2>
                         <p>{{ post.data.description }}</p>
                     </div>
+
+                    <!-- MOVED: Image column now on the right -->
+                    <div class="row-image bg-ceiling">
+                        <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+                    </div>
                 </a>
             {% endfor %}
         
             <!-- Placeholder to match your original site data -->
             <a href="#" class="project-row" data-expanded="false">
-                <div class="row-image">
-                    <img src="/media/images/site-bg-placeholder.jpg" alt="Site Background Placeholder">
+                <div class="row-number">
+                    <h2></h2>
                 </div>
                 <div class="row-info">
                     <h2 class="glitch-title">MORE SOON</h2>
                     <p>I am always working on something new. Check back later for more updates and experiments.</p>
+                </div>
+                <div class="row-image">
+                    <img src="/media/images/site-bg-placeholder.jpg" alt="Site Background Placeholder">
                 </div>
             </a>
         

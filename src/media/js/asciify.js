@@ -66,32 +66,38 @@ const grayRamp = "  .:=+-#*%@";
 const rampLength = grayRamp.length;
 const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * (grayScale) / 255)];
 
-const drawAscii = (grayScales, width) => {
-    const ascii = grayScales.reduce((asciiStr, grayScale, index) => {
-        let nextChars = getCharacterForGrayScale(grayScale);
-        if ((index + 1) % width === 0) nextChars += '\n';
-        return asciiStr + nextChars;
-    }, '');
-    asciiImage.textContent = ascii;
-};
+// NEW GLOBALS FOR CACHING
+let cachedGrayScales = [];
+let cachedWidth = 0;
 
-// ===== REDRAW FUNCTION =====
-// Change the function definition to accept a parameter
-const redrawAscii = (easedScrollY) => {
+// Run this ONCE to cache the expensive image data on load
+const cacheImageData = () => {
     const [width, height] = clampDimensions(image.naturalWidth, image.naturalHeight);
     canvas.width = width;
     canvas.height = height;
     context.drawImage(image, 0, 0, width, height);
-    const grayScales = convertToGrayScales(context, width, height);
-    
-    // Use the new parameter here instead of window.scrollY
+    cachedGrayScales = convertToGrayScales(context, width, height);
+    cachedWidth = width;
+};
+
+// This now ONLY does math and fast string building, no canvas extracting!
+const redrawAscii = (easedScrollY) => {
+    if (!cachedGrayScales.length) return;
+
     const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
     const brightness = (easedScrollY / maxScroll) * 15; 
 
-    for (let i = 0; i < grayScales.length; i++) {
-        grayScales[i] = Math.min(255, Math.max(0, grayScales[i] * brightness));
+    // Fast string building (Array join is significantly faster than reduce in tight loops)
+    const charArray = new Array(cachedGrayScales.length);
+    
+    for (let i = 0; i < cachedGrayScales.length; i++) {
+        const adjustedGray = Math.min(255, Math.max(0, cachedGrayScales[i] * brightness));
+        let char = getCharacterForGrayScale(adjustedGray);
+        if ((i + 1) % cachedWidth === 0) char += '\n';
+        charArray[i] = char;
     }
-    drawAscii(grayScales, width);
+    
+    asciiImage.textContent = charArray.join('');
 };
 
 // ===== SMOOTH SCROLL EASING (LERP) =====
@@ -134,6 +140,9 @@ window.addEventListener('load', () => {
         asciiImage.textContent = 'Error: Image not found or invalid dimensions.';
         return;
     }
+    
+    // CACHE THE EXPENSIVE DATA FIRST!
+    cacheImageData();
     
     // Initialize both values and run the first draw
     targetScrollY = window.scrollY || window.pageYOffset;

@@ -1,9 +1,22 @@
 const cursor = document.querySelector('.cursor');
 
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+let isCursorTicking = false;
+
 window.addEventListener('mousemove', (e) => {
-  // 1. Move exactly to the mouse X/Y
-  // 2. Shift back by 50% of its own dynamic width/height to perfectly center
-  cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  
+  if (!isCursorTicking) {
+    requestAnimationFrame(() => {
+      // 1. Move exactly to the mouse X/Y
+      // 2. Shift back by 50% of its own dynamic width/height to perfectly center
+      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+      isCursorTicking = false;
+    });
+    isCursorTicking = true;
+  }
 });
 
 // When hovering over links

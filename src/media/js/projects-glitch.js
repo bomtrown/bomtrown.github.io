@@ -35,7 +35,8 @@ projectRows.forEach(row => {
         const topPercent = (i / numSlices) * 100;
         const bottomPercent = 100 - ((i + 1) / numSlices) * 100;
         
-        slice.style.clipPath = `inset(${topPercent}% -200% ${bottomPercent}% -200%)`;
+        // Strict 0% inset on left and right so slices guillotine exactly at the edges of the word
+        slice.style.clipPath = `inset(${topPercent}% 0 ${bottomPercent}% 0)`;
         slice.style.position = 'absolute';
         slice.style.top = '0';
         slice.style.left = '0';

@@ -1,9 +1,10 @@
 :root {
-  --bg-color: #ffffff;
+  --bg-color: #fafaff;
   --border-color: #000000;
   --accent: #e5e5e5;
   --highlight: #ee2222; /* Keeping the cyan accent but flatter */
   --text-muted: #666;
+  --text: #374151ff;
 }
 
 * {
@@ -14,13 +15,14 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: white; }
-::-webkit-scrollbar-thumb { background: white; border: 1px solid black; }
-::-webkit-scrollbar-thumb:hover { background: white; border: 1px solid black; }
+::-webkit-scrollbar-track { background: #fafaff; }
+::-webkit-scrollbar-thumb { background: #fafaff; border: 1px solid black; }
+::-webkit-scrollbar-thumb:hover { background: #fafaff; border: 1px solid black; }
 ::-webkit-scrollbar:horizontal { height: 10px; }
 body {
   position: relative;
   overflow-x: hidden;
+  background-color: var(--bg-color);
 }
 
 /* Custom Cursor */
@@ -68,6 +70,7 @@ h2 {
   font-family: "Major Mono Display";
   font-size: 1.3em;
   background-color: var(--bg-color);
+  color: var(--text);
 }
 h3 {
   font-family: 'Arial Narrow', sans-serif;
@@ -78,6 +81,7 @@ p {
   font-size: 1em;
   font-family: Avenir Next Condensed;
   font-weight: 100;
+  color: var(--text);
 }
 article {
   font-size: 0.8em;
@@ -137,6 +141,12 @@ a:hover {
   opacity: 1;
 }
 
+/* Acts as a maximum brightness ceiling, ensuring pure whites in images 
+   never pop brighter than the off-white background behind them */
+.bg-ceiling {
+  mix-blend-mode: darken;
+}
+
 nav {
   top: 0;
   left: 0;
@@ -159,7 +169,7 @@ nav {
 footer {
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, var(--bg-color) 100%);
 }
 footer .contact-info {
   padding: 0 5vw;

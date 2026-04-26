@@ -74,11 +74,11 @@ window.addEventListener('scroll', () => {
       const timeline = [
         { scroll: 0,           jitter: 0,   whiteout: 0,   morph: 0, centerFade: 0, string: "TOM BROWN" },
         { scroll: vh * 0.4,    jitter: 0.7, whiteout: 0,   morph: 0, centerFade: 0, string: "TOM BROWN" },
-        { scroll: vh * 0.7,    jitter: 0,   whiteout: 0,   morph: 1, centerFade: 0, string: "PROJECTS " }, // Outer lines gone, middle morphs!
-        { scroll: vh * 1.0,    jitter: 0,   whiteout: 1.0,   morph: 1, centerFade: 0, string: "PROJECTS " }, // Outer lines gone, middle morphs!
+        { scroll: vh * 0.7,    jitter: 0,   whiteout: 0,   morph: 1, centerFade: 0, string: "PROJECTS " },
+        { scroll: vh * 1.0,    jitter: 0,   whiteout: 1.0, morph: 1, centerFade: 0, string: "PROJECTS " },
         { scroll: vh * 1.5,    jitter: 0.5,   whiteout: 1,   morph: 1, centerFade: 1, string: "PROJECTS " },
         { scroll: startFadeIn, jitter: 1,   whiteout: 1,   morph: 0, centerFade: 1, string: "TOM BROWN" },
-        { scroll: maxScroll,   jitter: 0,   whiteout: 0,   morph: 0, centerFade: 0, string: "TOM BROWN" }
+        { scroll: maxScroll,   jitter: 0,   whiteout: 1,   morph: 1, centerFade: 0, string: "CONTACTS  " }
       ];
 
       // === FIND CURRENT KEYFRAME & LERP WEIGHTS ===

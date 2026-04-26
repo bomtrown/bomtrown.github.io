@@ -2,7 +2,7 @@
 
 body {
     overflow: hidden;
-    background-color: #fafafa;
+    background-color: var(--bg-color);
 }
 
 /* Ensure proper sizing for all garden elements */
@@ -56,21 +56,6 @@ body {
     pointer-events: none; /* Let clicks pass through empty space */
 }
 
-/* The Watermark Title */
-.garden-watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    opacity: 0.05;
-    pointer-events: none;
-    white-space: nowrap;
-}
-.garden-watermark h1 {
-    font-size: 15vw;
-}
-
 /* The Floating Nodes */
 .garden-node {
     position: absolute;
@@ -98,7 +83,6 @@ body {
     color: black;
     z-index: 10;
     user-select: none;
-    cursor: pointer;
     
     transition: border-color 0.2s ease;
     will-change: transform;
@@ -137,7 +121,6 @@ body {
     background-color: white !important; 
     background-image: none !important; /* Hide SVG when expanded to show list */
     color: black; 
-    cursor: default;
     align-items: stretch; 
     padding: 0; 
     border: 1px solid black;

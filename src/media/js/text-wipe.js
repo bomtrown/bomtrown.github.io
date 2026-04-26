@@ -1,10 +1,10 @@
 const projectRows = document.querySelectorAll('.project-row');
 
 // Config
-const numSlices = 8; 
-const waveSpeed = 0.005;      
-const waveAmplitude = 400;   
-const waveFrequency = 0.02;  
+const numSlices = 12; 
+const waveSpeed = 0.01;      
+const waveAmplitude = 100;   
+const waveFrequency = 0.1;  
 
 projectRows.forEach(row => {
     const header = row.querySelector('.glitch-title');

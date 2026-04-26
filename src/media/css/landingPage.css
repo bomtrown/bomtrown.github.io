@@ -4,6 +4,8 @@
   left: 0;
   height: 100%;
   width: 100%;
+  z-index: 500;
+  pointer-events: none; /* Prevents the sticky container from blocking interactions with underlying content */
 }
 
 #first-page-title-wrapper {
@@ -45,7 +47,7 @@
   width: 100vw;
   border-bottom: 1px solid black;
   background-color: var(--bg-color);
-  z-index: 100;
+  z-index: 501;
 }
 
 #ascii {

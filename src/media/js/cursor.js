@@ -10,8 +10,7 @@ window.addEventListener('mousemove', (e) => {
   
   if (!isCursorTicking) {
     requestAnimationFrame(() => {
-      // 1. Move exactly to the mouse X/Y
-      // 2. Shift back by 50% of its own dynamic width/height to perfectly center
+      // Move exactly to the mouse X/Y and center the custom cursor
       cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
       isCursorTicking = false;
     });
@@ -19,12 +18,22 @@ window.addEventListener('mousemove', (e) => {
   }
 });
 
-// When hovering over links
-document.querySelectorAll('a').forEach(link => {
-  link.addEventListener('mouseenter', () => {
+// ==========================================
+// EVENT DELEGATION HOVER LOGIC
+// ==========================================
+
+// Instead of looping through static elements on load, we listen to the entire document.
+// This perfectly catches dynamically created elements like your fetched .vibe-node items!
+document.addEventListener('mouseover', (e) => {
+  // Check if the element we just entered is (or is inside of) a link, button, or vibe node
+  if (e.target.closest('a, button, .vibe-node')) {
     cursor.classList.add('link-hover');
-  });
-  link.addEventListener('mouseleave', () => {
+  }
+});
+
+document.addEventListener('mouseout', (e) => {
+  // Check if the element we just left matches the same list
+  if (e.target.closest('a, button, .vibe-node')) {
     cursor.classList.remove('link-hover');
-  });
+  }
 });

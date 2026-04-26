@@ -51,7 +51,7 @@ body {
 
 /* Enable custom cursor for devices with a mouse/trackpad */
 @media (hover: hover) and (pointer: fine) {
-  body, a {
+  * {
     cursor: none; /* Hide the default system cursor */
   }
   
@@ -167,47 +167,65 @@ nav {
 }
 
 footer {
+  position: relative; /* Added relative positioning so the wrapper anchors to this */
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, var(--bg-color) 100%);
+  background: linear-gradient(0deg, #f2f2f2ff 0%, var(--bg-color) 100%);
 }
-footer .contact-info {
-  padding: 0 5vw;
+
+/* Target ONLY the main wrapper div, pushing children side-by-side */
+.footer-content {
   position: absolute;
-  bottom: calc(5vh + 5vw);
+  bottom: 10vh;
+  left: 5vw;
+  right: 5vw; /* Spans the width minus padding */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Pushes them apart */
+  align-items: stretch; /* CRITICAL: Forces both columns to be the exact same height */
+  gap: 2vw;
+}
+
+footer .contact-info {
   display: flex;
   flex-flow: column;
+  justify-content: space-between; /* Spreads the text out vertically to perfectly fill the newly stretched height */
 }
+
 footer h2 {
   width: fit-content;
-  margin-bottom: 2vh;
   padding: 0.1em;
+  border-left: black solid 1px;
+  border-right: black solid 1px;
 }
 
 footer .h-card {
-  position: absolute;
-  bottom: 50vh;
-  right: 5vw;
-  transform: translateY(50%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Centers the profile content perfectly inside the stretched height */
+  padding: 2vh 3vw 0 3vw; /* Give it some breathing room inside the borders, but NO bottom padding */
   border-left: 1px solid black;
   border-right: 1px solid black;
   background-color: var(--bg-color);
 }
+
 footer .h-card .u-photo {
-  width: 10vw;
+  width: 12vw;
   height: auto;
-  margin-bottom: 1vh;
+  margin-top: auto; /* Pins the image perfectly to the bottom */
+  margin-bottom: 0; /* Removes bottom margin to be completely seamless */
 }
+
 footer .h-card .p-name {
   font-size: 1.2em;
   font-weight: bold;
+  margin-top: auto; /* Distributes top spacing to beautifully vertically center the text above the image */
   margin-bottom: 1vh;
   font-family: monospace;
   padding: 1px 5px;
 }
+
 footer .h-card .p-note {
   font-size: 1em;
   text-align: center;
@@ -227,12 +245,41 @@ footer .h-card .p-note {
     font-size: 1em;
   }
 
-  footer div {
-    bottom: calc(15vh - 5vw);
-    left: 50%;
-    font-size: 2vw;
-    transform: translate(-50%, 0);
-    align-items: center;
-    text-align: center;
+  /* Keep them side-by-side on mobile, just scale them down to fit */
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch; /* Make sure they match heights on mobile as well! */
+    bottom: 2vh; 
+    left: 4vw;
+    right: 4vw;
+    width: auto;
+    transform: none; /* Removed the centering translation */
+  }
+
+  footer .contact-info {
+    width: 45%; /* Give half the screen to the text */
+  }
+
+  footer h2 {
+    font-size: 0.8em; /* Shrink links heavily so they don't wrap terribly */
+  }
+
+  footer .h-card {
+    width: 45%; /* Give the other half to the card */
+    padding: 2vh 2vw 0 2vw; /* NO bottom padding on mobile either */
+  }
+
+  footer .h-card .u-photo {
+    width: 15vw; /* Slightly larger than desktop, but scales well for mobile */
+  }
+  
+  footer .h-card .p-name {
+    font-size: 0.9em;
+  }
+
+  footer .h-card .p-note {
+    max-width: 100%; 
+    font-size: 0.75em; /* Shrink bio text */
   }
 }

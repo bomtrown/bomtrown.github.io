@@ -37,21 +37,6 @@ body {
     pointer-events: none;
 }
 
-/* The Watermark Title */
-.garden-watermark {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    opacity: 0.05;
-    pointer-events: none;
-    white-space: nowrap;
-}
-.garden-watermark h1 {
-    font-size: 15vw;
-    color: var(--border-color);
-}
-
 /* --- THE NODES (Playlists) --- */
 #vibe-items {
     position: absolute;
@@ -180,7 +165,6 @@ body {
     background: none; border: none;
     font-size: 2rem;
     line-height: 1;
-    cursor: pointer;
     color: var(--border-color);
 }
 

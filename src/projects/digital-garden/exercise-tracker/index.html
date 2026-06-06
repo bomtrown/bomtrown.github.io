@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Power Tracker</title>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        body {
+            background-color: #000;
+            color: #f4f4f5; /* zinc-100 */
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
+        }
+
+        /* SVG Icon styling helper */
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .screen.active {
+            display: flex;
+        }
+
+        .slot-picker-container {
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .slot-item {
+            scroll-snap-align: center;
+        }
+    </style>
+</head>
+<body class="selection:bg-zinc-700">
+
+    <!-- === SCREEN: SETTINGS === -->
+    <div id="screen-settings" class="screen max-w-md mx-auto p-4 pt-12 pb-24">
+        <div class="flex items-center mb-12 border-b-2 border-zinc-800 pb-4">
+            <button onclick="navigate('home')" class="mr-4 text-zinc-500 hover:text-white">
+                <svg class="icon w-8 h-8" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <h1 class="text-4xl font-black tracking-tighter uppercase">Sys / Setup</h1>
+        </div>
+        
+        <div class="bg-zinc-950 border border-zinc-800 p-6">
+            <label class="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3">
+                Google Apps Script URL
+            </label>
+            <textarea 
+                id="api-url-input"
+                class="w-full bg-black border-2 border-zinc-800 p-4 text-white font-mono text-xs focus:outline-none focus:border-zinc-500 transition-colors h-32 mb-6 resize-none"
+                placeholder="https://script.google.com/macros/s/..."
+            ></textarea>
+            
+            <!-- Auth Token Input for Security -->
+            <label class="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-4 mb-3">
+                Security Passkey
+            </label>
+            <input 
+                type="password"
+                id="api-passkey-input"
+                class="w-full bg-black border-2 border-zinc-800 p-4 text-white font-mono text-xs focus:outline-none focus:border-zinc-500 transition-colors mb-6"
+                placeholder="Enter secret key..."
+            />
+
+            <button 
+                onclick="saveApiUrl()"
+                class="w-full bg-white text-black py-4 font-black uppercase tracking-widest text-sm flex items-center justify-center active:bg-zinc-300 transition-colors"
+            >
+                <svg class="icon w-4 h-4 mr-2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+                Connect Database
+            </button>
+        </div>
+        <p class="text-zinc-600 text-xs mt-6 px-2">Ensure your Google Sheet has 'Templates' and 'History' tabs formatted correctly.</p>
+    </div>
+
+    <!-- === SCREEN: HOME === -->
+    <div id="screen-home" class="screen max-w-md mx-auto p-4 pt-12 pb-24">
+        <div class="flex justify-between items-end mb-12 border-b-2 border-zinc-800 pb-4">
+            <div>
+                <h1 class="text-4xl font-black tracking-tighter text-white">POWER<br/>TRACKER</h1>
+                <div class="flex items-center mt-2 space-x-3">
+                    <button id="btn-sync" onclick="syncData()" class="text-zinc-500 hover:text-white transition-transform">
+                        <svg class="icon w-4 h-4" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    </button>
+                    <button onclick="navigate('settings')" class="text-zinc-500 hover:text-white">
+                        <svg class="icon w-4 h-4" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <span id="sync-error" class="text-red-500 text-[10px] uppercase font-bold tracking-widest hidden">Error</span>
+                </div>
+            </div>
+            <svg class="icon text-zinc-500 w-8 h-8 mb-1" style="stroke-width: 3;" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+
+        <div class="mb-12">
+            <h2 class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4">Select Sheet Protocol</h2>
+            <div id="templates-container">
+                <!-- Templates rendered here -->
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between mb-4 mt-8">
+            <h2 class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Local / Cloud Archive</h2>
+            <button onclick="navigate('history')" class="text-[10px] text-white font-bold uppercase tracking-widest border-b border-white hover:text-zinc-400 hover:border-zinc-400 pb-1">View Data</button>
+        </div>
+
+        <div id="home-history-container" class="space-y-2">
+            <!-- Recent history rendered here -->
+        </div>
+    </div>
+
+    <!-- === SCREEN: WORKOUT === -->
+    <div id="screen-workout" class="screen max-w-md mx-auto relative h-screen bg-black overflow-hidden">
+        <!-- Header -->
+        <div class="p-4 border-b border-zinc-800 bg-black z-10 shrink-0">
+            <div class="flex justify-between items-end mb-4">
+                <div class="flex items-start">
+                    <button onclick="showAbandonConfirm()" class="mr-3 text-zinc-500 hover:text-white mt-1 transition-colors">
+                        <svg class="icon w-6 h-6" style="stroke-width: 3;" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-1">Active Protocol</span>
+                        <span id="workout-title" class="text-xl font-black text-white tracking-tighter">Title</span>
+                    </div>
+                </div>
+                <span id="workout-timer" class="text-3xl font-mono text-zinc-400 font-bold tracking-tighter">00:00</span>
+            </div>
+            
+            <div id="progress-bar-container" class="w-full bg-zinc-900 h-2 mt-2 flex cursor-pointer rounded-sm overflow-hidden">
+                <!-- Progress pips rendered here -->
+            </div>
+            
+            <div id="slot-counter" class="text-[10px] text-zinc-600 uppercase tracking-widest font-bold mt-2 text-right">
+                SLOT 1 OF X
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto pb-[140px] hide-scrollbar bg-black" id="workout-content-area">
+            
+            <!-- EXERCISE SELECTION VIEW -->
+            <div id="view-selection" class="p-4 hidden animate-in">
+                <div class="flex items-center mb-6 mt-4">
+                    <svg class="icon w-6 h-6 text-white mr-3" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>
+                    <h2 id="selection-title" class="text-2xl font-black tracking-tighter uppercase">Slot Name</h2>
+                </div>
+                <div id="selection-options" class="space-y-4">
+                    <!-- Options rendered here -->
+                </div>
+            </div>
+
+            <!-- TRACKING VIEW -->
+            <div id="view-tracking" class="flex flex-col hidden animate-in min-h-full">
+                <div class="pt-6">
+                    <h2 id="tracking-title" class="px-4 text-4xl font-black mb-6 tracking-tighter leading-none uppercase">Exercise Name</h2>
+                    
+                    <!-- Slot Pickers -->
+                    <div class="mb-8 space-y-6">
+                        <!-- Weight Picker -->
+                        <div class="flex flex-col w-full relative">
+                            <div class="flex justify-between items-end px-6 mb-2">
+                                <span class="text-zinc-500 uppercase tracking-widest text-[10px] font-bold">Weight</span>
+                                <span class="text-zinc-600 font-bold text-[10px] uppercase tracking-widest">KG</span>
+                            </div>
+                            <div class="relative w-full h-[100px] bg-zinc-950 border-y-2 border-zinc-900 overflow-hidden shadow-inner flex">
+                                <div class="absolute top-0 bottom-0 pointer-events-none z-10 border-x-4 border-zinc-600 bg-white/5" style="left: calc(50% - 48px); width: 96px;"></div>
+                                <div class="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-black via-zinc-950/80 to-transparent pointer-events-none z-20" style="width: calc(50% - 48px);"></div>
+                                <div class="absolute top-0 bottom-0 right-0 bg-gradient-to-l from-black via-zinc-950/80 to-transparent pointer-events-none z-20" style="width: calc(50% - 48px);"></div>
+                                <div id="weight-picker" class="slot-picker-container absolute inset-0 overflow-x-auto overflow-y-hidden hide-scrollbar z-0 flex items-center">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reps Picker -->
+                        <div class="flex flex-col w-full relative">
+                            <div class="flex justify-between items-end px-6 mb-2">
+                                <span class="text-zinc-500 uppercase tracking-widest text-[10px] font-bold">Reps</span>
+                                <span class="text-zinc-600 font-bold text-[10px] uppercase tracking-widest">COUNT</span>
+                            </div>
+                            <div class="relative w-full h-[100px] bg-zinc-950 border-y-2 border-zinc-900 overflow-hidden shadow-inner flex">
+                                <div class="absolute top-0 bottom-0 pointer-events-none z-10 border-x-4 border-zinc-600 bg-white/5" style="left: calc(50% - 48px); width: 96px;"></div>
+                                <div class="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-black via-zinc-950/80 to-transparent pointer-events-none z-20" style="width: calc(50% - 48px);"></div>
+                                <div class="absolute top-0 bottom-0 right-0 bg-gradient-to-l from-black via-zinc-950/80 to-transparent pointer-events-none z-20" style="width: calc(50% - 48px);"></div>
+                                <div id="reps-picker" class="slot-picker-container absolute inset-0 overflow-x-auto overflow-y-hidden hide-scrollbar z-0 flex items-center">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="px-4 mb-8">
+                        <div class="bg-zinc-950 border border-zinc-900 p-4">
+                            <h3 class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4 flex items-center">
+                                <svg class="icon w-3 h-3 mr-2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> History (Averages)
+                            </h3>
+                            <div id="chart-container" class="h-48 w-full relative">
+                                <canvas id="historyChart"></canvas>
+                                <div id="no-chart-data" class="absolute inset-0 flex items-center justify-center border border-dashed border-zinc-800 bg-zinc-950 hidden">
+                                    <span class="text-zinc-600 font-bold text-[10px] uppercase tracking-widest">No History Data</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logged Sets -->
+                    <div class="px-4 mb-6 space-y-1">
+                        <h3 class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3">Today's Record</h3>
+                        <div id="logged-sets-container" class="space-y-1">
+                            <!-- Sets rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Buttons (Visible only during tracking) -->
+        <div id="workout-footer" class="absolute bottom-0 left-0 right-0 pointer-events-none z-20 hidden">
+            <div class="h-24 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+            <div class="bg-black px-4 pb-8 pt-2 flex space-x-3 pointer-events-auto border-t border-zinc-900">
+                <button 
+                    onclick="logSet()"
+                    class="flex-[2] bg-zinc-900 border-2 border-zinc-700 active:bg-zinc-800 text-white py-5 font-black uppercase tracking-widest text-sm flex items-center justify-center transition-colors shadow-2xl shadow-black"
+                >
+                    <svg class="icon w-5 h-5 mr-2" style="stroke-width: 3;" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg> Log Set
+                </button>
+                <button 
+                    id="btn-next-slot"
+                    onclick="nextSlot()"
+                    class="flex-1 bg-white text-black py-5 font-black uppercase tracking-widest text-sm flex items-center justify-center active:bg-zinc-300 transition-colors shadow-2xl shadow-black"
+                >
+                    Next <svg class="icon w-5 h-5 ml-1" style="stroke-width: 3;" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Abandon Confirm Overlay -->
+        <div id="abandon-overlay" class="absolute inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-6 backdrop-blur-sm hidden">
+            <div class="bg-zinc-950 border border-zinc-800 p-6 w-full shadow-2xl">
+                <h3 class="text-2xl font-black uppercase text-white mb-2 tracking-tighter">Abandon Protocol?</h3>
+                <p class="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-8">All current session data will be permanently purged.</p>
+                <div class="flex space-x-3">
+                    <button onclick="hideAbandonConfirm()" class="flex-1 bg-zinc-900 border-2 border-zinc-700 text-white py-4 font-black uppercase tracking-widest text-xs transition-colors hover:bg-zinc-800">
+                        Resume
+                    </button>
+                    <button onclick="abandonWorkout()" class="flex-1 bg-white text-black py-4 font-black uppercase tracking-widest text-xs transition-colors hover:bg-zinc-300">
+                        Purge
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === SCREEN: HISTORY === -->
+    <div id="screen-history" class="screen max-w-md mx-auto p-4 pt-12 pb-24">
+        <div class="flex items-center mb-12 border-b-2 border-zinc-800 pb-4">
+            <button onclick="navigate('home')" class="mr-4 text-zinc-500 hover:text-white">
+                <svg class="icon w-8 h-8" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <h1 class="text-4xl font-black tracking-tighter uppercase">Data Log</h1>
+        </div>
+        <div id="full-history-container" class="space-y-6">
+            <!-- Full history rendered here -->
+        </div>
+    </div>
+
+    <script>
+        // --- Constants & State ---
+        const ITEM_WIDTH = 96;
+        const WEIGHT_OPTIONS = Array.from({ length: 121 }, (_, i) => i * 2.5);
+        const REP_OPTIONS = Array.from({ length: 51 }, (_, i) => i);
+
+        let appState = {
+            apiUrl: localStorage.getItem('powerTrackerApiUrl') || '',
+            apiPasskey: localStorage.getItem('powerTrackerApiPasskey') || '',
+            templates: JSON.parse(localStorage.getItem('powerTrackerTemplates')) || [],
+            history: JSON.parse(localStorage.getItem('powerTrackerHistoryV4')) || [],
+            
+            currentScreen: 'home',
+            
+            // Active Workout State
+            activeWorkout: null,
+            currentSlotIndex: 0,
+            isSelectingExercise: true,
+            elapsedTime: 0,
+            timerInterval: null,
+            
+            currentWeight: 20,
+            currentReps: 10
+        };
+
+        let myChart = null; // Chart.js instance
+
+        // --- Initialization ---
+        function init() {
+            populateSlotPicker('weight-picker', WEIGHT_OPTIONS);
+            populateSlotPicker('reps-picker', REP_OPTIONS);
+            
+            document.getElementById('api-url-input').value = appState.apiUrl;
+            document.getElementById('api-passkey-input').value = appState.apiPasskey;
+            
+            if (appState.apiUrl && (appState.templates.length === 0 || appState.history.length === 0)) {
+                syncData();
+            }
+            
+            renderHome();
+            navigate('home');
+        }
+
+        // --- Navigation & Rendering ---
+        function navigate(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(`screen-${screenId}`).classList.add('active');
+            appState.currentScreen = screenId;
+
+            if (screenId === 'home') renderHome();
+            if (screenId === 'history') renderHistory();
+        }
+
+        function renderHome() {
+            const tempContainer = document.getElementById('templates-container');
+            const histContainer = document.getElementById('home-history-container');
+
+            if (appState.templates.length === 0) {
+                tempContainer.innerHTML = `
+                    <button onclick="navigate('settings')" class="w-full bg-zinc-950 border border-dashed border-zinc-700 hover:border-zinc-500 p-8 text-center">
+                        <svg class="icon w-8 h-8 text-zinc-600 mx-auto mb-3" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+                        <p class="text-white font-black uppercase tracking-widest text-sm mb-1">No Protocols Found</p>
+                        <p class="text-zinc-500 text-xs">Tap to link Google Sheet URL</p>
+                    </button>`;
+            } else {
+                tempContainer.innerHTML = appState.templates.map((workout, index) => `
+                    <button onclick="startWorkout(${index})" class="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-500 transition-all rounded-none p-6 text-left group relative overflow-hidden mb-4">
+                        <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0"></div>
+                        <div class="relative z-10 flex justify-between items-center mb-3">
+                            <h3 class="text-2xl font-black text-white group-hover:text-black transition-colors uppercase">${workout.name}</h3>
+                            <svg class="icon w-6 h-6 text-zinc-600 group-hover:text-black transition-colors" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </div>
+                        <p class="text-xs font-bold text-zinc-500 group-hover:text-zinc-800 uppercase tracking-wider truncate transition-colors">
+                            ${workout.slots?.length || 0} SLOTS / ${(workout.slots || []).map(s => s.slotName).join(', ')}
+                        </p>
+                    </button>
+                `).join('');
+            }
+
+            if (appState.history.length === 0) {
+                histContainer.innerHTML = `
+                    <div class="bg-zinc-950 border border-zinc-900 p-8 text-center">
+                        <p class="text-zinc-600 font-bold uppercase tracking-widest text-sm">Awaiting Entry</p>
+                    </div>`;
+            } else {
+                histContainer.innerHTML = appState.history.slice(0, 3).map(workout => `
+                    <div class="bg-zinc-950 border border-zinc-900 p-4 flex justify-between items-center">
+                        <div>
+                            <div class="font-black text-white tracking-tight uppercase">${workout.name}</div>
+                            <div class="text-[10px] font-bold text-zinc-500 mt-1 uppercase tracking-widest">
+                                ${new Date(workout.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('full-history-container');
+            if (appState.history.length === 0) {
+                container.innerHTML = '<p class="text-zinc-600 font-bold text-center uppercase tracking-widest mt-10 text-sm">Memory Empty</p>';
+                return;
+            }
+
+            container.innerHTML = appState.history.map(workout => `
+                <div class="border border-zinc-800 bg-zinc-950 p-5">
+                    <div class="flex justify-between items-start mb-4 border-b border-zinc-900 pb-4">
+                        <div>
+                            <h3 class="font-black text-xl text-white tracking-tighter uppercase">${workout.name}</h3>
+                            <p class="text-[10px] font-bold text-zinc-500 mt-1 uppercase tracking-widest">
+                                ${new Date(workout.date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' })}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        ${(workout.exercises || []).map(ex => {
+                            if (!ex || ex.sets.length === 0) return '';
+                            return `
+                            <div class="text-sm">
+                                <div class="font-bold text-zinc-400 uppercase tracking-widest text-[10px] mb-2">${ex.name}</div>
+                                <div class="flex flex-col space-y-1">
+                                    ${ex.sets.map((s, i) => `
+                                        <div class="flex justify-between items-center text-zinc-500 font-mono text-xs border-b border-zinc-900 pb-1">
+                                            <span>SET ${(i+1).toString().padStart(2,'0')}</span>
+                                            <span class="text-zinc-300 font-bold">${s.weight}KG x ${s.reps}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- Data & Sync ---
+        async function syncData() {
+            const url = appState.apiUrl;
+            if (!url) return;
+
+            const btn = document.getElementById('btn-sync');
+            const errSpan = document.getElementById('sync-error');
+            if(btn) btn.classList.add('animate-spin', 'text-white');
+            if(errSpan) errSpan.classList.add('hidden');
+
+            try {
+                // We append the passkey to the query string if it exists for the GET request
+                const fetchUrl = appState.apiPasskey ? `${url}?passkey=${encodeURIComponent(appState.apiPasskey)}` : url;
+                const res = await fetch(fetchUrl);
+                const data = await res.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                appState.templates = data.workouts || [];
+                appState.history = data.history || [];
+                
+                localStorage.setItem('powerTrackerTemplates', JSON.stringify(appState.templates));
+                localStorage.setItem('powerTrackerHistoryV4', JSON.stringify(appState.history));
+                
+                if (appState.currentScreen === 'home') renderHome();
+            } catch (err) {
+                if(errSpan) {
+                    errSpan.textContent = err.message || 'Sync Failed';
+                    errSpan.classList.remove('hidden');
+                }
+            } finally {
+                if(btn) btn.classList.remove('animate-spin', 'text-white');
+            }
+        }
+
+        function saveApiUrl() {
+            const url = document.getElementById('api-url-input').value;
+            const passkey = document.getElementById('api-passkey-input').value;
+            appState.apiUrl = url;
+            appState.apiPasskey = passkey;
+            localStorage.setItem('powerTrackerApiUrl', url);
+            localStorage.setItem('powerTrackerApiPasskey', passkey);
+            syncData();
+            navigate('home');
+        }
+
+        // --- Active Workout Logic ---
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function startTimer() {
+            if(appState.timerInterval) clearInterval(appState.timerInterval);
+            appState.timerInterval = setInterval(() => {
+                appState.elapsedTime = Math.floor((Date.now() - appState.activeWorkout.startTime) / 1000);
+                document.getElementById('workout-timer').textContent = formatTime(appState.elapsedTime);
+            }, 1000);
+        }
+
+        function startWorkout(templateIndex) {
+            const template = appState.templates[templateIndex];
+            appState.activeWorkout = {
+                id: Date.now().toString(),
+                name: template.name,
+                startTime: Date.now(),
+                slots: template.slots,
+                exercises: []
+            };
+            appState.currentSlotIndex = 0;
+            appState.isSelectingExercise = true;
+            appState.elapsedTime = 0;
+            
+            document.getElementById('workout-title').textContent = template.name;
+            document.getElementById('workout-timer').textContent = "00:00";
+            
+            renderWorkoutScreen();
+            startTimer();
+            navigate('workout');
+        }
+
+        function renderWorkoutScreen() {
+            // Update Progress Bar
+            const progressContainer = document.getElementById('progress-bar-container');
+            progressContainer.innerHTML = appState.activeWorkout.slots.map((_, i) => {
+                let bgClass = 'bg-zinc-800';
+                if (i < appState.currentSlotIndex || (i === appState.currentSlotIndex && !appState.isSelectingExercise)) bgClass = 'bg-white';
+                else if (i === appState.currentSlotIndex) bgClass = 'bg-zinc-500';
+                
+                return `<div onclick="jumpToSlot(${i})" class="flex-1 h-full border-r border-zinc-950 last:border-0 hover:opacity-80 transition-opacity ${bgClass}"></div>`;
+            }).join('');
+
+            document.getElementById('slot-counter').textContent = `SLOT ${appState.currentSlotIndex + 1} OF ${appState.activeWorkout.slots.length}`;
+
+            const viewSelection = document.getElementById('view-selection');
+            const viewTracking = document.getElementById('view-tracking');
+            const footer = document.getElementById('workout-footer');
+
+            if (appState.isSelectingExercise) {
+                viewSelection.classList.remove('hidden');
+                viewTracking.classList.add('hidden');
+                footer.classList.add('hidden');
+                renderExerciseSelection();
+            } else {
+                viewSelection.classList.add('hidden');
+                viewTracking.classList.remove('hidden');
+                footer.classList.remove('hidden');
+                renderTracking();
+            }
+        }
+
+        function jumpToSlot(index) {
+            if (appState.currentSlotIndex === index && appState.activeWorkout.exercises[index]) {
+                appState.isSelectingExercise = !appState.isSelectingExercise;
+            } else {
+                appState.currentSlotIndex = index;
+                appState.isSelectingExercise = !appState.activeWorkout.exercises[index];
+            }
+            renderWorkoutScreen();
+        }
+
+        // --- Exercise Selection ---
+        function getLastPerformedDate(exerciseName) {
+            for (let i = 0; i < appState.history.length; i++) {
+                const found = appState.history[i].exercises?.find(ex => ex.name === exerciseName);
+                if (found && found.sets.length > 0) return new Date(appState.history[i].date).getTime();
+            }
+            return 0;
+        }
+
+        // Find the most recent recorded weight/reps for a specific exercise
+        function getLastPerformedSet(exerciseName) {
+            for (let i = 0; i < appState.history.length; i++) {
+                const found = appState.history[i].exercises?.find(ex => ex.name === exerciseName);
+                if (found && found.sets.length > 0) {
+                    // Return the first set of the last performed session
+                    return {
+                        weight: found.sets[0].weight,
+                        reps: found.sets[0].reps
+                    };
+                }
+            }
+            return null; // Return null if it's never been performed
+        }
+
+        function renderExerciseSelection() {
+            const slot = appState.activeWorkout.slots[appState.currentSlotIndex];
+            document.getElementById('selection-title').textContent = slot.slotName;
+            
+            const options = [...slot.options].sort((a, b) => getLastPerformedDate(a) - getLastPerformedDate(b));
+            
+            document.getElementById('selection-options').innerHTML = options.map((opt, idx) => {
+                const lastSeen = getLastPerformedDate(opt);
+                let seenText = 'NEVER';
+                if (lastSeen !== 0) {
+                    const days = Math.floor((Date.now() - lastSeen) / (1000 * 60 * 60 * 24));
+                    if (days === 0) seenText = 'TODAY';
+                    else if (days === 1) seenText = 'YESTERDAY';
+                    else seenText = `${days} DAYS AGO`;
+                }
+                const isPriority = idx === 0;
+
+                return `
+                    <button onclick="selectExercise('${opt}')" class="w-full text-left p-5 border-2 transition-all ${isPriority ? 'bg-white text-black border-white' : 'bg-zinc-950 border-zinc-800 text-white hover:border-zinc-600'}">
+                        <div class="flex justify-between items-start mb-1">
+                            <span class="text-xl font-black tracking-tighter uppercase">${opt}</span>
+                            ${isPriority ? '<span class="bg-black text-white text-[10px] px-2 py-1 font-bold tracking-widest uppercase">Priority Due</span>' : ''}
+                        </div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest ${isPriority ? 'text-zinc-600' : 'text-zinc-500'}">
+                            LAST LOGGED: ${seenText}
+                        </div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectExercise(name) {
+            // Check history for defaults
+            const lastSessionData = getLastPerformedSet(name);
+            
+            if (lastSessionData) {
+                // If found, update state to match history
+                appState.currentWeight = Number(lastSessionData.weight);
+                appState.currentReps = Number(lastSessionData.reps);
+            } else {
+                 // Fallback defaults if never performed
+                appState.currentWeight = 20; 
+                appState.currentReps = 10;
+            }
+
+            if(!appState.activeWorkout.exercises[appState.currentSlotIndex]) {
+                appState.activeWorkout.exercises[appState.currentSlotIndex] = { id: Math.random().toString(), name: name, sets: [] };
+            } else {
+                 appState.activeWorkout.exercises[appState.currentSlotIndex].name = name;
+            }
+            appState.isSelectingExercise = false;
+            
+            // Scroll pickers to the (potentially updated) current values
+            setTimeout(() => {
+                scrollToSlotValue('weight-picker', appState.currentWeight, WEIGHT_OPTIONS);
+                scrollToSlotValue('reps-picker', appState.currentReps, REP_OPTIONS);
+            }, 50);
+
+            renderWorkoutScreen();
+        }
+
+        // --- Tracking & Sliders ---
+        function populateSlotPicker(id, options) {
+            const container = document.getElementById(id);
+            container.innerHTML = `
+                <div style="width: calc(50% - 48px); flex-shrink: 0;"></div>
+                ${options.map(opt => `<div class="slot-item w-[96px] h-full flex items-center justify-center flex-shrink-0 text-5xl font-black text-white" data-val="${opt}">${opt}</div>`).join('')}
+                <div style="width: calc(50% - 48px); flex-shrink: 0;"></div>
+            `;
+            
+            container.addEventListener('scroll', (e) => {
+                clearTimeout(container.scrollTimeout);
+                container.scrollTimeout = setTimeout(() => {
+                    const index = Math.round(e.target.scrollLeft / ITEM_WIDTH);
+                    if(options[index] !== undefined) {
+                        if(id === 'weight-picker') appState.currentWeight = options[index];
+                        if(id === 'reps-picker') appState.currentReps = options[index];
+                    }
+                }, 100);
+            });
+        }
+
+        function scrollToSlotValue(id, value, options) {
+            const index = options.indexOf(value);
+            if (index !== -1) {
+                const el = document.getElementById(id);
+                if(el) el.scrollLeft = index * ITEM_WIDTH;
+            }
+        }
+
+        function renderTracking() {
+            const exercise = appState.activeWorkout.exercises[appState.currentSlotIndex];
+            document.getElementById('tracking-title').textContent = exercise.name;
+            
+            // Render Sets
+            const setsContainer = document.getElementById('logged-sets-container');
+            if (exercise.sets.length === 0) {
+                setsContainer.innerHTML = `<div class="border border-dashed border-zinc-800 py-6 text-center"><span class="text-zinc-600 font-bold uppercase tracking-widest text-[10px]">Awaiting Data Input</span></div>`;
+            } else {
+                setsContainer.innerHTML = exercise.sets.map((set, idx) => `
+                    <div class="bg-zinc-950 border border-zinc-900 px-4 py-3 flex justify-between items-center">
+                        <span class="text-zinc-600 font-mono font-bold text-sm">SET ${(idx + 1).toString().padStart(2, '0')}</span>
+                        <div class="flex items-baseline space-x-2">
+                            <span class="text-2xl font-black text-white tracking-tighter">${set.weight}<span class="text-[10px] text-zinc-500 ml-1">KG</span></span>
+                            <span class="text-zinc-700 font-black px-1">x</span>
+                            <span class="text-2xl font-black text-white tracking-tighter">${set.reps}<span class="text-[10px] text-zinc-500 ml-1">REPS</span></span>
+                        </div>
+                        <button onclick="removeSet('${set.id}')" class="text-zinc-700 hover:text-white ml-4">
+                            <svg class="icon w-4 h-4" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            // Update Next Button Text
+            const btnNext = document.getElementById('btn-next-slot');
+            if (appState.currentSlotIndex < appState.activeWorkout.slots.length - 1) {
+                btnNext.innerHTML = `Next <svg class="icon w-5 h-5 ml-1" style="stroke-width: 3;" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
+            } else {
+                btnNext.innerHTML = `Finish <svg class="icon w-5 h-5 ml-1" style="stroke-width: 3;" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
+            }
+
+            renderChart(exercise.name);
+        }
+
+        function logSet() {
+            const ex = appState.activeWorkout.exercises[appState.currentSlotIndex];
+            ex.sets.push({
+                id: Date.now().toString(),
+                weight: appState.currentWeight,
+                reps: appState.currentReps
+            });
+            renderTracking();
+        }
+
+        function removeSet(setId) {
+            const ex = appState.activeWorkout.exercises[appState.currentSlotIndex];
+            ex.sets = ex.sets.filter(s => s.id !== setId);
+            renderTracking();
+        }
+
+        function nextSlot() {
+            if (appState.currentSlotIndex < appState.activeWorkout.slots.length - 1) {
+                appState.currentSlotIndex++;
+                appState.isSelectingExercise = true;
+                renderWorkoutScreen();
+            } else {
+                finishWorkout();
+            }
+        }
+
+        // --- Chart.js ---
+        function renderChart(exerciseName) {
+            const ctx = document.getElementById('historyChart').getContext('2d');
+            const noDataEl = document.getElementById('no-chart-data');
+            
+            const historicalData = [];
+            appState.history.forEach(workout => {
+                const ex = workout.exercises?.find(e => e.name === exerciseName);
+                if (ex && ex.sets.length > 0) {
+                    const totalW = ex.sets.reduce((s, set) => s + Number(set.weight), 0);
+                    const totalR = ex.sets.reduce((s, set) => s + Number(set.reps), 0);
+                    historicalData.push({
+                        dateObj: new Date(workout.date),
+                        label: new Date(workout.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                        weight: totalW / ex.sets.length,
+                        reps: totalR / ex.sets.length,
+                        power: (totalW / ex.sets.length) * (totalR / ex.sets.length)
+                    });
+                }
+            });
+
+            historicalData.sort((a, b) => a.dateObj - b.dateObj);
+            const slice = historicalData.slice(-10);
+
+            if (slice.length === 0) {
+                if(myChart) myChart.destroy();
+                noDataEl.classList.remove('hidden');
+                return;
+            }
+            noDataEl.classList.add('hidden');
+
+            if (myChart) myChart.destroy();
+            
+            Chart.defaults.color = '#a1a1aa';
+            Chart.defaults.font.family = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+            Chart.defaults.font.size = 10;
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: slice.map(d => d.label),
+                    datasets: [
+                        { label: 'Avg Wgt', data: slice.map(d => d.weight), borderColor: '#a1a1aa', yAxisID: 'y', tension: 0.3, pointRadius: 2 },
+                        { label: 'Avg Reps', data: slice.map(d => d.reps), borderColor: '#52525b', yAxisID: 'y', tension: 0.3, pointRadius: 2 },
+                        { label: 'Total Power', data: slice.map(d => d.power), borderColor: '#ffffff', borderWidth: 3, yAxisID: 'y1', tension: 0.3, pointRadius: 3 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false, drawBorder: false } },
+                        y: { type: 'linear', display: true, position: 'left', grid: { color: '#27272a', drawBorder: false } },
+                        y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false, drawBorder: false } }
+                    }
+                }
+            });
+        }
+
+        // --- Finishing & Aborting ---
+        function showAbandonConfirm() { document.getElementById('abandon-overlay').classList.remove('hidden'); }
+        function hideAbandonConfirm() { document.getElementById('abandon-overlay').classList.add('hidden'); }
+
+        function abandonWorkout() {
+            clearInterval(appState.timerInterval);
+            appState.activeWorkout = null;
+            hideAbandonConfirm();
+            navigate('home');
+        }
+
+        async function finishWorkout() {
+            clearInterval(appState.timerInterval);
+            
+            const completed = {
+                ...appState.activeWorkout,
+                endTime: Date.now(),
+                duration: appState.elapsedTime,
+                date: new Date().toISOString()
+            };
+            
+            appState.history.unshift(completed);
+            localStorage.setItem('powerTrackerHistoryV4', JSON.stringify(appState.history));
+            
+            appState.activeWorkout = null;
+            navigate('home');
+
+            if (appState.apiUrl) {
+                try {
+                    // Send passkey along with the POST request payload
+                    const payload = {
+                        ...completed,
+                        passkey: appState.apiPasskey
+                    }
+                    await fetch(appState.apiUrl, { method: 'POST', body: JSON.stringify(payload) });
+                } catch (err) {
+                    console.error('Failed to sync to cloud', err);
+                }
+            }
+        }
+
+        // Boot app
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -1,19 +1,32 @@
+/* =========================================
+   FIRST PAGE & GLOBAL STYLES
+   ========================================= */
+
+/* NEW: Hard lock the body width to prevent ASCII canvas from creating scrollbars */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 #sticky-container {
-  position: absolute;
+  /* Changed from absolute to fixed to bypass iOS sticky bugs */
+  position: fixed; 
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
   z-index: 500;
-  pointer-events: none; /* Prevents the sticky container from blocking interactions with underlying content */
+  pointer-events: none;
 }
 
 #first-page-title-wrapper {
-  position: sticky;
+  /* Changed from sticky to absolute */
+  position: absolute; 
   white-space: nowrap;
-  top: 0vh; 
-  height: 100vh; 
-  width: 100vw;
+  top: 0; 
+  height: 100%; 
+  width: 100%;
   display: flex;
   align-items: center; 
   pointer-events: none; 
@@ -32,6 +45,7 @@
 #first-page {
   position: relative;
   height: 100vh;
+  height: 100dvh;
   padding-left: 5vw;
   padding-right: 5vw;
 }
@@ -44,7 +58,7 @@
 
 #second-page {
   position: relative; 
-  width: 100vw;
+  width: 100%;
   border-bottom: 1px solid black;
   background-color: var(--bg-color);
   z-index: 501;
@@ -56,7 +70,6 @@
   color: rgba(210, 210, 210, 0.6); 
   font-size: 1vw;
   line-height: 1;
-  font-weight: 100;
   position: absolute;
   top: 50%;
   transform: translate(0%, -50%);
@@ -64,24 +77,23 @@
 }
 
 .page-break img {
-  width: 100vw;
+  width: 100%;
   height: auto; 
   display: block; 
 }
 
 /* =========================================
-   BRUTALIST ACCORDION STYLES
+   BRUTALIST ACCORDION
    ========================================= */
 
 .project-list {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   background-color: var(--bg-color);
   border-top: 1px solid black;
-  
-  /* Initialize the CSS counter */
   counter-reset: project-number; 
+  overflow: hidden; 
 }
 
 .project-row {
@@ -91,61 +103,50 @@
   border-bottom: 1px solid black;
   color: var(--border-color);
   background-color: var(--bg-color);
-  transition: background-color 0.15s ease, color 0.15s ease;
   position: relative;
   
-  --target-scale: 35; /* Default scale for desktop watermark */
+  flex: 0 0 6vh; 
+  overflow: hidden; 
+  
+  transition: flex-grow 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, color 0.15s ease;
+  --target-scale: 35; 
 }
 
-/* Prevents a double-border at the very bottom of the accordion list */
 .project-row:last-child {
   border-bottom: none;
 }
 
-/* Number Column Styling */
 .project-row .row-number {
   width: 8vw;
   flex-shrink: 0;
   padding: 1.5vh 0 1.5vh 5vw; 
   display: flex;
-  
-  /* Center the number perfectly to match the text column */
   align-items: center; 
-  
   transition: padding 0.4s ease;
   position: relative;
-  z-index: 0; /* Drops behind text */
+  z-index: 0;
 }
 
 .project-row .row-number h2 {
   font-size: 0.8vw; 
   background-color: transparent;
   margin: 0;
-  line-height: 1; /* Keeps alignment tight */
+  line-height: 1;
   color: var(--border-color);
-  
-  /* When collapsing: snap back to scale(1) instantly, and fade back to full opacity */
   transform: scale(1);
   opacity: 1;
   transition: transform 0s, opacity 0.3s ease, color 0.3s ease;
-  
   transform-origin: left center;
   pointer-events: none;
   white-space: nowrap;
 }
 
-/* CSS COUNTER MAGIC - No more 11ty conflicts */
 .project-row .row-number h2::before {
   counter-increment: project-number;
   content: "0" counter(project-number);
 }
-.project-row:nth-child(n+10) .row-number h2::before {
-  content: counter(project-number); /* Drop the leading zero for 10+ */
-}
-.project-row:last-child .row-number h2::before {
-  content: "**"; /* Custom override for the "More Soon" placeholder row */
-}
-
+.project-row:nth-child(n+10) .row-number h2::before { content: counter(project-number); }
+.project-row:last-child .row-number h2::before { content: "**"; }
 
 .project-row .row-info {
   flex: 1; 
@@ -156,18 +157,16 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  z-index: 2; /* Keeps title safely above the watermark number */
+  z-index: 2;
 }
 
 .row-info .glitch-title {
   width: fit-content; 
   max-width: 100%; 
-  
   overflow-wrap: break-word;
   word-break: break-word;
   white-space: normal;
   position: relative; 
-  
   font-size: 0.8vw; 
   background-color: transparent; 
 }
@@ -181,15 +180,24 @@
   pointer-events: none;
 }
 
+.project-row .row-info p {
+  max-height: 0px;
+  opacity: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin-top 0.4s ease;
+  font-size: 1.1em;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
 .project-row .row-image {
   width: 35vw;
   flex-shrink: 0;
   border-left: 1px solid var(--border-color) !important;
   border-right: none !important;
-  
-  transition: border-color 0.4s ease, filter 0.5s ease, min-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  min-height: 4vh;
-  
+  transition: border-color 0.4s ease, filter 0.5s ease;
+  height: 100%; 
   filter: grayscale(100%) opacity(0.4); 
   position: relative;
   z-index: 2;
@@ -205,86 +213,35 @@
   display: block;
 }
 
-.project-row .row-info p {
-  max-height: 0px;
-  opacity: 0;
-  margin-top: 0;
-  overflow: hidden;
-  /* Faster transition here so it snaps closed before the box shrinks */
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin-top 0.4s ease;
-  font-size: 1.1em;
-  max-width: 80%;
-  line-height: 1.4;
-}
-
 /* =========================================
    EXPANDED STATE
    ========================================= */
-
-.project-row[data-expanded="true"] .row-number {
-  padding-top: 3vh; 
-}
-
-/* The bleeding massive grey watermark number effect! */
-.project-row[data-expanded="true"] .row-number h2 {
-  animation: numberExpand 0.8s forwards;
-  z-index: 0;
-}
+.project-row[data-expanded="true"] { flex-grow: 1; }
+.project-row[data-expanded="true"] .row-number { padding-top: 3vh; }
+.project-row[data-expanded="true"] .row-number h2 { animation: numberExpand 0.8s forwards; z-index: 0; }
 
 @keyframes numberExpand {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    color: var(--border-color);
-  }
-  25% {
-    transform: scale(1);
-    opacity: 0; /* Fades out quickly while small */
-  }
-  50% {
-    transform: scale(var(--target-scale));
-    opacity: 0; /* Stays invisible while the accordion box is pushing open */
-  }
-  100% {
-    transform: scale(var(--target-scale));
-    opacity: 0.1; /* Fades back in at massive size! */
-    color: #dfdfdf; 
-  }
+  0% { transform: scale(1); opacity: 1; color: var(--border-color); }
+  25% { transform: scale(1); opacity: 0; }
+  50% { transform: scale(var(--target-scale)); opacity: 0; }
+  100% { transform: scale(var(--target-scale)); opacity: 0.1; color: #dfdfdf; }
 }
 
-.project-row[data-expanded="true"] .row-info {
-  padding: 3vh 5vw 3vh 2vw; 
-}
+.project-row[data-expanded="true"] .row-info { padding: 3vh 5vw 3vh 2vw; }
+.project-row[data-expanded="true"] .row-image { border-color: var(--border-color) !important; filter: grayscale(0%) opacity(1) brightness(1); }
+.project-row[data-expanded="true"] .row-info p { max-height: 300px; opacity: 1; margin-top: 1.5vh; transition-delay: 0.3s; }
 
-.project-row[data-expanded="true"] .row-image {
-  border-color: var(--border-color) !important; 
-  filter: grayscale(0%) opacity(1) brightness(1); 
-  
-  /* This smoothly pushes the accordion open */
-  min-height: 40vh; 
-}
-
-.project-row[data-expanded="true"] .row-info p {
-  max-height: 300px;
-  opacity: 1;
-  margin-top: 1.5vh;
-  transition-delay: 0.3s; /* Delay this so the box expands first! */
-}
-
+/* =========================================
+   MOBILE RESPONSIVENESS
+   ========================================= */
 @media (max-width: 600px) {
-  h1 {
-    text-align: center;
-  }
+  h1 { text-align: center; }
 
   #first-page-title-wrapper {
     justify-content: center;
     padding: 0;
   }
-
-  #first-page-title-wrapper h1 {
-    padding: 0;
-  }
-
+  #first-page-title-wrapper h1 { padding: 0; }
   #first-page h2 {
     left: 50%;
     top: 40%;
@@ -293,60 +250,39 @@
     text-align: center;
   }
   
-  /* Brutalist Stack Mobile Layout */
   .project-row {
     flex-direction: row; 
     flex-wrap: wrap; 
-    
-    --target-scale: 15; /* Automatically adapts the @keyframes scale for mobile! */
+    flex: none;
+    height: auto;
+    --target-scale: 15; 
   }
 
-  .project-row .row-number {
-    width: 15vw;
-    padding: 2vh 0 2vh 5vw;
-  }
-
-  .project-row .row-number h2 {
-    font-size: 2.5vw;
-    /* Remove transitions to save performance on mobile */
-    transition: none;
-  }
-  
+  .project-row .row-number { width: 15vw; padding: 2vh 0 2vh 5vw; }
+  .project-row .row-number h2 { font-size: 2.5vw; transition: none; }
   .project-row[data-expanded="true"] .row-number h2 {
-    /* REMOVE the desktop two-stage keyframe completely */
     animation: none;
-    
-    /* Keep static size and color on mobile */
     transform: scale(1);
     opacity: 1;
     color: var(--border-color);
   }
 
-  .project-row .row-info {
-    width: 85vw;
-    padding: 2vh 5vw 2vh 2vw;
-  }
+  .project-row .row-info { width: 85vw; padding: 2vh 5vw 2vh 2vw; }
   
   .project-row .row-image {
     width: 100%;
     border-left: none !important;
     border-top: 1px solid var(--border-color) !important;
+    min-height: 10vh;
+    transition: min-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, filter 0.5s ease;
   }
 
   .project-row[data-expanded="true"] .row-image {
     border-color: var(--border-color) !important; 
+    min-height: 25dvh; 
   }
   
-  .row-info .glitch-title {
-    font-size: 2.5vw; 
-  }
-  
-  .project-row .row-info p {
-    max-width: 100%;
-  }
-
-  .project-row[data-expanded="true"] .row-info p {
-    /* Override desktop 0.3s delay specifically on the expanded state so mobile items fluidly expand immediately */
-    transition-delay: 0s;
-  }
+  .row-info .glitch-title { font-size: 2.5vw; }
+  .project-row .row-info p { max-width: 100%; }
+  .project-row[data-expanded="true"] .row-info p { transition-delay: 0s; }
 }

@@ -13,12 +13,13 @@ projectRows.forEach(row => {
     const text = header.textContent.trim();
     if (!text) return;
 
-    // 1. Keep a hidden "ghost" of the text so the container maintains its natural size
-    header.innerHTML = `<span class="ghost" style="opacity: 0; pointer-events: none; display: inline-block;">${text}</span>`;
+    // 1. Ghost element restored to natural wrapping. 
+    // It creates a bounding box we can measure, regardless of how many lines it wraps to.
+    header.innerHTML = `<span class="ghost" style="opacity: 0; pointer-events: none; display: inline-block; max-width: 100%;">${text}</span>`;
     header.style.position = 'relative';
     header.style.overflow = 'hidden'; 
 
-    // Measure the exact width of the inner ghost text
+    // Measure the exact width of the inner ghost text bounding box
     const ghost = header.querySelector('.ghost');
     const textWidth = ghost.offsetWidth || 300; 
     const gap = 50; 
@@ -35,17 +36,18 @@ projectRows.forEach(row => {
         const topPercent = (i / numSlices) * 100;
         const bottomPercent = 100 - ((i + 1) / numSlices) * 100;
         
-        // Strict 0% inset on left and right so slices guillotine exactly at the edges of the word
         slice.style.clipPath = `inset(${topPercent}% 0 ${bottomPercent}% 0)`;
         slice.style.position = 'absolute';
         slice.style.top = '0';
         slice.style.left = '0';
         slice.style.width = '100%';
+        
+        // Let the slices wrap naturally to match the ghost element
         slice.style.whiteSpace = 'normal'; 
         slice.style.pointerEvents = 'none';
         slice.style.color = 'inherit'; 
         
-        // PAC-MAN MAGIC: Cast shadow-clones of the text to the left and right.
+        // PAC-MAN MAGIC
         slice.style.textShadow = `
             ${wrapWidth}px 0 0 currentColor, 
             -${wrapWidth}px 0 0 currentColor,
@@ -80,22 +82,13 @@ projectRows.forEach(row => {
         const shouldAnimate = row.getAttribute('data-expanded') === 'true';
 
         if (shouldAnimate && !isAnimating) {
-            // Start Animation
             isAnimating = true;
             cancelAnimationFrame(animationFrameId);
-            
-            // REMOVE transition so the Pac-Man loop jumps instantly without whooshing
-            slices.forEach(slice => {
-                slice.element.style.transition = 'none';
-            });
-            
+            slices.forEach(slice => slice.element.style.transition = 'none');
             animateWave();
         } else if (!shouldAnimate && isAnimating) {
-            // Stop Animation
             isAnimating = false;
             cancelAnimationFrame(animationFrameId);
-            
-            // ADD transition back, then snap slices back to center smoothly
             slices.forEach(slice => {
                 slice.element.style.transition = 'transform 0.15s ease-out';
                 slice.element.style.transform = `translateX(0px)`;
@@ -103,6 +96,5 @@ projectRows.forEach(row => {
         }
     }
 
-    // Event Listeners to toggle states
     row.addEventListener('statechange', checkState);
 });

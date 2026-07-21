@@ -1,5 +1,6 @@
 const header = document.querySelector('h1.jitter');
 
+// Splits the text into individual span tags so they can be manipulated
 if (!header.dataset.split) {
   const nodes = Array.from(header.childNodes);
   const newNodes = [];
@@ -41,15 +42,10 @@ if (!header.dataset.split) {
 }
 
 // Pseudo-random noise function
+// OPTIMIZED: Reduced from 5 Math.sin() calls to 2, saving thousands of operations per frame
 function fakeNoise(x) {
-  const value =
-    Math.sin(x) +
-    0.5 * Math.sin(2.3 * x + 1.1) +
-    0.3 * Math.sin(4.7 * x + 2.8) +
-    0.2 * Math.sin(9.2 * x + 4.5) +
-    0.1 * Math.sin(15.6 * x + 0.9);
-
-  return 0.5 * (value / (1 + 0.5 + 0.3 + 0.2 + 0.1)) + 0.5;
+  const value = Math.sin(x) + 0.5 * Math.sin(2.3 * x + 1.1);
+  return 0.5 * (value / 1.5) + 0.5;
 }
 
 // Linear Interpolation
@@ -60,6 +56,25 @@ function lerp(start, end, progress) {
 const spans = header.querySelectorAll('span');
 let isJitterTicking = false;
 
+// VIRTUAL DOM CACHING: Prevents layout thrashing by storing state and pre-computing static math
+const spanStates = Array.from(spans).map((span, index) => ({
+  element: span,
+  lineIdx: parseInt(span.dataset.line),
+  localIdx: parseInt(span.dataset.localIndex),
+  originalChar: span.dataset.char,
+  
+  // Pre-calculate noise that relies only on the index, removing it from the scroll loop
+  morphThreshold: fakeNoise(index * 21),
+  disappearThreshold: fakeNoise(index * 13),
+  indexNoise: fakeNoise(index),
+  
+  // Virtual DOM trackers for the current frame state
+  currentText: span.textContent,
+  currentOpacity: '1',
+  currentColor: '',
+  currentBg: ''
+}));
+
 window.addEventListener('scroll', () => {
   if (!isJitterTicking) {
     window.requestAnimationFrame(() => {
@@ -69,14 +84,13 @@ window.addEventListener('scroll', () => {
       const startFadeIn = Math.max(vh * 1.5, maxScroll - vh * 0.4);
 
       // === THE TIMELINE ===
-      // Added morph, centerFade, and string inputs! 
       // Note: "PROJECTS " has a space at the end to match the 9 characters of "TOM BROWN"
       const timeline = [
         { scroll: 0,           jitter: 0,   whiteout: 0,   morph: 0, centerFade: 0, string: "TOM BROWN" },
         { scroll: vh * 0.4,    jitter: 0.7, whiteout: 0,   morph: 0, centerFade: 0, string: "TOM BROWN" },
         { scroll: vh * 0.7,    jitter: 0,   whiteout: 0,   morph: 1, centerFade: 0, string: "PROJECTS " },
         { scroll: vh * 1.0,    jitter: 0,   whiteout: 1.0, morph: 1, centerFade: 0, string: "PROJECTS " },
-        { scroll: vh * 1.5,    jitter: 0.5,   whiteout: 1,   morph: 1, centerFade: 1, string: "PROJECTS " },
+        { scroll: vh * 1.5,    jitter: 0.5, whiteout: 1,   morph: 1, centerFade: 1, string: "PROJECTS " },
         { scroll: startFadeIn, jitter: 1,   whiteout: 1,   morph: 0, centerFade: 1, string: "TOM BROWN" },
         { scroll: maxScroll,   jitter: 0,   whiteout: 1,   morph: 1, centerFade: 0, string: "CONTACTS  " }
       ];
@@ -121,65 +135,77 @@ window.addEventListener('scroll', () => {
       const targetChars = currentString.split('');
 
       // === APPLY EFFECTS ===
-      spans.forEach((span, index) => {
-        const lineIdx = parseInt(span.dataset.line);
-        const localIdx = parseInt(span.dataset.localIndex);
-        const originalChar = span.dataset.char;
-        
+      spanStates.forEach((state) => {
         // 1. MORPH LOGIC (Center line only)
-        let displayChar = originalChar;
-        if (lineIdx === 2) { 
-            // Glitch into the new string based on morph progress
-            const morphThreshold = fakeNoise(index * 21); // Unique seed so it scrambles in
-            if (currentMorph > morphThreshold) {
+        let displayChar = state.originalChar;
+        if (state.lineIdx === 2) { 
+            if (currentMorph > state.morphThreshold) {
                 // Swap to the target character, fallback to space if the target string is shorter
-                displayChar = targetChars[localIdx] || ' '; 
+                displayChar = targetChars[state.localIdx] || ' '; 
             }
         }
 
         // 2. WHITEOUT / DISAPPEAR LOGIC
-        const disappearThreshold = fakeNoise(index * 13); 
-        
         // Use centerFade for the middle line (index 2), and whiteout for all others
-        let effectiveWhiteout = (lineIdx === 2) ? currentCenterFade : currentWhiteout;
+        let effectiveWhiteout = (state.lineIdx === 2) ? currentCenterFade : currentWhiteout;
 
-        if (effectiveWhiteout > disappearThreshold) {
-          span.style.opacity = '0';
+        if (effectiveWhiteout > state.disappearThreshold) {
+          if (state.currentOpacity !== '0') {
+            state.element.style.opacity = '0';
+            state.currentOpacity = '0';
+          }
           return; // Skip rendering glitch math if the letter is invisible
         } else {
-          span.style.opacity = '1';
+          if (state.currentOpacity !== '1') {
+            state.element.style.opacity = '1';
+            state.currentOpacity = '1';
+          }
         }
 
-        const blipSeed = (scrollTop + fakeNoise(index) * 1000) / 100;
+        const blipSeed = (scrollTop + state.indexNoise * 1000) / 100;
         const weight = currentJitter;
+        let newText = displayChar;
+        let newColor = '';
+        let newBg = '';
 
         // 3. CHARACTER FLICKER
-        const charChangeThreshold = weight * 0.5;
-        if (fakeNoise(blipSeed) < charChangeThreshold) {
+        if (fakeNoise(blipSeed) < weight * 0.5) {
           const glitchChars = ['@', '#', '%', '&', '*', '~', '?'];
-          span.textContent = glitchChars[Math.floor(fakeNoise(index) * glitchChars.length)];
-        } else {
-          span.textContent = displayChar; // Render original OR morphed char
+          newText = glitchChars[Math.floor(state.indexNoise * glitchChars.length)];
         }
 
         // 4. TEXT COLOUR
-        const colourThreshold = 0.5 * weight;
-        if (fakeNoise(blipSeed) < colourThreshold) {
+        if (fakeNoise(blipSeed) < weight * 0.5) {
           const hues = [0, 50, 210];
-          const hue = hues[Math.floor(fakeNoise(index) * hues.length)];
-          span.style.color = `hsl(${hue}, 90%, 60%)`;
+          const hue = hues[Math.floor(state.indexNoise * hues.length)];
+          newColor = `hsl(${hue}, 90%, 60%)`;
         } else {
           const lightness = (Math.sin(blipSeed / 2) + 1) * 5;
-          span.style.color = `hsl(0, 0%, ${lightness}%)`;
+          // Math.round limits micro-changes that trigger sub-pixel browser repaints
+          newColor = `hsl(0, 0%, ${Math.round(lightness * 10) / 10}%)`;
         }
 
         // 5. BACKGROUND COLOUR
-        const bgThreshold = weight * 0.5;
-        if (fakeNoise(blipSeed + 2356) < bgThreshold) {
-          span.style.backgroundColor = 'black';
-          span.style.color = 'white';
+        if (fakeNoise(blipSeed + 2356) < weight * 0.5) {
+          newBg = 'black';
+          newColor = 'white';
         } else {
-          span.style.backgroundColor = 'var(--bg-color)';
+          newBg = 'var(--bg-color)';
+        }
+
+        // --- BATCH DOM WRITES ---
+        // Crucial: Only mutate the DOM if the value ACTUALLY changed from the cache
+        if (state.currentText !== newText) {
+          state.element.textContent = newText;
+          state.currentText = newText;
+        }
+        if (state.currentColor !== newColor) {
+          state.element.style.color = newColor;
+          state.currentColor = newColor;
+        }
+        if (state.currentBg !== newBg) {
+          state.element.style.backgroundColor = newBg;
+          state.currentBg = newBg;
         }
       });
       

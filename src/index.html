@@ -97,8 +97,39 @@ custom_css:
 
         rows.forEach(row => observer.observe(row));
 
-        // ACCORDION LOGIC - Ensures only one opens at a time cleanly
+        // --- NEW: FIXED HEIGHT ACCORDION INITIALIZATION ---
+        const projectList = document.querySelector('.project-list');
         const accordionRows = document.querySelectorAll('.project-row');
+        
+        function updateAccordionArchitecture() {
+            if (window.innerWidth > 600) {
+                // Lock the container height so it never jiggles the page below.
+                // 10vh for collapsed rows, 45vh for the single expanded row.
+                const baseHeight = window.innerHeight * 0.06; 
+                const expandedHeight = window.innerHeight * 0.45;
+                // Total height = (All rows at base height) + (The extra space needed for 1 expanded row)
+                const totalHeight = (accordionRows.length * baseHeight) + (expandedHeight - baseHeight);
+                projectList.style.height = `${totalHeight}px`;
+            } else {
+                // Mobile stays natural flexible stacking
+                projectList.style.height = 'auto';
+            }
+        }
+        
+        // Run on load and whenever screen resizes
+        updateAccordionArchitecture();
+        window.addEventListener('resize', updateAccordionArchitecture);
+        
+        // Expand the very first item by default
+        if (accordionRows.length > 0) {
+            accordionRows[0].setAttribute('data-expanded', 'true');
+            // Allow the DOM to catch up before triggering the inner text-wipe animation
+            setTimeout(() => {
+                accordionRows[0].dispatchEvent(new Event('statechange'));
+            }, 50);
+        }
+
+        // ACCORDION LOGIC - Ensures only one opens at a time cleanly
         const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
 
         if (!isTouchDevice) {

@@ -176,9 +176,12 @@ window.addEventListener('scroll', () => {
 
         // 4. TEXT COLOUR
         if (fakeNoise(blipSeed) < weight * 0.5) {
-          const hues = [0, 50, 210];
-          const hue = hues[Math.floor(state.indexNoise * hues.length)];
-          newColor = `hsl(${hue}, 90%, 60%)`;
+          // Replace these strings with your chosen hex codes
+          //const hexColors = ['#FF4D4D', '#FFD24D', '#4D9BFF'];
+          const hexColors = ['#B05F0F', '#E02525', '#FECE08', '#04783F', '#EE9BAC', '#7B848B', '#861A54', '#231F20', '#1B3F94', '#0C9FDC', '#6DC7B0'];
+          
+          // Selects a hex code based on your noise index
+          newColor = hexColors[Math.floor(state.indexNoise * hexColors.length)];
         } else {
           const lightness = (Math.sin(blipSeed / 2) + 1) * 5;
           // Math.round limits micro-changes that trigger sub-pixel browser repaints

@@ -67,12 +67,13 @@ html, body {
 #ascii {
   font-family: Avenir Next Condensed;
   font-weight: 100;
-  color: rgba(210, 210, 210, 0.6); 
+  color: rgb(190, 190, 190); 
   font-size: 1vw;
   line-height: 1;
   position: absolute;
   top: 50%;
-  transform: translate(0%, -50%);
+  left: 50%; /* Pushes the left edge to the middle */
+  transform: translate(-50%, -50%); /* Pulls it back perfectly into the center */
   z-index: -10;
 }
 

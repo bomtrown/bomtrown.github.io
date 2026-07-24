@@ -111,7 +111,7 @@ function setupCanvasSizing(cols, rows) {
     
     // Setting canvas dimensions resets context state, so we must re-apply the styling
     renderContext.font = fontStyle;
-    renderContext.fillStyle = "rgba(210, 210, 210, 0.6)"; 
+    renderContext.fillStyle = "rgb(0, 0, 0)"; 
     renderContext.textBaseline = "top";
     
     return charHeight;

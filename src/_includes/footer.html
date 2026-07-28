@@ -1,16 +1,230 @@
-<footer>
-    <div class="footer-content">
+<footer style="padding-bottom: 5vw; {% if title != 'Home' %}min-height: 100vh; display: flex; flex-direction: column; box-sizing: border-box;{% endif %}">
+    {% if title != 'Home' %}
+    <!-- 
+      NEW WRAPPER: 
+      - flex-grow: 1 allows this container to dynamically fill all space ABOVE the footer content.
+      - display: flex + align-items: center perfectly vertically centers the text in that remaining space.
+    -->
+    <div class="footer-dynamic-header" style="padding: 0 5vw; top: 50 %">
+        <a href="/" style="text-decoration: none; color: inherit; display: block;">
+            <h1 class="squished footer-jitter" style="cursor: pointer; margin: 0;">
+                TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN
+            </h1>
+        </a>
+
+        <script>
+            // Isolated scope to prevent variable collisions
+            (() => {
+                const header = document.querySelector('h1.footer-jitter');
+                if (!header) return;
+
+                // 1. SPLIT TEXT INTO SPANS
+                if (!header.dataset.split) {
+                    const nodes = Array.from(header.childNodes);
+                    const newNodes = [];
+                    let lineIndex = 0;
+                    let localIndex = 0;
+
+                    nodes.forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            const text = node.textContent.trim(); 
+                            if (text === '') return; 
+
+                            const letters = text.split('');
+                            letters.forEach(letter => {
+                                const span = document.createElement('span');
+                                span.textContent = letter;
+                                span.dataset.char = letter;
+                                span.dataset.line = lineIndex;
+                                span.dataset.localIndex = localIndex;
+                                
+                                if (letter === ' ') span.style.whiteSpace = 'pre'; 
+                                
+                                newNodes.push(span);
+                                localIndex++;
+                            });
+                        } else if (node.nodeName === 'BR') {
+                            newNodes.push(document.createElement('br'));
+                            lineIndex++;
+                            localIndex = 0;
+                        } else {
+                            newNodes.push(node.cloneNode(true));
+                        }
+                    });
+
+                    header.innerHTML = '';
+                    newNodes.forEach(n => header.appendChild(n));
+                    header.dataset.split = 'true';
+                }
+
+                // 2. HELPER FUNCTIONS
+                function fakeNoise(x) {
+                    const value = Math.sin(x) + 0.5 * Math.sin(2.3 * x + 1.1);
+                    return 0.5 * (value / 1.5) + 0.5;
+                }
+
+                function lerp(start, end, progress) {
+                    return start + (end - start) * progress;
+                }
+
+                // 3. VIRTUAL DOM SETUP
+                const spans = header.querySelectorAll('span');
+                let isJitterTicking = false;
+
+                const spanStates = Array.from(spans).map((span, index) => ({
+                    element: span,
+                    lineIdx: parseInt(span.dataset.line),
+                    localIdx: parseInt(span.dataset.localIndex),
+                    originalChar: span.dataset.char,
+                    
+                    morphThreshold: fakeNoise(index * 21),
+                    disappearThreshold: fakeNoise(index * 13),
+                    indexNoise: fakeNoise(index),
+                    
+                    currentText: span.textContent,
+                    currentOpacity: '0', // Start completely invisible
+                    currentColor: '',
+                    currentBg: ''
+                }));
+
+                // Set initial opacity to 0 to prevent FOUC (Flash of Unstyled Content) before JS runs
+                spans.forEach(span => span.style.opacity = '0');
+
+                // 4. SCROLL LOGIC
+                window.addEventListener('scroll', () => {
+                    if (!isJitterTicking) {
+                        window.requestAnimationFrame(() => {
+                            const rect = header.getBoundingClientRect();
+                            const vh = window.innerHeight;
+                            
+                            // CALCULATE PROGRESS (0.0 to 1.0)
+                            const scrollDistance = vh - rect.top;
+                            const triggerDistance = vh / 2 + rect.height / 2;
+                            let progress = Math.max(0, Math.min(1, scrollDistance / triggerDistance));
+
+                            // === TUNE YOUR TIMELINE HERE ===
+                            const timeline = [
+                                { p: 0.0,  jitter: 1.0, whiteout: 1, morph: 0, centerFade: 1, string: "TOM BROWN" }, // Bottom: everything invisible
+                                { p: 0.2,  jitter: 1.0, whiteout: 1, morph: 0, centerFade: 1, string: "TOM BROWN" }, // Delay start
+                                { p: 0.4,  jitter: 0.8, whiteout: 0, morph: 0, centerFade: 0, string: "TOM BROWN" }, // Rapid fade-in of all 5 lines
+                                { p: 0.7,  jitter: 0.5, whiteout: 0, morph: 1, centerFade: 0, string: "CONTACTS " }, // Morph middle line
+                                { p: 1.0,  jitter: 0.0, whiteout: 1, morph: 1, centerFade: 0, string: "CONTACTS " }  // Center: middle line stays, outers fade out
+                            ];
+
+                            // === LERP MATH ===
+                            let currentJitter = 1, currentWhiteout = 1, currentMorph = 0, currentCenterFade = 1, currentString = "TOM BROWN";
+
+                            if (progress <= timeline[0].p) {
+                                currentJitter = timeline[0].jitter; currentWhiteout = timeline[0].whiteout; currentMorph = timeline[0].morph; currentCenterFade = timeline[0].centerFade; currentString = timeline[0].string;
+                            } else if (progress >= timeline[timeline.length - 1].p) {
+                                currentJitter = timeline[timeline.length - 1].jitter; currentWhiteout = timeline[timeline.length - 1].whiteout; currentMorph = timeline[timeline.length - 1].morph; currentCenterFade = timeline[timeline.length - 1].centerFade; currentString = timeline[timeline.length - 1].string;
+                            } else {
+                                for (let i = 0; i < timeline.length - 1; i++) {
+                                    const start = timeline[i];
+                                    const end = timeline[i + 1];
+                                    if (progress >= start.p && progress <= end.p) {
+                                        const localProgress = (progress - start.p) / (end.p - start.p);
+                                        currentJitter = lerp(start.jitter, end.jitter, localProgress);
+                                        currentWhiteout = lerp(start.whiteout, end.whiteout, localProgress);
+                                        currentMorph = lerp(start.morph, end.morph, localProgress);
+                                        currentCenterFade = lerp(start.centerFade, end.centerFade, localProgress);
+                                        currentString = end.string;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            const targetChars = currentString.split('');
+                            const baseScrollVal = window.scrollY; // Used for continuous visual noise
+
+                            // === APPLY EFFECTS ===
+                            spanStates.forEach((state) => {
+                                let displayChar = state.originalChar;
+                                if (state.lineIdx === 2) { 
+                                    if (currentMorph > state.morphThreshold) {
+                                        displayChar = targetChars[state.localIdx] || ' '; 
+                                    }
+                                }
+
+                                let effectiveWhiteout = (state.lineIdx === 2) ? currentCenterFade : currentWhiteout;
+
+                                if (effectiveWhiteout > state.disappearThreshold) {
+                                    if (state.currentOpacity !== '0') {
+                                        state.element.style.opacity = '0';
+                                        state.currentOpacity = '0';
+                                    }
+                                    return;
+                                } else {
+                                    if (state.currentOpacity !== '1') {
+                                        state.element.style.opacity = '1';
+                                        state.currentOpacity = '1';
+                                    }
+                                }
+
+                                const blipSeed = (baseScrollVal + state.indexNoise * 1000) / 100;
+                                const weight = currentJitter;
+                                let newText = displayChar;
+                                let newColor = '';
+                                let newBg = '';
+
+                                if (fakeNoise(blipSeed) < weight * 0.5) {
+                                    const glitchChars = ['@', '#', '%', '&', '*', '~', '?'];
+                                    newText = glitchChars[Math.floor(state.indexNoise * glitchChars.length)];
+                                }
+
+                                if (fakeNoise(blipSeed) < weight * 0.5) {
+                                    const hexColors = ['#B05F0F', '#E02525', '#FECE08', '#04783F', '#EE9BAC', '#7B848B', '#861A54', '#231F20', '#1B3F94', '#0C9FDC', '#6DC7B0'];
+                                    newColor = hexColors[Math.floor(state.indexNoise * hexColors.length)];
+                                } else {
+                                    const lightness = (Math.sin(blipSeed / 2) + 1) * 5;
+                                    newColor = `hsl(0, 0%, ${Math.round(lightness * 10) / 10}%)`;
+                                }
+
+                                if (fakeNoise(blipSeed + 2356) < weight * 0.5) {
+                                    newBg = 'black';
+                                    newColor = 'white';
+                                } else {
+                                    newBg = 'var(--bg-color)';
+                                }
+
+                                if (state.currentText !== newText) {
+                                    state.element.textContent = newText;
+                                    state.currentText = newText;
+                                }
+                                if (state.currentColor !== newColor) {
+                                    state.element.style.color = newColor;
+                                    state.currentColor = newColor;
+                                }
+                                if (state.currentBg !== newBg) {
+                                    state.element.style.backgroundColor = newBg;
+                                    state.currentBg = newBg;
+                                }
+                            });
+                            
+                            isJitterTicking = false;
+                        });
+                        
+                        isJitterTicking = true;
+                    }
+                });
+            })();
+        </script>
+    </div>
+    {% endif %}
+
+    <div class="footer-content" style="{% if title != 'Home' %}margin-top: auto;{% endif %}">
         <div class="contact-info">
-            <h2>Contact Information</h2>
             <h2><a href="https://www.linkedin.com/in/bomtrown" target="_blank" rel="noopener noreferrer">LinkedIn</a></h2>
             <h2><a href="https://github.com/bomtrown" target="_blank" rel="noopener noreferrer me">GitHub</a></h2>
             <h2><a href="https://pin.it/6T3qZajY0" target="_blank" rel="noopener noreferrer">Pinterest</a></h2>
-            <h2>© 2026 Tom Brown. All rights reserved. Built with HTMLCSSJSABCDEFG + 11ty</h2>
+            <!-- Margin removed safely here to drop it down flush with the image -->
+            <h2 style="margin-bottom: 0;">© 2026 Tom Brown. All rights reserved. Built with HTMLCSSJSABCDEFG + 11ty</h2>
         </div>
         <div class="h-card">
             <a class="u-url p-name" href="https://bomtrown.github.io">Tom Brown</a>
-            <p class="p-note">Physics Student - JLR Intern - Avid Programmer - Occasional DJ.</p>
-            <img class="u-photo bg-ceiling" src="/media/images/profile-photo-2025.png" alt="" />
+            <p class="p-note">Graduate Engineer @ JLR | Physics Graduate | Creator of Silly Things.</p>
+            <!-- Margin removed safely here to drop it down flush with the text -->
+            <img class="u-photo bg-ceiling" src="/media/images/profile-photo-2025.png" alt="" style="display: block; margin-bottom: 0;" />
         </div>
     </div>
 </footer>

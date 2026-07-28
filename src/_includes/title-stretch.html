@@ -1,7 +1,9 @@
 <h1 class="article-title title-stretch">
-    {% assign words = title | split: " " %}
+    {% assign words = title | strip | split: " " %}
     {% for word in words %}
-        <span class="word-wrapper"><span class="stretch-text">{{ word }}</span></span>
+        {% if word != "" %}
+            <span class="word-wrapper"><span class="stretch-text">{{ word }}</span></span>
+        {% endif %}
     {% endfor %}
 </h1>
 
@@ -9,33 +11,60 @@
     function brutalistStretch() {
         const title = document.querySelector('.title-stretch');
         if (!title) return;
+        
         const wrappers = title.querySelectorAll('.word-wrapper');
-        const containerWidth = title.clientWidth;
+        const containerWidth = title.getBoundingClientRect().width;
 
-        wrappers.forEach(w => { w.style.width = 'auto'; w.children[0].style.transform = 'none'; });
+        // 1. HARD RESET: Defeat Flexbox interference before measuring
+        wrappers.forEach(w => { 
+            w.style.width = 'auto'; 
+            w.style.flexShrink = '0'; // Stop flex from squishing wrappers on thin screens
+            
+            let text = w.children[0];
+            text.style.transform = 'none'; 
+            text.style.display = 'inline-block'; // Transforms require block/inline-block
+            text.style.whiteSpace = 'nowrap';    // Stop text from wrapping inside the span
+        });
 
+        // 2. Group into lines with a 5px tolerance
         let lines = {};
         wrappers.forEach(w => {
             let top = w.offsetTop;
-            if (!lines[top]) lines[top] = [];
-            lines[top].push(w);
+            let matchedTop = Object.keys(lines).find(k => Math.abs(k - top) < 5);
+            if (matchedTop) {
+                lines[matchedTop].push(w);
+            } else {
+                lines[top] = [w];
+            }
         });
 
+        // 3. Measure and Stretch
         Object.values(lines).forEach(line => {
-            let naturalWidth = line.reduce((sum, w) => sum + w.offsetWidth, 0);
-            let gapPixels = (window.innerWidth * 0.025) * (line.length - 1);
-            let targetWidth = containerWidth - gapPixels;
-            let ratio = targetWidth / naturalWidth;
+            let naturalWidths = line.map(w => w.children[0].getBoundingClientRect().width);
+            let totalNaturalWidth = naturalWidths.reduce((sum, w) => sum + w, 0);
+            
+            let totalGap = 0;
+            if (line.length > 1) {
+                let firstElementLeft = line[0].getBoundingClientRect().left;
+                let lastElementRight = line[line.length - 1].getBoundingClientRect().right;
+                let currentSpan = lastElementRight - firstElementLeft;
+                totalGap = currentSpan - totalNaturalWidth;
+            }
 
-            line.forEach(w => {
+            let targetWidth = containerWidth - totalGap;
+            let ratio = targetWidth / totalNaturalWidth;
+
+            line.forEach((w, index) => {
                 let text = w.children[0];
-                let newWidth = w.offsetWidth * ratio;
+                let newWidth = naturalWidths[index] * ratio;
+                
                 text.style.transform = `scaleX(${ratio})`;
-                text.style.transformOrigin = 'left';
+                text.style.transformOrigin = 'left center'; // explicitly set Y-axis to center
                 w.style.width = `${newWidth}px`; 
             });
         });
     }
+    
     window.addEventListener('load', brutalistStretch);
     window.addEventListener('resize', brutalistStretch);
     brutalistStretch();

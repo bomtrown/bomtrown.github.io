@@ -1,123 +1,100 @@
 ---
 layout: base.html
 title: Digital Garden
+title_style: stretch
 date: 2026-03-28
 tags: project
 image: /media/svg/bloom.svg
 description: A non-linear collection of thoughts, half-baked ideas, and things that don't fit in a case study. Step into the graph.
+custom_css:
+- /media/css/spotify-vibe-map.css
+- /media/css/articles.css
+- /media/css/garden.css
+- /media/css/style.css
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="garden-container">
+    <!-- Floating Navigation (Themic callback but softer) -->
+    <nav class="garden-nav">
+        <a href="/"><h1 class="squished" style="font-size: 4vw;">TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN</h1></a>
+    </nav>
 
-    <!-- SEO Metadata -->
-    <meta name="description" content="Welcome to my Digital Garden. A non-linear collection of thoughts, experiments, game dev logs, and creative coding projects by Tom Brown.">
-    <meta name="keywords" content="Tom Brown, Digital Garden, Portfolio, Creative Coding, Web Development, Personal Blog, Interactive Design">
-    <meta name="author" content="Tom Brown">
-    
-    <!-- Open Graph / Social Media (Facebook, LinkedIn, Discord) -->
-    <meta property="og:title" content="Tom's Digital Garden">
-    <meta property="og:description" content="A non-linear collection of thoughts, experiments, and creative coding projects. Step into the graph.">
-    <meta property="og:type" content="website">
-    <!-- Using a relative path for the image is risky for social cards; ideally use a full URL (e.g., https://yourdomain.com/media/...) -->
-    <meta property="og:image" content="../media/images/site-bg-placeholder.jpg"> 
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tom's Digital Garden">
-    <meta name="twitter:description" content="A non-linear collection of thoughts, experiments, and creative coding projects. Step into the graph.">
-    <meta name="twitter:image" content="../media/images/site-bg-placeholder.jpg">
+    <!-- The Canvas for the network lines (sits behind the links) -->
+    <canvas id="garden-canvas"></canvas>
 
-    <link rel="shortcut icon" href="/media/favicons/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="/media/favicons/apple-touch-icon.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/media/favicons/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/media/favicons/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/media/favicons/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/media/favicons/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/media/favicons/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/media/favicons/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/media/favicons/apple-touch-icon-152x152.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/media/favicons/apple-touch-icon-180x180.png" />
-    <title>Tom Brown - Digital Garden</title>
-    <!-- Reusing main styles for thematic consistency -->
-    <link rel="stylesheet" href="/media/css/style.css">
-    <link rel="stylesheet" href="/media/css/landingPage.css"> 
-    <!-- New Garden specific styles -->
-    <link rel="stylesheet" href="/media/css/garden.css">
-</head>
-<body>
-    <main class="garden-container">
-        <!-- Floating Navigation (Themic callback but softer) -->
-        <nav class="garden-nav">
-            <a href="/"><h1 class="squished" style="font-size: 4vw;">TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN<br>TOM BROWN</h1></a>
-        </nav>
+    <!-- The Floating Items (The Garden Bed) -->
+    <div id="garden-items">
+        <!-- Mapped 'thoughts.svg' -->
+        <a href="#" class="garden-node" style="background-image: url('https://i.pinimg.com/1200x/52/4f/fa/524ffa9913e1dd5ccd8b55eeadd2134f.jpg');">
+            <span class="text">Shower Thoughts</span>
+        </a>
 
-        <!-- The Canvas for the network lines (sits behind the links) -->
-        <canvas id="garden-canvas"></canvas>
+        <!-- Mapped 'cd.svg' -->
+        <a href="/projects/digital-garden/spotify-vibe-map/" class="garden-node" style="background-image: url('https://i.pinimg.com/736x/52/5b/46/525b466db7ef518504dfefd3c507ef16.jpg');">
+            <span class="text">I love a good playlist</span>
+        </a>
 
-        <!-- The Floating Items (The Garden Bed) -->
-        <div id="garden-items">
-            <!-- Mapped 'thoughts.svg' -->
-            <a href="#" class="garden-node bg-thoughts">
-                <span class="text">Shower Thoughts</span>
-            </a>
+        <a href="/projects/digital-garden/sortify/" class="garden-node" style="background-image: url('https://i.pinimg.com/736x/36/ce/cd/36cecdb724256f3c4071f6a7d1ffe5b8.jpg');">
+            <span class="text">Playlist Sorter</span>
+        </a>
 
-            <!-- Mapped 'cd.svg' -->
-            <a href="/projects/digital-garden/spotify-vibe-map/" class="garden-node bg-cd">
-                <span class="text">I love a good playlist</span>
-            </a>
+        <a href="/projects/digital-garden/interview-helper/" class="garden-node" style="background-image: url('https://i.pinimg.com/736x/ea/e8/94/eae89456fc7668323c5130e5462e6642.jpg');">
+            <span class="text">AI Online Interview Practice</span>
+        </a>
 
-            <a href="/projects/digital-garden/sortify/" class="garden-node bg-ai">
-                <span class="text">Playlist Sorter</span>
-            </a>
+        <a href="/projects/digital-garden/plan-2-plan/" class="garden-node" style="background-image: url('https://i.pinimg.com/1200x/3b/18/2f/3b182f0bf1aa50657ec8c5f8faa2d708.jpg');">
+            <span class="text">Student Loan Calculator</span>
+        </a>
 
-            <a href="/projects/digital-garden/interview-helper/" class="garden-node bg-ai">
-                <span class="text">AI Online Interview Practice</span>
-            </a>
+        <a href="/projects/digital-garden/exercise-tracker/" class="garden-node" style="background-image: url('https://i.pinimg.com/736x/79/23/0e/79230ec5ba064e168ec5a0d47586edd7.jpg');">
+            <span class="text">Exercise Tracker</span>
+        </a>
 
-            <a href="/projects/digital-garden/plan-2-plan/" class="garden-node bg-ai">
-                <span class="text">Student Loan Calculator</span>
-            </a>
+        <!-- Mapped 'projects.svg' -->
+        <!--<a href="#" class="garden-node bg-projects">
+            <span class="text">Game Dev Logs</span>
+        </a>-->
 
-            <a href="/projects/digital-garden/exercise-tracker/" class="garden-node bg-bloom">
-                <span class="text">Exercise Tracker</span>
-            </a>
+        <!-- Reusing 'bloom.svg' as default for now -->
+        <!--<a href="#" class="garden-node bg-bloom">
+            <span class="text">Coffee Ratings</span>
+        </a>-->
 
-            <!-- Mapped 'projects.svg' -->
-            <!--<a href="#" class="garden-node bg-projects">
-                <span class="text">Game Dev Logs</span>
-            </a>-->
+        <!-- Mapped 'AI.svg' -->
+        <!--<a href="#" class="garden-node bg-ai" 
+            id="node-ai-tat"
+            data-subitems='[
+                {"text":"Playlist Sorter", "emoji":"🎧", "href":"/projects/digital-garden/sortify/"},
+                {"text":"Robot Interview", "emoji":"🤖", "href":"/projects/digital-garden/interview-helper/"},
+                {"text":"A Beginners Guide to Tax Avoidance", "emoji":"💰", "href":"/projects/digital-garden/plan-2-plan/"}
+            ]'>
+            <span class="text">AI Tat</span>
+        </a>-->
+        
+        <!-- Reusing 'projects.svg' -->
+        <!--<a href="#" class="garden-node bg-projects">
+            <span class="text">Retro Tech</span>
+        </a>
+        
+            <a href="#" class="garden-node bg-bloom">
+            <span class="text">World Building</span>
+        </a>-->
+    </div>
+</div>
 
-            <!-- Reusing 'bloom.svg' as default for now -->
-            <!--<a href="#" class="garden-node bg-bloom">
-                <span class="text">Coffee Ratings</span>
-            </a>-->
+<script src="/media/js/garden.js"></script>
 
-            <!-- Mapped 'AI.svg' -->
-            <!--<a href="#" class="garden-node bg-ai" 
-               id="node-ai-tat"
-               data-subitems='[
-                   {"text":"Playlist Sorter", "emoji":"🎧", "href":"/projects/digital-garden/sortify/"},
-                   {"text":"Robot Interview", "emoji":"🤖", "href":"/projects/digital-garden/interview-helper/"},
-                   {"text":"A Beginners Guide to Tax Avoidance", "emoji":"💰", "href":"/projects/digital-garden/plan-2-plan/"}
-               ]'>
-                <span class="text">AI Tat</span>
-            </a>-->
-            
-            <!-- Reusing 'projects.svg' -->
-            <!--<a href="#" class="garden-node bg-projects">
-                <span class="text">Retro Tech</span>
-            </a>
-            
-             <a href="#" class="garden-node bg-bloom">
-                <span class="text">World Building</span>
-            </a>-->
-        </div>
-    </main>
+<!-- Article Content -->
+<section style="padding: 0 5vw;">
+    {% include "title-stretch.html" %}
 
-    <script src="/media/js/garden.js"></script>
-</body>
-</html>
+    <div style="display: flex; flex-wrap: wrap; width: 100%; gap: 0; padding-bottom: 2vh;">
+        <div class="tile medium bg-ceiling"><img src="https://i.pinimg.com/1200x/0a/47/0c/0a470cab5b06e7c27b03ea12ee56cbb8.jpg" style="filter: grayscale(1) brightness(1);" alt=""></div>
+        <div class="tile small" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
+        <div class="tile small bg-ceiling"><img src="https://i.pinimg.com/736x/0a/87/5b/0a875b212d22e9ca200ac05fac8e217e.jpg" style="filter: grayscale(1) brightness(1);" alt=""></div>
+        <div class="tile large" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
+    </div>
+    <p>Welcome to my digital garden! I appreciate it to slightly unusual concept, but personally I'm not much of a fan of social media, and so this is a lovely place where I can drop off ideas and projects without the burden of timeline or an algorithm. Here's a <strong><a href="https://youtu.be/6fj-OJ6RcNQ?si=zfK83bzxuU18_g1o&t=1605" target="_blank" rel="noopener">great video</a></strong> by one of my favourite creators that pitches the case for this consept of digital sharing.
+    </p>
+    <br>
+</section>

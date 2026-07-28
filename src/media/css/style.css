@@ -14,7 +14,7 @@
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #fafaff; }
 ::-webkit-scrollbar-thumb { background: #fafaff; border: 1px solid black; }
 ::-webkit-scrollbar-thumb:hover { background: #fafaff; border: 1px solid black; }
@@ -64,36 +64,58 @@ body {
 h1 {
   font-family: 'Arial Narrow', sans-serif;
   font-size: 10vw;
+  font-weight: bold !important;
 }
 h2 {
-  /*font-family: Monospace;*/
-  font-family: "Major Mono Display";
-  font-size: 1.3em;
+  font-family: 'Major Mono Display';
+  font-size: 1.5em;
   background-color: var(--bg-color);
   color: var(--text);
+  margin: 0.5em 0;
 }
 h3 {
-  font-family: 'Arial Narrow', sans-serif;
-  font-size: 1.3em;
-  font-style: italic;
-}
-p {
-  font-size: 1em;
-  font-family: Avenir Next Condensed;
-  font-weight: 100;
-  color: var(--text);
-}
-article {
-  font-size: 0.8em;
   font-family: Avenir Next;
-  text-align: justify;
+  font-weight: 600;
+  font-size: 1.3em;
 }
+/* Paragraphs handle the bulk of body text styling for consistency */
+p {
+  font-size: 0.95em;
+  line-height: 1.6;
+  font-weight: 300;
+  /*font-family: "Avenir Next Condensed", ui-sans-serif, system-ui, -apple-system;*/
+  font-family: Avenir Next;
+  color: var(--text);
+  margin: 0.5em 0;
+}
+
+/* Article acts as a container; inherit text-related properties from children */
+article {
+  text-align: justify;
+  /* allow paragraphs and other text elements to define their own font rules */
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
 a:hover {
   text-decoration: none; /* Removed underline to keep the brutalist blocks clean */
+}
+
+ul {
+  list-style: none;
+  padding-left: 1.4em;
+  margin-bottom: 0.5em;
+  font-family: Avenir Next;
+  font-size: 0.95em;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--text);
+}
+ul li::marker {
+  content: "- ";
+  color: inherit;
 }
 
 /* Text Effects */
@@ -164,6 +186,9 @@ nav {
 .back-button {
   font-family: "Major Mono Display";
   font-size: 1.2em;
+  background-color: var(--border-color);
+  color: var(--bg-color);
+  padding: 0 1em;
 }
 
 footer {
@@ -211,8 +236,8 @@ footer .h-card {
 }
 
 footer .h-card .u-photo {
-  width: 12vw;
-  height: auto;
+  height: 12vw;
+  width: auto;
   margin-top: auto; /* Pins the image perfectly to the bottom */
   margin-bottom: 0; /* Removes bottom margin to be completely seamless */
 }
@@ -222,7 +247,7 @@ footer .h-card .p-name {
   font-weight: bold;
   margin-top: auto; /* Distributes top spacing to beautifully vertically center the text above the image */
   margin-bottom: 1vh;
-  font-family: monospace;
+  font-family: 'Major Mono Display';
   padding: 1px 5px;
 }
 
@@ -230,7 +255,6 @@ footer .h-card .p-note {
   font-size: 1em;
   text-align: center;
   max-width: 15vw;
-  font-family: monospace;
 }
 
 @media (max-width: 600px) {

@@ -6,8 +6,6 @@
   row-gap: 0;
   line-height: 0.8;
   text-transform: uppercase;
-  margin-top: 0;
-  margin-bottom: 4vh;
 }
 
 /* --- STYLE 1: SPACED (The Flex-Grow Method) --- */
@@ -29,12 +27,13 @@
 
 /* --- STYLE 2: STRETCH (The JavaScript Method) --- */
 .title-stretch {
-  column-gap: 0.5vw;
+  column-gap: 3vw;
   overflow: hidden; 
 }
 
 .title-stretch .word-wrapper {
   display: block;
+  border-bottom: 1px solid black;
 }
 
 .title-stretch .stretch-text {

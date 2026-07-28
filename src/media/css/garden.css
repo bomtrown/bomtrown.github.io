@@ -86,6 +86,12 @@ body {
     
     transition: border-color 0.2s ease;
     will-change: transform;
+
+}
+
+.garden-node:hover .text {
+    transform: scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 /* SPECIFIC SVG BACKGROUNDS */
@@ -151,7 +157,6 @@ body {
 }
 
 .garden-node .text {
-    font-family: 'Courier New', Courier, monospace; 
     font-weight: bold;
     font-size: 0.9rem;
     color: white;
@@ -161,6 +166,9 @@ body {
     padding: 2px 5px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+    transition: transform 0.2s ease;
+    font-family: Avenir Next Condensed, sans-serif;
+    line-height: 0.8;
 }
 
 /* Sub-items List */

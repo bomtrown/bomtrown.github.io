@@ -1,0 +1,110 @@
+---
+layout: article.html
+title: "Infinite Resolution Microscopy: My Journey with Galvo-Scanning Ptychography"
+title_style: stretch
+date: 2026-06-24
+tags: project
+image: media/images/ptychography.jpg
+description: How I built a full-stack digital twin and control system to push the limits of lensless microscopy (Award-winning BSc project)
+---
+
+<div class="portfolio-article">
+
+    <div style="display: flex; flex-wrap: wrap; width: 100%; gap: 0; padding-bottom: 2vh;">
+        <div class="tile small" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
+        <div class="tile large"><img src="/projects/antptycho/ptycho-component-rail.jpg" style="filter: brightness(1);" alt=""></div>
+        <div class="tile small" style="border-top: 1px solid black; width: 10vw; border-bottom: 1px solid black;"></div>
+        <div class="tile large"><img src="/projects/antptycho/ptychography.jpg" style="filter: grayscale(1) brightness(1);" alt=""></div>
+    </div>
+
+    <p class="lead">Imagine a microscope that doesn't rely on lenses to magnify an image, but instead uses lasers, computational algorithms, and interference patterns to digitally reconstruct a sample with a theoretically unlimited resolution. That's <strong>Ptychography</strong>.</p>
+
+    <section>
+        <h2>The Problem: Cool Tech, Slow Speeds</h2>
+        <p>Ptychography is a revolutionary "lensless" microscopy technique. It works by shooting a laser at a sample at lots of different overlapping locations and capturing the scattered light that comes out in the back of the sample. An algorithm then crunches this massive dataset to rebuild the sample's complex phase and amplitude structures. It's incredibly powerful, but it has a major bottleneck: <strong>the mechanics</strong>.</p>
+        <p>Traditionally, you have to physically move the sample on a motorised stage. If you're scanning a large area, this mechanical starting and stopping takes forever. My award-winning BSc project aimed to fix this by throwing out the moving stage entirely. Instead, we used high-speed, optically steered <strong>galvanometer mirrors</strong> (galvos) to move the laser beam across a stationary sample.</p>
+    </section>
+
+    <section>
+        <h2>The Software Engineering: Building ANTPtycho</h2>
+        <p>When I first walked into the lab in October of last year, it quickly became obvious that setting up a ptychographic capture is a long-winded process. Aligning the laser and setting capture bounds required endless trial and error via command line. As someone who loves building clean, user-centric software, I recognised an opportunity for a better way.</p>
+        <p>I began to continue work after leaving the lab and getting home, designing a real-time graphical user interface (GUI) to give us live feedback. This side-project eventually developed into <strong>ANTPtycho</strong>: a bespoke, full-stack software architecture. It unified hardware control (talking to the mirrors and cameras), experimental capture, and high-performance computing (submitting reconstruction jobs directly to the university's Viking supercomputer).</p>
+        <p>ANTPtycho is now publicly available via GitHub, (<strong><a href="https://github.com/bomtrown/antptycho" target="_blank" rel="noopener noreferrer">https://github.com/bomtrown/antptycho</a></strong>), so I'd love to hear your feedback on the software and if you think it may have applications elsewhere given some adapting.</p>
+        
+        <div style="width: 80%; margin: 0 auto;">
+            <a href="https://github.com/bomtrown/antptycho" target="_blank" rel="noopener noreferrer" style="display:block; width:100%;">
+                <object type="image/svg+xml" data="/projects/antptycho/software-architecture.svg" style="width:100%; height:auto; display:block; pointer-events:none;" aria-label="Software architecture diagram">
+                    <img src="/projects/antptycho/software-architecture.svg" alt="Software architecture diagram" style="width:100%; height:auto; display:block; pointer-events:none;" />
+                </object>
+            </a>
+        </div>
+
+        <p>To ensure our physical data made sense, my lab partner also programmed a <strong>Digital Twin</strong> simulator that I integrated into ANTPtycho. It mathematically modeled everything—from the specific focal lengths of our thick lenses down to the Poisson noise and electron well-capacity of our sCMOS camera. This simulator proved invaluable when debugging the physical rig.</p>
+        <p>
+            For weeks, our physical setup was only producing black images. By running the math through the Digital Twin, I realized our laser overlap was too small, our lens was too weak, and our sensor was too small to capture the required frequencies. It was a massive 'Aha!' moment. We rebuilt the physical setup with specific the optics based upon the mathematics, and finally got our first beautiful reconstructions.
+        </p>
+    </section>
+
+    <section>
+        <h2>The Physics Challenge: Fixing the Beam Tilt</h2>
+        <p>Using galvo mirrors is fast, but it introduces a major physics headache. When a mirror tilts to move the beam across the sample, the beam hits the sample at a different angle every time. Traditional ptychography algorithms assume the beam hits perfectly straight. If you don't account for this tilt, the algorithm gets confused, and your reconstructed image looks like garbage.</p>
+        
+        <style>
+            @media (max-width: 768px) {
+                .figure-row {
+                    flex-direction: column;
+                }
+    
+                .figure-row > div {
+                    flex-basis: 100%;
+                    width: 100%;
+                }
+            }
+        </style>
+        <div class="figure-row" style="display: flex; flex-wrap: wrap; width: 100%; gap: 1rem; pointer-events: none; background-color: #ffffff; border-top: 1px solid black; border-bottom: 1px solid black; padding: 1rem 0; align-items: center; justify-content: space-between;">
+            <div style="flex: 1 1 0; min-width: 0;">
+                <object type="image/svg+xml" data="/projects/antptycho/target.svg" style="width:100%; height:auto; display:block;" aria-label="Target diagram">
+                    <img src="/projects/antptycho/target.svg" alt="Target diagram" style="width:100%; height:auto; display:block;" />
+                </object>
+            </div>
+            <div style="flex: 1 1 0; min-width: 0;">
+                <object type="image/svg+xml" data="/projects/antptycho/examples.svg" style="width:100%; height:auto; display:block;" aria-label="Examples diagram">
+                    <img src="/projects/antptycho/examples.svg" alt="Examples diagram" style="width:100%; height:auto; display:block;" />
+                </object>
+            </div>
+        </div>
+
+        <p>The core of my research was testing three distinct ways to fix this beam-tilt error at different stages of the data pipeline:</p>
+        <ul>
+            <li><strong>1. The Physical Fix (Setup Stage):</strong> Arranging the lenses in a specific geometric setup (a telecentric 4f system) so the lens physically cancels out the mirror's tilt.</li>
+            <li><strong>2. The Empirical Fix (Capture Stage):</strong> Running a pre-scan calibration to empirically map exactly where the beam lands on the sensor for every mirror angle, fitting it to a 2D cubic polynomial, and realigning the data before processing.</li>
+            <li><strong>3. The Math Fix (Reconstruction Stage):</strong> Writing custom Python scripts (ePIEs and ePIEt) to mathematically undo the phase ramps and shifts directly inside the iterative reconstruction algorithm.</li>
+        </ul>
+        
+        <div style="width: min(100%, 900px); margin: 1.5rem auto; pointer-events: none;">
+            <object type="image/svg+xml" data="/projects/antptycho/correction-example.svg" style="width:100%; height:auto; display:block;" aria-label="Correction example diagram">
+                <img src="/projects/antptycho/correction-example.svg" alt="Correction example diagram" style="width:100%; height:auto; display:block;" />
+            </object>
+        </div>
+    </section>
+
+    <section>
+        <h2>Results: Why Reality Beats Theory</h2>
+        <p>We ran all three fixes through both the Digital Twin and the real-world hardware. All three successfully repaired the ruined images, but one emerged as the clear winner in the lab.</p>
+
+        <div style="width: min(100%, 900px); margin: 1.5rem auto; pointer-events: none; background-color: #ffffff; border-top: 1px solid black; border-bottom: 1px solid black; padding: 1rem 0;">
+            <object type="image/svg+xml" data="/projects/antptycho/result-table.svg" style="width:100%; height:auto; display:block;" aria-label="Results table diagram">
+                <img src="/projects/antptycho/result-table.svg" alt="Results table diagram" style="width:100%; height:auto; display:block;" />
+            </object>
+        </div>
+
+        <p><strong>The Empirical Capture Calibration performed best</strong>, achieving a 1.39x improvement in Fourier amplitude error over an uncorrected baseline.</p>
+        <p>Why did the calibration beat the fancy math and physical setups? Because reality is messy. The math-based reconstruction fix assumed our lenses were infinitely thin and perfect. The physical setup struggled because two mirrors physically cannot occupy the exact same focal point in space. The calibration method simply observed what the distorted, thick glass lenses were actually doing in the real world and compensated for it.</p>
+    </section>
+
+    <section>
+        <h2>Looking Forward</h2>
+        <p>This project was an incredible intersection of optical physics, high-performance computing, and software UI design. By successfully demonstrating that galvo-induced errors can be cleanly calibrated out, we push ptychography one step closer to being a high-speed, real-time tool for everything from biological imaging to semiconductor manufacturing.</p>
+    </section>
+
+</div>

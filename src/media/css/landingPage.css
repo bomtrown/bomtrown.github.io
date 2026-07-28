@@ -52,7 +52,7 @@ html, body {
 
 #first-page h2 {
   position: absolute;
-  top: calc(31vh + 3vw);
+  top: calc(30vh + 3vw);
   z-index: 50;
 }
 
@@ -169,6 +169,7 @@ html, body {
   white-space: normal;
   position: relative; 
   font-size: 0.8vw; 
+  margin: 0 0;
   background-color: transparent; 
 }
 

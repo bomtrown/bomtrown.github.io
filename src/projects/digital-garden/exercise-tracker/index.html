@@ -203,8 +203,8 @@
                                 <span class="text-[9px] text-zinc-500 uppercase tracking-widest absolute top-1">Weight</span>
                                 <span id="watch-weight-val" class="text-3xl font-black text-white mt-2">20</span>
                                 <div class="absolute inset-0 flex">
-                                    <button onclick="adjWatchVal('weight', -2.5)" class="w-1/2 h-full flex items-end justify-start pb-1 pl-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors">-</button>
-                                    <button onclick="adjWatchVal('weight', 2.5)" class="w-1/2 h-full flex items-end justify-end pb-1 pr-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors">+</button>
+                                    <button onclick="adjWatchVal('weight', -2.5)" class="w-1/2 h-full flex items-end justify-start pb-1 pl-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors touch-manipulation">-</button>
+                                    <button onclick="adjWatchVal('weight', 2.5)" class="w-1/2 h-full flex items-end justify-end pb-1 pr-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors touch-manipulation">+</button>
                                 </div>
                             </div>
                             <!-- Q2: Reps -->
@@ -212,8 +212,8 @@
                                 <span class="text-[9px] text-zinc-500 uppercase tracking-widest absolute top-1">Reps</span>
                                 <span id="watch-reps-val" class="text-3xl font-black text-white mt-2">10</span>
                                 <div class="absolute inset-0 flex">
-                                    <button onclick="adjWatchVal('reps', -1)" class="w-1/2 h-full flex items-end justify-start pb-1 pl-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors">-</button>
-                                    <button onclick="adjWatchVal('reps', 1)" class="w-1/2 h-full flex items-end justify-end pb-1 pr-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors">+</button>
+                                    <button onclick="adjWatchVal('reps', -1)" class="w-1/2 h-full flex items-end justify-start pb-1 pl-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors touch-manipulation">-</button>
+                                    <button onclick="adjWatchVal('reps', 1)" class="w-1/2 h-full flex items-end justify-end pb-1 pr-2 text-zinc-500 active:bg-white/10 active:text-white transition-colors touch-manipulation">+</button>
                                 </div>
                             </div>
                             <!-- Q3: Timer -->
@@ -824,17 +824,23 @@
             if(val) val.textContent = '90s';
         }
 
+        let watchValTimeout = null;
         function adjWatchVal(type, delta) {
             if(type === 'weight') {
                 appState.currentWeight = Math.max(0, appState.currentWeight + delta);
                 document.getElementById('watch-weight-val').textContent = appState.currentWeight;
-                scrollToSlotValue('weight-picker', appState.currentWeight, WEIGHT_OPTIONS);
+                if (window.innerWidth > 310) scrollToSlotValue('weight-picker', appState.currentWeight, WEIGHT_OPTIONS);
             } else {
                 appState.currentReps = Math.max(0, appState.currentReps + delta);
                 document.getElementById('watch-reps-val').textContent = appState.currentReps;
-                scrollToSlotValue('reps-picker', appState.currentReps, REP_OPTIONS);
+                if (window.innerWidth > 310) scrollToSlotValue('reps-picker', appState.currentReps, REP_OPTIONS);
             }
-            saveActiveSession();
+            
+            // Debounce the save to prevent flash memory stutter on rapid taps
+            clearTimeout(watchValTimeout);
+            watchValTimeout = setTimeout(() => {
+                saveActiveSession();
+            }, 400);
         }
 
         function startTimer() {

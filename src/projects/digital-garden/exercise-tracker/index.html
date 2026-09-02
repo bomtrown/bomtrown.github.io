@@ -43,7 +43,7 @@
 
         /* === APPLE WATCH SPECIFIC TWEAKS === */
         /* Targets ultra-small screens typical of smartwatches */
-        @media (max-width: 250px) {
+        @media (max-width: 310px) {
             .watch-p { padding: 0.5rem !important; }
             .watch-pt { padding-top: 1rem !important; }
             .watch-pb { padding-bottom: 3rem !important; }
@@ -57,6 +57,17 @@
             .watch-hide { display: none !important; }
             .hide-on-watch { display: none !important; }
             .show-on-watch-flex { display: flex !important; }
+
+            /* Digital Crown Scroll Fixes: Allow body to scroll naturally */
+            #screen-workout { 
+                height: auto !important; 
+                min-height: 100vh; 
+                overflow: visible !important; 
+            }
+            #workout-content-area { 
+                overflow: visible !important; 
+                padding-bottom: 2rem !important; 
+            }
         }
 
         /* Watch Flashing Rest Timer */
@@ -482,7 +493,7 @@
 
         function getPickerItemWidth() {
             // Adapt to Apple Watch sizing
-            return window.innerWidth <= 250 ? 60 : 96;
+            return window.innerWidth <= 310 ? 60 : 96;
         }
 
         // --- API & Sync ---
@@ -1100,7 +1111,7 @@
             saveActiveSession();
             renderTracking();
             
-            if(window.innerWidth <= 250) {
+            if(window.innerWidth <= 310) {
                 if(restTimerInterval) clearInterval(restTimerInterval);
                 restTimerInterval = null;
                 startWatchTimer();
@@ -1127,7 +1138,7 @@
 
         function renderMobileChart(exerciseName) {
             // Skip rendering if on watch (canvas is hidden anyway, saves battery)
-            if (window.innerWidth <= 250) return;
+            if (window.innerWidth <= 310) return;
 
             const ctx = document.getElementById('historyChart');
             if(!ctx) return;

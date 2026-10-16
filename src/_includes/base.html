@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- FORCES CURSOR HIDDEN INSTANTLY -->
+    <style>
+        @media (hover: hover) and (pointer: fine) {
+            html, body, * { cursor: none !important; }
+        }
+    </style>
+
     <title>{{ title }} | Tom Brown Portfolio</title>
     <meta name="description" content="Personal portfolio of Tom Brown. A collection of coding projects, 3D modeling, and digital experiments.">
     <meta name="author" content="Tom Brown">
@@ -54,6 +61,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.0.0/perlin.min.js" defer></script>
 </head>
 <body>
+<body>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div id="preloader-text" class="squished">
+            TOM BROWN<br>
+            TOM BROWN<br>
+            TOM BROWN<br>
+            TOM BROWN<br>
+            TOM BROWN
+        </div>
+    </div>
+
     <div class="cursor"></div>
     <script src="/media/js/cursor.js" defer></script>
     <main>
@@ -88,6 +107,74 @@
             }
 
             requestAnimationFrame(raf)
+        }
+    });
+</script>
+<script>
+        // Preloader Logic
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            const preloaderText = document.getElementById('preloader-text');
+            
+            if (preloader && preloaderText) {
+                // 1. Fade out the text
+                preloaderText.classList.add('fade-out-text');
+                
+                // 2. Wait 400ms, then fade out the white background
+                setTimeout(() => {
+                    preloader.classList.add('fade-out-bg');
+                    
+                    // 3. Remove completely from DOM after the background fade transition finishes (600ms)
+                    setTimeout(() => {
+                        preloader.remove();
+                    }, 600);
+                }, 400); 
+            }
+        });
+</script>
+<script>
+    // Cursor Expand Page Transition Logic
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (!link) return;
+        if (link.target === '_blank' || e.ctrlKey || e.metaKey || e.shiftKey) return;
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) return;
+
+        e.preventDefault();
+        const destination = link.href;
+        const cursor = document.querySelector('.cursor');
+        
+        if (cursor) {
+            // 1. Get the exact current size and position
+            const rect = cursor.getBoundingClientRect();
+            
+            // 2. Create a dummy clone div that ignores mouse movements
+            const clone = document.createElement('div');
+            clone.classList.add('cursor-transition-clone');
+            
+            // 3. Set it to perfectly overlap the real cursor's current state
+            clone.style.top = rect.top + 'px';
+            clone.style.left = rect.left + 'px';
+            clone.style.width = rect.width + 'px';
+            clone.style.height = rect.height + 'px';
+            
+            document.body.appendChild(clone);
+            
+            // 4. Hide the real cursor so it doesn't poke through or track anymore
+            cursor.style.display = 'none';
+            
+            // 5. Force the browser to register this new static position (reflow)
+            void clone.offsetWidth;
+            
+            // 6. Trigger the CSS snap to the edges on the clone
+            clone.classList.add('expand-out');
+            
+            setTimeout(() => {
+                window.location.href = destination;
+            }, 600);
+        } else {
+            window.location.href = destination;
         }
     });
 </script>

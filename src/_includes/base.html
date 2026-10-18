@@ -80,7 +80,6 @@
     </main>
     {% include "footer.html" %}
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
-
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         // Respect user accessibility preferences!
@@ -110,9 +109,10 @@
         }
     });
 </script>
+<script src="/media/js/preloader-sweep.js" defer></script>
 <script>
         // Preloader Logic
-        window.addEventListener('load', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const preloader = document.getElementById('preloader');
             const preloaderText = document.getElementById('preloader-text');
             
@@ -128,7 +128,7 @@
                     setTimeout(() => {
                         preloader.remove();
                     }, 600);
-                }, 400); 
+                }, 400);
             }
         });
 </script>

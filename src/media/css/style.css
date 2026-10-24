@@ -1,10 +1,10 @@
 :root {
   --bg-color: #fafaff;
-  --border-color: #000000;
+  --border-color: #303030;
   --accent: #e5e5e5;
   --highlight: #ee2222; /* Keeping the cyan accent but flatter */
-  --text-muted: #666;
-  --text: #374151ff;
+  --text-accent: #303030;
+  --text: #303030;
 }
 
 * {
@@ -18,7 +18,7 @@
    ========================================= */
 .cursor-transition-clone {
     position: fixed;
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
     background-color: transparent; /* Starts transparent */
     z-index: 100000;
     pointer-events: none;
@@ -90,8 +90,8 @@
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #fafaff; }
-::-webkit-scrollbar-thumb { background: #fafaff; border: 1px solid black; }
-::-webkit-scrollbar-thumb:hover { background: #fafaff; border: 1px solid black; }
+::-webkit-scrollbar-thumb { background: #fafaff; border: 1px solid var(--border-color); }
+::-webkit-scrollbar-thumb:hover { background: #fafaff; border: 1px solid var(--border-color); }
 ::-webkit-scrollbar:horizontal { height: 10px; }
 body {
   position: relative;
@@ -107,7 +107,7 @@ body {
   left: 0;
   width: 20px;
   height: 20px;
-  border: 1px solid black; /* default thickness */
+  border: 1px solid var(--border-color); /* default thickness */
   pointer-events: none;
   transition: border-width 0.05s ease, width 0.1s linear, height 0.1s linear/*, transform 0.1s ease*/;
   z-index: 9999;
@@ -141,8 +141,8 @@ h1 {
   font-weight: bold !important;
 }
 h2 {
-  font-family: 'Major Mono Display';
-  font-size: 1.5em;
+  font-family: "Special Gothic Expanded One", sans-serif;
+  font-size: 0.8em;
   background-color: var(--bg-color);
   color: var(--text);
   margin: 0.5em 0;
@@ -158,7 +158,8 @@ p {
   line-height: 1.6;
   font-weight: 300;
   /*font-family: "Avenir Next Condensed", ui-sans-serif, system-ui, -apple-system;*/
-  font-family: Avenir Next;
+  /*font-family: Avenir Next;*/
+  font-family: "Forum", serif;
   color: var(--text);
   margin: 0.5em 0;
 }
@@ -181,7 +182,7 @@ ul {
   list-style: none;
   padding-left: 1.4em;
   margin-bottom: 0.5em;
-  font-family: Avenir Next;
+  font-family: "Forum", serif;
   font-size: 0.95em;
   line-height: 1.6;
   font-weight: 300;
@@ -227,7 +228,7 @@ ul li::marker {
 }
 /* Between n1–n2: show only the border */
 .pop-in.border-only::after {
-  border-color: black;
+  border-color: var(--border-color);
 }
 /* After n2: reveal the image, hide the border */
 .pop-in.visible::after {
@@ -258,7 +259,7 @@ nav {
 
 /* Back Button */
 .back-button {
-  font-family: "Major Mono Display";
+  font-family: "Forum", serif;
   font-size: 1.2em;
   background-color: var(--border-color);
   color: var(--bg-color);
@@ -294,8 +295,8 @@ footer .contact-info {
 footer h2 {
   width: fit-content;
   padding: 0.1em;
-  border-left: black solid 1px;
-  border-right: black solid 1px;
+  border-left: var(--border-color) solid 1px;
+  border-right: var(--border-color) solid 1px;
 }
 
 footer .h-card {
@@ -304,8 +305,8 @@ footer .h-card {
   align-items: center;
   justify-content: center; /* Centers the profile content perfectly inside the stretched height */
   padding: 2vh 3vw 0 3vw; /* Give it some breathing room inside the borders, but NO bottom padding */
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
   background-color: var(--bg-color);
 }
 
@@ -321,13 +322,15 @@ footer .h-card .p-name {
   font-weight: bold;
   margin-top: auto; /* Distributes top spacing to beautifully vertically center the text above the image */
   margin-bottom: 1vh;
-  font-family: 'Major Mono Display';
+  font-family: "Special Gothic Expanded One", sans-serif;
+  color: var(--text);
   padding: 1px 5px;
 }
 
 footer .h-card .p-note {
   font-size: 1em;
   text-align: center;
+  color: var(--text);
   max-width: 15vw;
 }
 

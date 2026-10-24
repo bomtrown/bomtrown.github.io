@@ -39,6 +39,7 @@ html, body {
 #first-page-title-wrapper h1 span {
   transition: color 0.0s, background-color 0.0s; 
   white-space: normal;
+  color: var(--text-accent);
   background-color: var(--bg-color);
 }
 
@@ -59,7 +60,7 @@ html, body {
 #second-page {
   position: relative; 
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-color);
   z-index: 501;
 }
@@ -92,7 +93,7 @@ html, body {
   flex-direction: column;
   width: 100%;
   background-color: var(--bg-color);
-  border-top: 1px solid black;
+  border-top: 1px solid var(--border-color);
   counter-reset: project-number; 
   overflow: hidden; 
 }
@@ -101,7 +102,7 @@ html, body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border-color);
   color: var(--border-color);
   background-color: var(--bg-color);
   position: relative;
@@ -129,11 +130,10 @@ html, body {
 }
 
 .project-row .row-number h2 {
-  font-size: 0.8vw; 
   background-color: transparent;
   margin: 0;
   line-height: 1;
-  color: var(--border-color);
+  color: var(--text);
   transform: scale(1);
   opacity: 1;
   transition: transform 0s, opacity 0.3s ease, color 0.3s ease;

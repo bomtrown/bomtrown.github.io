@@ -183,14 +183,13 @@ window.addEventListener('scroll', () => {
           // Selects a hex code based on your noise index
           newColor = hexColors[Math.floor(state.indexNoise * hexColors.length)];
         } else {
-          const lightness = (Math.sin(blipSeed / 2) + 1) * 5;
-          // Math.round limits micro-changes that trigger sub-pixel browser repaints
-          newColor = `hsl(0, 0%, ${Math.round(lightness * 10) / 10}%)`;
+          // Base the normal state on the site text color variable instead of a generated grayscale tone.
+          newColor = 'var(--text-accent)';
         }
 
         // 5. BACKGROUND COLOUR
         if (fakeNoise(blipSeed + 2356) < weight * 0.5) {
-          newBg = 'black';
+          newBg = 'var(--text-accent)';
           newColor = 'white';
         } else {
           newBg = 'var(--bg-color)';

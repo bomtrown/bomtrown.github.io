@@ -166,7 +166,8 @@ body {
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
     transition: transform 0.2s ease;
-    font-family: Avenir Next Condensed, sans-serif;
+    /*font-family: Avenir Next Condensed, sans-serif;*/
+    font-family: 'Special Gothic Expanded One', sans-serif;
     line-height: 0.8;
 }
 

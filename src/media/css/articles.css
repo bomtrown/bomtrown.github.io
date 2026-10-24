@@ -6,6 +6,7 @@
   row-gap: 0;
   line-height: 0.8;
   text-transform: uppercase;
+  color: var(--text-accent);
 }
 
 /* --- STYLE 1: SPACED (The Flex-Grow Method) --- */
@@ -33,7 +34,7 @@
 
 .title-stretch .word-wrapper {
   display: block;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .title-stretch .stretch-text {
